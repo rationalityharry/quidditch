@@ -1,4 +1,4 @@
-package ru.sofitlabs.firstwebapp.data;
+package ru.sofitlabs.firstwebapp.data.test;
 
 import javax.persistence.*;
 

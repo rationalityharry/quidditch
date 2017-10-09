@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(value = "ru.sofitlabs.firstwebapp.config")
 public class FirstWebAppApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FirstWebAppApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FirstWebAppApplication.class, args);
+    }
 }
