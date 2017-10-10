@@ -1,16 +1,34 @@
-package ru.sofitlabs.firstwebapp.data.animeBase;
+package ru.sofitlabs.firstwebapp.data.animebase;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "animebase")
 @Entity
 public class AnimeEntity {
+
     @Id
     @GeneratedValue
     private long id;
+
+    @OneToMany(mappedBy = "anime", orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<CommentsEntity> titleComments;
+
+    @Column
+    private String name;
+
+    @Column
+    private String genre;
+
+    @Column
+    private String author;
+
+    @Column
+    private String description;
+
+    @Column
+    private String animeLink;
+
     public AnimeEntity() {
     }
 
@@ -22,11 +40,6 @@ public class AnimeEntity {
         this.id = id;
     }
 
-    private String name;
-    private String genre;
-    private String author;
-    private String description;
-    private String animeLink;
 
     public String getName() {
         return name;

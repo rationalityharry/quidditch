@@ -1,9 +1,10 @@
-package ru.sofitlabs.firstwebapp.data.animeBase;
+package ru.sofitlabs.firstwebapp.data.animebase;
 
 import java.util.List;
 
 public interface AnimeEntityService {
-    void add(AnimeEntity animeEntity);
+
+    AnimeEntity add(AnimeEntity animeEntity);
 
     List<AnimeEntity> getAll();
 

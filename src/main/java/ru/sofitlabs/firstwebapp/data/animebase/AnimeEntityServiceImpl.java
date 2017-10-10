@@ -1,4 +1,4 @@
-package ru.sofitlabs.firstwebapp.data.animeBase;
+package ru.sofitlabs.firstwebapp.data.animebase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +13,8 @@ public class AnimeEntityServiceImpl implements AnimeEntityService {
     public AnimeRepository animeRepository;
 
     @Override
-    public void add(final AnimeEntity animeEntity) {
-        animeRepository.save(animeEntity);
+    public AnimeEntity add(final AnimeEntity animeEntity) {
+        return animeRepository.save(animeEntity);
     }
 
     @Override
