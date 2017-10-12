@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import ru.sofitlabs.firstwebapp.data.animebase.AnimeEntityService;
-import ru.sofitlabs.firstwebapp.data.animebase.CommentsEntityService;
 import ru.sofitlabs.firstwebapp.data.user.UserEntity;
 import ru.sofitlabs.firstwebapp.data.user.UserEntityService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -36,11 +37,18 @@ public class MainController {
             return new ModelAndView("authorisation");
         }
     }
-    @RequestMapping(value = "authorisation",method = RequestMethod.POST)
-    public ModelAndView auth(@RequestParam(name = "login") final String login, @RequestParam(name = "password") final String password){
-        if (userEntityService.getAllByLogin(login).isEmpty()){
+
+    @RequestMapping(value = "authorisation", method = RequestMethod.POST)
+    public ModelAndView auth(final HttpServletRequest request,
+                             @RequestParam(name = "login") final String login,
+                             @RequestParam(name = "password") final String password) {
+        if (userEntityService.getAllByLogin(login).isEmpty()) {
             return new ModelAndView("loginNotExists");
-        } else return new ModelAndView("userOptions");
+        } else if (!userEntityService.getPasswordbyLogin(login).equals(password)) {
+            return new ModelAndView("wrongPassword");
+        } else {
+            return new ModelAndView("user");
+        }
     }
 
     @RequestMapping(value = {"authorisation", ""}, method = GET)
@@ -65,9 +73,6 @@ public class MainController {
     public String getAll() {
         return userEntityService.getAll().toString();
     }
-
-
-
 
 
 }

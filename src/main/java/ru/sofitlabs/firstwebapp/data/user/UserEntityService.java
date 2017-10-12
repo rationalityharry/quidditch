@@ -10,4 +10,6 @@ public interface UserEntityService {
     List<UserEntity> getAllByLogin(String login);
 
     List<UserEntity> getAllbyId(long id);
+
+    String getPasswordbyLogin(String login);
 }
