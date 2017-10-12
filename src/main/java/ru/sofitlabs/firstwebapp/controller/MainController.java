@@ -2,10 +2,7 @@ package ru.sofitlabs.firstwebapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.sofitlabs.firstwebapp.data.user.UserEntity;
 import ru.sofitlabs.firstwebapp.data.user.UserEntityService;
@@ -16,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
+@SessionAttributes(value = "user")
 @RequestMapping(value = "/")
 public class MainController {
 

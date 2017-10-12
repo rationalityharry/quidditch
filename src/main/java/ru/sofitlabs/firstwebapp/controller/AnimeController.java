@@ -15,6 +15,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
+@SessionAttributes(value = "user")
 @RequestMapping("/anime")
 public class AnimeController {
 
