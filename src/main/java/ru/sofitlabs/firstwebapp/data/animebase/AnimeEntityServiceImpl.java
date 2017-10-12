@@ -23,7 +23,8 @@ public class AnimeEntityServiceImpl implements AnimeEntityService {
     }
 
     @Override
-    public List<AnimeEntity> getAllbyName(final String name) {
-        return animeRepository.findAllByName(name);
+    public AnimeEntity findOneById(final long id) {
+        return animeRepository.findOne(id);
     }
+
 }

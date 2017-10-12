@@ -11,6 +11,4 @@ import java.util.List;
 @Transactional(propagation = Propagation.MANDATORY)
 public interface AnimeRepository extends JpaRepository<AnimeEntity, Long> {
 
-    List<AnimeEntity> findAllByName(String name);
-
 }

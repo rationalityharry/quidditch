@@ -2,6 +2,7 @@ package ru.sofitlabs.firstwebapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,10 +41,21 @@ public class AnimeController {
         return new ModelAndView("animePage");
     }
 
+    @RequestMapping(value = "/animeList/{animeId}", method = GET)
+    public ModelAndView viewManyame(@PathVariable(value = "animeId") final Long animeId) {
+        final ModelAndView animePage = new ModelAndView("animePage");
+        animePage.addObject("animeId", animeId);
+        return animePage;
+    }
+
     @RequestMapping(value = "/addAnime", method = GET)
     public ModelAndView viewAddingManyame() {
         return new ModelAndView("addAnime");
     }
 
+    @RequestMapping(value = "animeList", method = GET)
+    public ModelAndView viewAnimeList() {
+        return new ModelAndView("animeList");
+    }
 
 }

@@ -8,4 +8,6 @@ public interface UserEntityService {
     List<UserEntity> getAll();
 
     List<UserEntity> getAllByLogin(String login);
+
+    List<UserEntity> getAllbyId(long id);
 }

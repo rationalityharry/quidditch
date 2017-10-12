@@ -13,5 +13,6 @@ import java.util.List;
 public interface CommentsRepository extends JpaRepository<CommentsEntity, Long> {
 
     List<CommentsEntity> findAllByUser(UserEntity user);
+    List<CommentsEntity> findAllByAnime (AnimeEntity anime);
 
 }

@@ -28,4 +28,10 @@ public class CommentsEntityServiceImpl implements CommentsEntityService {
     public List<CommentsEntity> getAllByUser(final UserEntity user) {
         return commentsRepository.findAllByUser(user);
     }
+
+    @Override
+    public List<CommentsEntity> getAllByAnime(final AnimeEntity anime) {
+        return commentsRepository.findAllByAnime(anime);
+    }
+
 }

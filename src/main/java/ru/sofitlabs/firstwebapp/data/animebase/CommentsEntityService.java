@@ -10,4 +10,6 @@ public interface CommentsEntityService {
     List<CommentsEntity> getAll();
 
     List<CommentsEntity> getAllByUser(UserEntity user);
+
+    List<CommentsEntity> getAllByAnime(AnimeEntity anime);
 }
