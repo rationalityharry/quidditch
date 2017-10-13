@@ -8,8 +8,8 @@ $(document).ready(function () {
         var animeGenre = animePage.genre;
         var animeAuthor = animePage.author;
         var animeDescription = animePage.description;
-        var animeDiv = $("<div>" + animeName + animeAuthor
-            + animeGenre + animeDescription + "</div>" + "<br>" + "<br>");
+        var animeDiv = $("<div>" + animeName + "<br>" + animeAuthor + "<br>" +
+                         animeGenre + "<br>" + animeDescription + "</div>" + "<br>" + "<br>");
         animeBlock.append(animeDiv);
     });
 

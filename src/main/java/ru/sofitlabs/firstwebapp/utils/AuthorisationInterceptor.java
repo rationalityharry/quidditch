@@ -1,6 +1,5 @@
 package ru.sofitlabs.firstwebapp.utils;
 
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,6 @@ public class AuthorisationInterceptor extends HandlerInterceptorAdapter {
         if (Utils.isAuthorised(request)) {
             return true;
         } else {
-            ModelAndView noAuth = new ModelAndView("noAuthorisation");
             response.sendRedirect("/authorisation");
             return false;
         }
