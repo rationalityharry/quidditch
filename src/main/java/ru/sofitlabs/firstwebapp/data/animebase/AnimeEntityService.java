@@ -8,5 +8,5 @@ public interface AnimeEntityService {
 
     List<AnimeEntity> getAll();
 
-    AnimeEntity findOneById (long id);
+    AnimeEntity findOneById(long id);
 }

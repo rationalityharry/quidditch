@@ -34,7 +34,7 @@ public class UserController {
         return new ModelAndView("user");
     }
 
-    @RequestMapping(value = "/comments", method = GET)
+    @RequestMapping(value = "/commentsPage", method = GET)
     public ModelAndView viewUserComments() {
         return new ModelAndView("comments");
     }

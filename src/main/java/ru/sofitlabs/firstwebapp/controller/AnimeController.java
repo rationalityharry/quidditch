@@ -10,6 +10,7 @@ import ru.sofitlabs.firstwebapp.data.animebase.CommentsEntity;
 import ru.sofitlabs.firstwebapp.data.animebase.CommentsEntityService;
 import ru.sofitlabs.firstwebapp.data.user.UserEntityService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -33,7 +34,8 @@ public class AnimeController {
                                    @RequestParam(name = "genre") final String genre,
                                    @RequestParam(name = "author") final String author,
                                    @RequestParam(name = "description") final String description,
-                                   @RequestParam(name = "animeLink") final String animeLink) {
+                                   @RequestParam(name = "animeLink") final String animeLink,
+                                   HttpServletRequest request) {
         AnimeEntity title = new AnimeEntity();
         title.setName(name);
         title.setAuthor(author);
@@ -42,6 +44,7 @@ public class AnimeController {
         title.setAnimeLink(animeLink);
         animeEntityService.add(title);
         return new ModelAndView("animePage");
+
     }
 
     @RequestMapping(value = "/addAnime", method = GET)
@@ -50,7 +53,7 @@ public class AnimeController {
     }
 
     @RequestMapping(value = "/{animeId}", method = GET)
-    public ModelAndView viewAnimePage(@PathVariable final Long animeId) {
+    public ModelAndView viewAnimePage(@PathVariable final Long animeId, HttpServletRequest request) {
         ModelAndView animePage = new ModelAndView("animePage");
         animePage.addObject("animeId", animeId);
         return animePage;

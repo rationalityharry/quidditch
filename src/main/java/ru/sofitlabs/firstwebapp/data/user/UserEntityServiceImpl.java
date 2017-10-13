@@ -34,4 +34,8 @@ public class UserEntityServiceImpl implements UserEntityService {
     public String getPasswordbyLogin(String login) {
         return repository.findAllByLogin(login).get(0).getPassword();
     }
+
+    public UserEntity getOneById(long id) {
+        return repository.findOne(id);
+    }
 }

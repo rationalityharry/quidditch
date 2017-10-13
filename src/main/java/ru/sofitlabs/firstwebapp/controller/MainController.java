@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.sofitlabs.firstwebapp.utils.Utils;
 import ru.sofitlabs.firstwebapp.data.user.UserEntity;
 import ru.sofitlabs.firstwebapp.data.user.UserEntityService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -40,11 +41,15 @@ public class MainController {
     public ModelAndView auth(final HttpServletRequest request,
                              @RequestParam(name = "login") final String login,
                              @RequestParam(name = "password") final String password) {
-        if (userEntityService.getAllByLogin(login).isEmpty()) {
+        final List<UserEntity> allByLogin = userEntityService.getAllByLogin(login);
+        if (allByLogin.isEmpty()) {
             return new ModelAndView("loginNotExists");
-        } else if (!userEntityService.getPasswordbyLogin(login).equals(password)) {
+        }
+        final UserEntity userEntity = allByLogin.get(0);
+        if (!userEntity.getPassword().equals(password)) {
             return new ModelAndView("wrongPassword");
         } else {
+            request.getSession().setAttribute("user", userEntity);
             return new ModelAndView("user");
         }
     }
@@ -61,8 +66,13 @@ public class MainController {
 
 
     @RequestMapping(value = "users", method = GET)
-    public ModelAndView viewAllUsers() {
-        return new ModelAndView("data");
+    public ModelAndView viewAllUsers(HttpServletRequest request) {
+
+        if (Utils.isAuthorised(request)) {
+            return new ModelAndView("data");
+        } else {
+            return new ModelAndView("noAuthorisation");
+        }
     }
 
 
