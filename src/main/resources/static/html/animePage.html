@@ -1,0 +1,9 @@
+<div ng-controller="AnimePageController">
+    {{$ctrl.anime.name}}
+    {{$ctrl.anime.genre}}
+    {{$ctrl.anime.author}}
+    {{$ctrl.anime.description}}
+    <div ng-repeat="comment in $ctrl.commentaries">
+        {{comment.rate}}
+    </div>
+</div>

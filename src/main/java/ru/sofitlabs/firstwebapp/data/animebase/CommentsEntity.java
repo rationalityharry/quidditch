@@ -15,6 +15,9 @@ public class CommentsEntity {
     @Column
     private int rate;
 
+    @Column
+    private String reviewText;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
@@ -26,6 +29,13 @@ public class CommentsEntity {
     public CommentsEntity() {
     }
 
+    public String getReviewText() {
+        return reviewText;
+    }
+
+    public void setReviewText(final String reviewText) {
+        this.reviewText = reviewText;
+    }
 
     public long getCommentId() {
         return commentId;

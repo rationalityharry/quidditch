@@ -56,7 +56,7 @@ public class MainController {
 
     @RequestMapping(value = {"authorisation", ""}, method = GET)
     public ModelAndView viewAuthorisation() {
-        return new ModelAndView("authorisation");
+        return new ModelAndView("main");
     }
 
     @RequestMapping(value = "registration", method = GET)
