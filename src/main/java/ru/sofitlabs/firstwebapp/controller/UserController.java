@@ -28,16 +28,6 @@ public class UserController {
     @Autowired
     AnimeEntityService animeEntityService;
 
-    @RequestMapping(value = "user", method = GET)
-    public ModelAndView viewUserOptions() {
-        return new ModelAndView("user");
-    }
-
-    @RequestMapping(value = "/commentsPage", method = GET)
-    public ModelAndView viewUserComments() {
-        return new ModelAndView("comments");
-    }
-
     @RequestMapping(value = "/comments", method = GET)
     @ResponseBody
     public List<CommentsEntity> getUserComments(HttpServletRequest request) {

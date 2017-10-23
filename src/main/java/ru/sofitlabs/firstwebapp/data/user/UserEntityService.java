@@ -12,4 +12,6 @@ public interface UserEntityService {
     List<UserEntity> getAllbyId(long id);
 
     String getPasswordbyLogin(String login);
+
+    UserEntity getOneByLogin(String login);
 }

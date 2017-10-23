@@ -1,5 +1,5 @@
 <div ng-controller="AllAnimeViewController">
-    <div ng-repeat="anime in $animeCtrl.animeList">
+    <div ng-repeat="anime in $ctrl.animeList">
         <a ng-href='#!/anime/{{anime.id}}'>{{anime.name}}</a>
     </div>
 </div>

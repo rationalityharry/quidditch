@@ -11,6 +11,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthorisationInterceptor())
                 .addPathPatterns("/anime**")
-                .addPathPatterns("/user**");
+                .addPathPatterns("/user**")
+                .addPathPatterns("/anime/**")
+                .addPathPatterns("/user/**");
     }
 }

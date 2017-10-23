@@ -1,0 +1,12 @@
+<form name="authorisationForm" ng-controller="authorisationController" ng-submit="$ctrl.addReview(product)">
+    <h4>Submit a Review</h4>
+    <fieldset class="form-group">
+        <textarea ng-model="$ctrl.user.login" class="form-control" placeholder="Enter your login here" title="Login"></textarea>
+    </fieldset>
+    <fieldset class="form-group">
+        <input ng-model="$ctrl.user.password" type="password" class="form-control" placeholder="Enter your password here" title="Password" />
+    </fieldset>
+    <fieldset class="form-group">
+        <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+    </fieldset>
+</form>

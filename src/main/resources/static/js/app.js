@@ -1,9 +1,9 @@
 var app = angular.module("mainApp", ["ngRoute"]);
 
-app.config(function ($routeProvider) {
+app.config(["$routeProvider", function ($routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "/html/animeAll.html"
+            templateUrl: "/html/authorisation.html"
         })
         .when("/anime/:id", {
             templateUrl: "/html/animePage.html"
@@ -26,7 +26,50 @@ app.config(function ($routeProvider) {
         .when("/user/comments", {
             templateUrl: "/html/comments.html"
         });
-});
+}]);
+
+app.config(["$provide", function ($provide) {
+
+    $provide.factory('myHttpInterceptor', ["$q", "$location", function($q, $location) {
+        return {
+            // optional method
+            'request': function(config) {
+                // do something on success
+                return config;
+            },
+
+            // optional method
+            'requestError': function(rejection) {
+                return $q.reject(rejection);
+            },
+
+
+
+            // optional method
+            'response': function(response) {
+                // do something on success
+                return response;
+            },
+
+            'responseError': function(rejection) {
+                if (rejection.status == 401) {
+                    $location.path("/authorisation")
+                    return $q.reject(rejection);
+                }
+
+                // same as above
+                return $q.reject(rejection);
+            }
+
+        };
+    }]);
+
+
+}]);
+
+app.config(["$httpProvider", function ($httpProvider) {
+    $httpProvider.interceptors.push('myHttpInterceptor');
+}]);
 
 app.controller('AllAnimeViewController', ['$scope', '$http', function ($scope, $http) {
     var that = this;
@@ -60,10 +103,23 @@ app.controller('AnimePageController', ['$scope', '$http', '$routeParams', functi
 app.controller('ReviewController', ['$scope', '$http', function ($scope, $http) {
     var that = this;
     $scope["$ctrl"] = this;
-    this.reviewList = [];
-
-    this.addReview = function (anime, author) {
-        this.reviewList.push()
-    };
+    that.revews = [];
+    $http.get("/user/comments").then(function (response) {
+        var comments = response.data;
+        that.reviews = comments;
+    })
 
 }]);
+
+app.controller('authorisationController', ['$scope', '$http', function ($scope, $http) {
+    var that = this;
+    $scope["$ctrl"] = this;
+    that.user = {};
+    $http.get("")
+}]);
+
+app.controller('animeAddController', ['$scope', '$http', function ($scope, $http) {
+    var that = this;
+    $scope["$ctrl"]=this;
+
+}])

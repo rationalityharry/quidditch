@@ -27,7 +27,7 @@ public class AnimeEntity {
     private String description;
 
     @Column
-    private String animeLink;
+    private long animeImageId;
 
     public AnimeEntity() {
     }
@@ -73,11 +73,11 @@ public class AnimeEntity {
         this.description = description;
     }
 
-    public String getAnimeLink() {
-        return animeLink;
+    public long getAnimeImageId() {
+        return animeImageId;
     }
 
-    public void setAnimeLink(final String animeLink) {
-        this.animeLink = animeLink;
+    public void setAnimeImageId(final long animeImageId) {
+        this.animeImageId = animeImageId;
     }
 }

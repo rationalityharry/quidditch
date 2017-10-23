@@ -23,34 +23,27 @@ public class MainController {
 
 
     @RequestMapping(value = "registration", method = RequestMethod.POST)
-    public ModelAndView add(@RequestParam(name = "login") final String login, @RequestParam(name = "password") final String password) {
-        if (login == null || "".equals(login)) {
-            return new ModelAndView("emptyLogin");
-        } else if (!userEntityService.getAllByLogin(login).isEmpty()) {
-            return new ModelAndView("loginExists");
+    public void add(@RequestParam(name = "login") final String login,
+                    @RequestParam(name = "password") final String password) {
+        if (!userEntityService.getAllByLogin(login).isEmpty()) {
+
         } else {
             final UserEntity userEntity = new UserEntity();
             userEntity.setLogin(login);
             userEntity.setPassword(password);
             userEntityService.add(userEntity);
-            return new ModelAndView("authorisation");
         }
     }
 
+
     @RequestMapping(value = "authorisation", method = RequestMethod.POST)
-    public ModelAndView auth(final HttpServletRequest request,
-                             @RequestParam(name = "login") final String login,
-                             @RequestParam(name = "password") final String password) {
-        final List<UserEntity> allByLogin = userEntityService.getAllByLogin(login);
-        if (allByLogin.isEmpty()) {
-            return new ModelAndView("loginNotExists");
-        }
-        final UserEntity userEntity = allByLogin.get(0);
-        if (!userEntity.getPassword().equals(password)) {
-            return new ModelAndView("wrongPassword");
+    public UserEntity auth(@RequestParam(name = "login") final String login,
+                           @RequestParam(name = "password") final String password) {
+        final UserEntity user = userEntityService.getOneByLogin(login);
+        if (user==null || !user.getPassword().equals(password)) {
+            return null;
         } else {
-            request.getSession().setAttribute("user", userEntity);
-            return new ModelAndView("user");
+            return user;
         }
     }
 

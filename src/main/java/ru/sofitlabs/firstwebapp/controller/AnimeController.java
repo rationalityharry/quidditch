@@ -30,33 +30,19 @@ public class AnimeController {
     UserEntityService userEntityService;
 
     @RequestMapping(value = "/addAnime", method = RequestMethod.POST)
-    public ModelAndView addManyame(@RequestParam(name = "name") final String name,
+    public void addManyame(@RequestParam(name = "name") final String name,
                                    @RequestParam(name = "genre") final String genre,
                                    @RequestParam(name = "author") final String author,
                                    @RequestParam(name = "description") final String description,
-                                   @RequestParam(name = "animeLink") final String animeLink,
+                                   @RequestParam(name = "imageId") final long imageId,
                                    HttpServletRequest request) {
         AnimeEntity title = new AnimeEntity();
         title.setName(name);
         title.setAuthor(author);
         title.setGenre(genre);
         title.setDescription(description);
-        title.setAnimeLink(animeLink);
+        title.setAnimeImageId(imageId);
         animeEntityService.add(title);
-        return new ModelAndView("animePage");
-
-    }
-
-    @RequestMapping(value = "/addAnime", method = GET)
-    public ModelAndView viewAddingManyame() {
-        return new ModelAndView("addAnime");
-    }
-
-    @RequestMapping(value = "/{animeId}", method = GET)
-    public ModelAndView viewAnimePage(@PathVariable final Long animeId, HttpServletRequest request) {
-        ModelAndView animePage = new ModelAndView("animePage");
-        animePage.addObject("animeId", animeId);
-        return animePage;
     }
 
     @RequestMapping(value = "/{animeId}/info", method = GET)
@@ -70,11 +56,6 @@ public class AnimeController {
     @ResponseBody
     public List<CommentsEntity> getAnimeComments(@PathVariable final Long animeId) {
         return commentsEntityService.getAllByAnime(animeEntityService.findOneById(animeId));
-    }
-
-    @RequestMapping(value = "", method = GET)
-    public ModelAndView viewAnimeListing() {
-        return new ModelAndView("anime");
     }
 
     @RequestMapping(value = "/all", method = GET)

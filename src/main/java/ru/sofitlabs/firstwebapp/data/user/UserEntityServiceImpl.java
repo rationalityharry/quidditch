@@ -1,5 +1,6 @@
 package ru.sofitlabs.firstwebapp.data.user;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,9 @@ public class UserEntityServiceImpl implements UserEntityService {
 
     public UserEntity getOneById(long id) {
         return repository.findOne(id);
+    }
+
+    public UserEntity getOneByLogin(String login) {
+        return repository.findAllByLogin(login).get(0);
     }
 }
