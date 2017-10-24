@@ -8,5 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
 public interface AnimeRepository extends JpaRepository<AnimeEntity, Long> {
-
+    long findOneByName(String name);
 }

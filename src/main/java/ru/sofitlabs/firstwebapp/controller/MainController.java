@@ -21,29 +21,53 @@ public class MainController {
     @Autowired
     private UserEntityService userEntityService;
 
+    private static class UserData{
+        private String login;
+        private String password;
+
+        public UserData() {
+        }
+
+        public String getLogin() {
+            return login;
+        }
+
+        public void setLogin(final String login) {
+            this.login = login;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(final String password) {
+            this.password = password;
+        }
+    }
 
     @RequestMapping(value = "registration", method = RequestMethod.POST)
-    public void add(@RequestParam(name = "login") final String login,
-                    @RequestParam(name = "password") final String password) {
-        if (!userEntityService.getAllByLogin(login).isEmpty()) {
-
+    @ResponseBody
+    public long add(@RequestBody final UserData user) {
+        if (!userEntityService.getAllByLogin(user.login).isEmpty()) {
+            return 0;
         } else {
-            final UserEntity userEntity = new UserEntity();
-            userEntity.setLogin(login);
-            userEntity.setPassword(password);
-            userEntityService.add(userEntity);
+            final UserEntity createdUser = new UserEntity();
+            createdUser.setLogin(user.login);
+            createdUser.setPassword(user.password);
+            final UserEntity added = userEntityService.add(createdUser);
+            return added.getId();
         }
     }
 
 
     @RequestMapping(value = "authorisation", method = RequestMethod.POST)
-    public UserEntity auth(@RequestParam(name = "login") final String login,
-                           @RequestParam(name = "password") final String password) {
-        final UserEntity user = userEntityService.getOneByLogin(login);
-        if (user==null || !user.getPassword().equals(password)) {
-            return null;
+    @ResponseBody
+    public long auth(@RequestBody final UserData userReceived) {
+        final UserEntity user = userEntityService.getOneByLogin(userReceived.login);
+        if (user == null || !user.getPassword().equals(userReceived.password)) {
+            return 0;
         } else {
-            return user;
+            return user.getId();
         }
     }
 
@@ -52,28 +76,6 @@ public class MainController {
         return new ModelAndView("main");
     }
 
-    @RequestMapping(value = "registration", method = GET)
-    public ModelAndView viewRegistration() {
-        return new ModelAndView("registration");
-    }
-
-
-    @RequestMapping(value = "users", method = GET)
-    public ModelAndView viewAllUsers(HttpServletRequest request) {
-
-        if (Utils.isAuthorised(request)) {
-            return new ModelAndView("data");
-        } else {
-            return new ModelAndView("noAuthorisation");
-        }
-    }
-
-
-    @RequestMapping(value = "view", method = GET)
-    @ResponseBody
-    public String getAll() {
-        return userEntityService.getAll().toString();
-    }
 
 
 }

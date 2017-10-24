@@ -1,0 +1,16 @@
+<form name="registrationForm" ng-controller="RegistrationController as registration"
+      data-ng-submit="registration.registerUser()">
+    <h4>Add user</h4>
+
+    <fieldset class="form-group">
+
+        <textarea ng-model="$ctrl.user.login" class="form-control" placeholder="Enter your login here"
+                  title="Login"></textarea><br/>
+
+        <input ng-model="$ctrl.user.password" type="password" class="form-control"
+               placeholder="Enter your password here" title="Password"/><br/>
+
+        <input type="submit" value="Register"/><a ng-href='#!/authorisation'>Back to authorisation</a>
+    </fieldset>
+
+</form>

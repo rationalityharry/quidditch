@@ -1,0 +1,16 @@
+<fieldset class="form-group" ng-controller="AnimeAddController" data-ng-submit="$ctrl.addAnime()">
+
+    <textarea ng-model="$ctrl.anime.name" class="form-control" placeholder="Enter anime name"
+                  title="name"></textarea><br/>
+
+    <textarea ng-model="$ctrl.anime.author" class="form-control"
+              placeholder="Enter your password here" title="author"></textarea><br/>
+
+    <textarea ng-model="$ctrl.anime.genre"  class="form-control"
+              placeholder="Genres" title="genre"></textarea><br/>
+
+    <textarea ng-model="$ctrl.anime.description"  class="form-control"
+              placeholder="Deathcription" title="description"></textarea><br/>
+
+    <input type="submit" value="Add anime"/> <a data-ng-href='#!/user'>Back to user options</a>
+</fieldset>

@@ -1,5 +1,6 @@
 package ru.sofitlabs.firstwebapp.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,20 +30,48 @@ public class AnimeController {
     @Autowired
     UserEntityService userEntityService;
 
+    private static class AnimeDTO {
+        String name;
+        String genre;
+        String author;
+        String description;
+        long imageId;
+
+        public AnimeDTO() {
+        }
+
+        public void setName(final String name) {
+            this.name = name;
+        }
+
+        public void setGenre(final String genre) {
+            this.genre = genre;
+        }
+
+        public void setAuthor(final String author) {
+            this.author = author;
+        }
+
+        public void setDescription(final String description) {
+            this.description = description;
+        }
+
+        public void setImageId(final long imageId) {
+            this.imageId = imageId;
+        }
+    }
+
     @RequestMapping(value = "/addAnime", method = RequestMethod.POST)
-    public void addManyame(@RequestParam(name = "name") final String name,
-                                   @RequestParam(name = "genre") final String genre,
-                                   @RequestParam(name = "author") final String author,
-                                   @RequestParam(name = "description") final String description,
-                                   @RequestParam(name = "imageId") final long imageId,
-                                   HttpServletRequest request) {
+    @ResponseBody
+    public long addManyame(@RequestBody final AnimeDTO animeDTO) {
         AnimeEntity title = new AnimeEntity();
-        title.setName(name);
-        title.setAuthor(author);
-        title.setGenre(genre);
-        title.setDescription(description);
-        title.setAnimeImageId(imageId);
-        animeEntityService.add(title);
+        title.setName(animeDTO.name);
+        title.setAuthor(animeDTO.author);
+        title.setGenre(animeDTO.genre);
+        title.setDescription(animeDTO.description);
+        title.setAnimeImageId(animeDTO.imageId);
+        final AnimeEntity added = animeEntityService.add(title);
+        return added.getId();
     }
 
     @RequestMapping(value = "/{animeId}/info", method = GET)

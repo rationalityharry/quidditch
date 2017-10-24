@@ -9,4 +9,6 @@ public interface AnimeEntityService {
     List<AnimeEntity> getAll();
 
     AnimeEntity findOneById(long id);
+
+    long getAnimeId(String name);
 }

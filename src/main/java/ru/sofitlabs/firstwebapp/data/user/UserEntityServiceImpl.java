@@ -15,8 +15,8 @@ public class UserEntityServiceImpl implements UserEntityService {
     private UserRepository repository;
 
     @Override
-    public void add(UserEntity userEntity) {
-        repository.save(userEntity);
+    public UserEntity add(UserEntity userEntity) {
+        return repository.save(userEntity);
     }
 
     @Override
@@ -41,6 +41,10 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     public UserEntity getOneByLogin(String login) {
-        return repository.findAllByLogin(login).get(0);
+        final List<UserEntity> allByLogin = repository.findAllByLogin(login);
+        if (allByLogin.isEmpty()) {
+            return null;
+        }
+        return allByLogin.get(0);
     }
 }

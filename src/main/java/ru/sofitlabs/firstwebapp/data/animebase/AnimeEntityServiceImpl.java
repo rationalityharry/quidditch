@@ -27,4 +27,8 @@ public class AnimeEntityServiceImpl implements AnimeEntityService {
         return animeRepository.findOne(id);
     }
 
+    public long getAnimeId(final String name) {
+        return animeRepository.findOneByName(name);
+    }
+
 }
