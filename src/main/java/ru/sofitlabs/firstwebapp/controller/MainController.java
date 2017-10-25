@@ -62,11 +62,13 @@ public class MainController {
 
     @RequestMapping(value = "authorisation", method = RequestMethod.POST)
     @ResponseBody
-    public long auth(@RequestBody final UserData userReceived) {
+    public long auth(@RequestBody final UserData userReceived,
+                     final HttpServletRequest request) {
         final UserEntity user = userEntityService.getOneByLogin(userReceived.login);
         if (user == null || !user.getPassword().equals(userReceived.password)) {
             return 0;
         } else {
+            request.getSession().setAttribute("user", user);
             return user.getId();
         }
     }

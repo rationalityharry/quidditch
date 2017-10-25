@@ -9,6 +9,7 @@ public class AnimeEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "anime_id")
     private long id;
 
     @OneToMany(mappedBy = "anime", orphanRemoval = true, fetch = FetchType.EAGER)
@@ -27,7 +28,7 @@ public class AnimeEntity {
     private String description;
 
     @Column
-    private long animeImageId;
+    private String animeImagePath;
 
     public AnimeEntity() {
     }
@@ -73,11 +74,11 @@ public class AnimeEntity {
         this.description = description;
     }
 
-    public long getAnimeImageId() {
-        return animeImageId;
+    public String getAnimeImagePath() {
+        return animeImagePath;
     }
 
-    public void setAnimeImageId(final long animeImageId) {
-        this.animeImageId = animeImageId;
+    public void setAnimeImagePath(final String animeImagePath) {
+        this.animeImagePath = animeImagePath;
     }
 }

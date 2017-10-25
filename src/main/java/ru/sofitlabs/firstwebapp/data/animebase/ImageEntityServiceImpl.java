@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.OutputStream;
-
 @Service
 @Transactional
 public class ImageEntityServiceImpl implements ImageEntityService {
@@ -13,18 +11,15 @@ public class ImageEntityServiceImpl implements ImageEntityService {
     @Autowired
     AnimeRepository animeRepository;
 
-    @Override
-    public void add() {
+    @Autowired
+    ImageRepository imageRepository;
 
+
+    public ImageEntity add(ImageEntity image) {
+        return imageRepository.save(image);
     }
 
-    @Override
-    public OutputStream getImageById() {
-        return null;
-    }
-
-    @Override
-    public String getImagePath() {
-        return null;
+    public String getImagePath(long imageId) {
+        return imageRepository.findOne(imageId).getImagePath();
     }
 }

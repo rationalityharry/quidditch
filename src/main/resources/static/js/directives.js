@@ -18,3 +18,9 @@ app.directive ("animePage", function () {
         templateUrl: "/html/animePage.html"
     }
 });
+app.directive ("fileload", function () {
+    return{
+        restrict: "E",
+        templateUrl: "/html/imageLoad.html"
+    }
+});

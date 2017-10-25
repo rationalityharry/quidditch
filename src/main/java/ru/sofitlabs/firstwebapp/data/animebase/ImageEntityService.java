@@ -4,9 +4,7 @@ import java.io.OutputStream;
 
 public interface ImageEntityService {
 
-    void add();
+    ImageEntity add(ImageEntity image);
 
-    OutputStream getImageById();
-
-    String getImagePath();
+    String getImagePath(long imageId);
 }

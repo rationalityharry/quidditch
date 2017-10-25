@@ -1,17 +1,14 @@
 package ru.sofitlabs.firstwebapp.controller;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import ru.sofitlabs.firstwebapp.data.animebase.AnimeEntity;
 import ru.sofitlabs.firstwebapp.data.animebase.AnimeEntityService;
 import ru.sofitlabs.firstwebapp.data.animebase.CommentsEntity;
 import ru.sofitlabs.firstwebapp.data.animebase.CommentsEntityService;
 import ru.sofitlabs.firstwebapp.data.user.UserEntityService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -35,7 +32,7 @@ public class AnimeController {
         String genre;
         String author;
         String description;
-        long imageId;
+        String imagePath;
 
         public AnimeDTO() {
         }
@@ -56,22 +53,21 @@ public class AnimeController {
             this.description = description;
         }
 
-        public void setImageId(final long imageId) {
-            this.imageId = imageId;
+        public void setImagePath(final String imagePath) {
+            this.imagePath = imagePath;
         }
     }
 
     @RequestMapping(value = "/addAnime", method = RequestMethod.POST)
     @ResponseBody
-    public long addManyame(@RequestBody final AnimeDTO animeDTO) {
+    public AnimeEntity addManyame(@RequestBody final AnimeDTO animeDTO) {
         AnimeEntity title = new AnimeEntity();
         title.setName(animeDTO.name);
         title.setAuthor(animeDTO.author);
         title.setGenre(animeDTO.genre);
         title.setDescription(animeDTO.description);
-        title.setAnimeImageId(animeDTO.imageId);
-        final AnimeEntity added = animeEntityService.add(title);
-        return added.getId();
+        title.setAnimeImagePath(animeDTO.imagePath);
+        return animeEntityService.add(title);
     }
 
     @RequestMapping(value = "/{animeId}/info", method = GET)

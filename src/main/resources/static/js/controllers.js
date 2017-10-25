@@ -61,17 +61,22 @@ app.controller('AuthorisationController', ['$scope', '$http', '$location', funct
 app.controller('AnimeAddController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     var that = this;
     that.anime = {};
+    that.imagePath = {};
     $scope["$ctrl"] = this;
     that.addAnime = function () {
-        $http.post("/addAnime", {
-            name: that.anime.name,
-            genre: that.anime.genre,
-            author: that.anime.author,
-            description: that.anime.description,
-            imageId: that.anime.imageId
-        }).then(function (id) {
-            alert("Success, take a look at this awesome anime!");
-            $location.path("/anime/" + id)
+        $http.post("/addAnime/loadImage", image).then(function (response) {
+            $http.post("/anime/addAnime", {
+                name: that.anime.name,
+                genre: that.anime.genre,
+                author: that.anime.author,
+                description: that.anime.description,
+                imagePath: response.data
+            }).then(function (response) {
+                if (response.data == 0)
+                alert("Success, take a look at this awesome anime!");
+                $location.path("/anime/" + id)
+            });
+
         });
     }
 }]);
@@ -88,6 +93,22 @@ app.controller('RegistrationController', ['$scope', '$http', '$location', functi
                 that.user = response.data;
                 alert("Success, now try it!");
                 $location.path("/authorisation");
+            }
+        });
+    }
+}]);
+
+app.controller('FileTransferController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+    var that = this;
+    $scope['$ctrl'] = this;
+    that.imagePath = {};
+    that.addImage = function () {
+        $http.post("/addAnime/loadImage", {path: that.imagePath}).then(function (response) {
+            if (response.data == 0) {
+                alert("Can't load file")
+            } else {
+                that.imagePath = response.data;
+                alert("Success");
             }
         });
     }
