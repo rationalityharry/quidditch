@@ -3,15 +3,13 @@ package ru.sofitlabs.firstwebapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.sofitlabs.firstwebapp.data.animebase.AnimeEntity;
-import ru.sofitlabs.firstwebapp.data.animebase.AnimeEntityService;
-import ru.sofitlabs.firstwebapp.data.animebase.CommentsEntity;
-import ru.sofitlabs.firstwebapp.data.animebase.CommentsEntityService;
+import ru.sofitlabs.firstwebapp.data.animebase.*;
 import ru.sofitlabs.firstwebapp.data.user.UserEntityService;
 
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @SessionAttributes(value = "user")
@@ -27,12 +25,28 @@ public class AnimeController {
     @Autowired
     UserEntityService userEntityService;
 
+    private static class CommentDTO {
+        int rate;
+        String review;
+
+        public CommentDTO() {
+        }
+
+        public void setRate(final int rate) {
+            this.rate = rate;
+        }
+
+        public void setReview(final String review) {
+            this.review = review;
+        }
+    }
+
     private static class AnimeDTO {
         String name;
         String genre;
         String author;
         String description;
-        String imagePath;
+        ImageEntity imageObj;
 
         public AnimeDTO() {
         }
@@ -53,8 +67,8 @@ public class AnimeController {
             this.description = description;
         }
 
-        public void setImagePath(final String imagePath) {
-            this.imagePath = imagePath;
+        public void setImage(final ImageEntity image) {
+            this.imageObj = image;
         }
     }
 
@@ -66,7 +80,7 @@ public class AnimeController {
         title.setAuthor(animeDTO.author);
         title.setGenre(animeDTO.genre);
         title.setDescription(animeDTO.description);
-        title.setAnimeImagePath(animeDTO.imagePath);
+        title.setAnimeImage(animeDTO.imageObj);
         return animeEntityService.add(title);
     }
 
@@ -82,6 +96,19 @@ public class AnimeController {
     public List<CommentsEntity> getAnimeComments(@PathVariable final Long animeId) {
         return commentsEntityService.getAllByAnime(animeEntityService.findOneById(animeId));
     }
+
+    @RequestMapping(value = "/{animeId}/addComment", method = RequestMethod.POST)
+    @ResponseBody
+    public CommentsEntity addComment(@PathVariable final Long animeId,
+                                     @RequestBody final CommentDTO comment) {
+        CommentsEntity review = new CommentsEntity();
+        review.setAnime(animeEntityService.findOneById(animeId));
+        review.setRate(comment.rate);
+        review.setReviewText(comment.review);
+
+        return commentsEntityService.add(review);
+    }
+
 
     @RequestMapping(value = "/all", method = GET)
     @ResponseBody

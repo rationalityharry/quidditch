@@ -1,21 +1,22 @@
 package ru.sofitlabs.firstwebapp.data.animebase;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import javax.persistence.*;
+import java.nio.file.Path;
 
 @Table(name = "imageBase")
 @Entity
 public class ImageEntity {
+
     @Column
-    @Value("${image.source}")
     private String imagePath;
 
     @Column
     private String imageName;
 
-    @Column
-    private long animeId;
+
+    @OneToOne
+    @JoinColumn(name = "animeImage_id")
+    private AnimeEntity animeKey;
 
     @Id
     @GeneratedValue
@@ -25,19 +26,19 @@ public class ImageEntity {
     public ImageEntity() {
     }
 
-    public long getAnimeId() {
-        return animeId;
+    public AnimeEntity getAnimeId() {
+        return animeKey;
     }
 
-    public void setAnimeId(final long animeId) {
-        this.animeId = animeId;
+    public void setAnimeId(final AnimeEntity anime) {
+        this.animeKey = anime;
     }
 
-    public String getImagePath() {
+    public String  getImagePath() {
         return imagePath;
     }
 
-    public void setImagePath(final String imagePath) {
+    public void setImagePath(final String  imagePath) {
         this.imagePath = imagePath;
     }
 

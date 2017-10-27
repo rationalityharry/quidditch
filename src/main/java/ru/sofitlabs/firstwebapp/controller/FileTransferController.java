@@ -8,8 +8,7 @@ import ru.sofitlabs.firstwebapp.data.animebase.AnimeEntityService;
 import ru.sofitlabs.firstwebapp.data.animebase.ImageEntity;
 import ru.sofitlabs.firstwebapp.data.animebase.ImageEntityService;
 import ru.sofitlabs.firstwebapp.data.user.UserEntityService;
-
-import java.io.IOException;
+import ru.sofitlabs.firstwebapp.storage.StorageService;
 
 @Controller
 @SessionAttributes(value = "user")
@@ -25,7 +24,9 @@ public class FileTransferController {
     @Autowired
     UserEntityService userEntityService;
 
-    private final StorageService storageService;
+    @Autowired
+    StorageService storageService;
+
     private static class ImageDTO {
         private MultipartFile file;
 
@@ -43,9 +44,11 @@ public class FileTransferController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public long submit(@RequestBody final ImageDTO file) throws IOException {
-
-        return 0;
+    public ImageEntity submit(@RequestBody final MultipartFile file) {
+        ImageEntity newImage = new ImageEntity();
+        newImage.setImagePath(storageService.addFile(file));
+        newImage.setImageName(file.getOriginalFilename());
+        return imageEntityService.add(newImage);
     }
 
 

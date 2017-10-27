@@ -23,7 +23,7 @@ public class CommentsEntity {
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "anime_id", referencedColumnName = "anime_id")
+    @JoinColumn(name = "anime_id", referencedColumnName = "id")
     private AnimeEntity anime;
 
     public CommentsEntity() {
