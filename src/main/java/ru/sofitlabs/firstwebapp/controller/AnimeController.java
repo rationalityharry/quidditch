@@ -25,6 +25,9 @@ public class AnimeController {
     @Autowired
     UserEntityService userEntityService;
 
+    @Autowired
+    ImageEntityService imageEntityService;
+
     private static class CommentDTO {
         int rate;
         String review;
@@ -46,7 +49,7 @@ public class AnimeController {
         String genre;
         String author;
         String description;
-        ImageEntity imageObj;
+        long imageId;
 
         public AnimeDTO() {
         }
@@ -67,21 +70,22 @@ public class AnimeController {
             this.description = description;
         }
 
-        public void setImage(final ImageEntity image) {
-            this.imageObj = image;
+        public void setImageId(final long imageId) {
+            this.imageId = imageId;
         }
     }
 
     @RequestMapping(value = "/addAnime", method = RequestMethod.POST)
     @ResponseBody
-    public AnimeEntity addManyame(@RequestBody final AnimeDTO animeDTO) {
+    public long addManyame(@RequestBody final AnimeDTO animeDTO) {
         AnimeEntity title = new AnimeEntity();
         title.setName(animeDTO.name);
         title.setAuthor(animeDTO.author);
         title.setGenre(animeDTO.genre);
         title.setDescription(animeDTO.description);
-        title.setAnimeImage(animeDTO.imageObj);
-        return animeEntityService.add(title);
+        ImageEntity imageEntity = imageEntityService.getById(animeDTO.imageId);
+        title.setAnimeImage(imageEntity);
+        return animeEntityService.add(title).getId();
     }
 
     @RequestMapping(value = "/{animeId}/info", method = GET)

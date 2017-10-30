@@ -7,4 +7,6 @@ public interface ImageEntityService {
     String getRootLocation();
 
     ImageEntity getOneByAnime(AnimeEntity anime);
+
+    ImageEntity getById(long imageId);
 }

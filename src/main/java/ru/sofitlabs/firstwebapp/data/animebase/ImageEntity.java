@@ -1,7 +1,6 @@
 package ru.sofitlabs.firstwebapp.data.animebase;
 
 import javax.persistence.*;
-import java.nio.file.Path;
 
 @Table(name = "imageBase")
 @Entity
@@ -13,10 +12,9 @@ public class ImageEntity {
     @Column
     private String imageName;
 
-
-    @OneToOne
-    @JoinColumn(name = "animeImage_id")
-    private AnimeEntity animeKey;
+    @Transient
+    @OneToOne(mappedBy = "animeKey")
+    private AnimeEntity animeImage;
 
     @Id
     @GeneratedValue
@@ -27,18 +25,18 @@ public class ImageEntity {
     }
 
     public AnimeEntity getAnimeId() {
-        return animeKey;
+        return animeImage;
     }
 
     public void setAnimeId(final AnimeEntity anime) {
-        this.animeKey = anime;
+        this.animeImage = anime;
     }
 
-    public String  getImagePath() {
+    public String getImagePath() {
         return imagePath;
     }
 
-    public void setImagePath(final String  imagePath) {
+    public void setImagePath(final String imagePath) {
         this.imagePath = imagePath;
     }
 

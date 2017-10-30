@@ -27,8 +27,9 @@ public class AnimeEntity {
     @Column
     private String description;
 
-    @OneToOne(mappedBy = "animeKey")
-    private ImageEntity animeImage;
+    @OneToOne
+    @JoinColumn(name = "animeImage_id")
+    private ImageEntity animeKey;
 
     public AnimeEntity() {
     }
@@ -75,10 +76,10 @@ public class AnimeEntity {
     }
 
     public ImageEntity getAnimeImage() {
-        return animeImage;
+        return animeKey;
     }
 
     public void setAnimeImage(final ImageEntity animeImage) {
-        this.animeImage = animeImage;
+        this.animeKey = animeImage;
     }
 }

@@ -25,7 +25,12 @@ public class ImageEntityServiceImpl implements ImageEntityService {
 
     @Override
     public ImageEntity getOneByAnime(final AnimeEntity anime) {
-       return imageRepository.findOne(animeRepository.findOne(anime.getId()).getAnimeImage().getId());
+        return imageRepository.findOne(animeRepository.findOne(anime.getId()).getAnimeImage().getId());
+    }
+
+    @Override
+    public ImageEntity getById(final long imageId) {
+        return imageRepository.findOne(imageId);
     }
 
     @Override

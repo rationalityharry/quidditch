@@ -17,6 +17,7 @@ app.controller('AnimePageController', ['$scope', '$http', '$routeParams', functi
     $scope["$ctrl"] = this;
     that.anime = {};
     that.commentaries = [];
+    that.review = {};
     $http.get("/anime/" + id + "/info").then(function (response) {
         var anime = response.data;
         that.anime = anime;
@@ -25,6 +26,18 @@ app.controller('AnimePageController', ['$scope', '$http', '$routeParams', functi
         var comments = response2.data;
         that.commentaries = comments;
     });
+    this.addComment = function () {
+        $http.post("/anime/"+ id + "/addComment",
+                    {rate: that.review.rate,
+                     body: that.review.body,
+                     author: that.review.author}).then(function (response) {
+            if (response.data != null){
+                alert("Thanks for your review!");
+            } else {
+                alert("Can't load your review, sorry!");
+            }
+        });
+    };
 }]);
 
 app.controller('ReviewController', ['$scope', '$http', function ($scope, $http) {
@@ -63,8 +76,13 @@ app.controller('AnimeAddController', ['$scope', '$http', '$location', function (
     that.anime = {};
     that.image = {};
     $scope["$ctrl"] = this;
-    that.addAnime = function () {
-        $http.post("/addAnime/loadImage", {file: that.image}).then(function (response) {
+    this.addAnime = function () {
+        var formData = new FormData();
+        formData.append('file', that.image);
+        $http.post("/addAnime/loadImage", formData, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).then(function (response) {
             if (response != null) {
                 alert("Image Successfully loaded");
                 $http.post("/anime/addAnime", {
@@ -72,11 +90,11 @@ app.controller('AnimeAddController', ['$scope', '$http', '$location', function (
                     genre: that.anime.genre,
                     author: that.anime.author,
                     description: that.anime.description,
-                    imageObj: response.data
+                    imageId: response.data.id
                 }).then(function (response) {
-                    if (response.data == 0)
+                    if (response.data != 0)
                         alert("Success, take a look at this awesome anime!");
-                    $location.path("/anime/" + id)
+                    $location.path("/anime/" + response.data)
                 });
             } else {
                 alert("Some troubles with image loading")
