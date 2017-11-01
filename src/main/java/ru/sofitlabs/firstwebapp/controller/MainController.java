@@ -6,22 +6,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.sofitlabs.firstwebapp.data.user.UserEntity;
 import ru.sofitlabs.firstwebapp.data.user.UserEntityService;
-import ru.sofitlabs.firstwebapp.utils.Utils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
-@SessionAttributes(value = "user")
 @RequestMapping(value = "/")
 public class MainController {
 
     @Autowired
     private UserEntityService userEntityService;
 
-    private static class UserData{
+    private static class UserData {
         private String login;
         private String password;
 
@@ -68,16 +66,25 @@ public class MainController {
         if (user == null || !user.getPassword().equals(userReceived.password)) {
             return 0;
         } else {
-            request.getSession().setAttribute("user", user);
+            final HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            System.out.println(session.getAttribute("user").toString());
             return user.getId();
         }
     }
+
+    @RequestMapping(value = "exit", method = RequestMethod.POST)
+    @ResponseBody
+    public int logOut(final HttpServletRequest request) {
+        request.getSession().removeAttribute("user");
+        return 0;
+    }
+
 
     @RequestMapping(value = {"authorisation", ""}, method = GET)
     public ModelAndView viewAuthorisation() {
         return new ModelAndView("main");
     }
-
 
 
 }

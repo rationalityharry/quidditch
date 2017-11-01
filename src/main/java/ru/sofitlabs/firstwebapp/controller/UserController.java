@@ -31,7 +31,7 @@ public class UserController {
     @RequestMapping(value = "/comments", method = GET)
     @ResponseBody
     public List<CommentsEntity> getUserComments(HttpServletRequest request) {
-        return commentsEntityService.getAllByUser((UserEntity) request.getAttribute("user"));
+        return commentsEntityService.getAllByUser((UserEntity) request.getSession().getAttribute("user"));
     }
 
 }

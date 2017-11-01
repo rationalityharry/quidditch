@@ -27,12 +27,14 @@ app.controller('AnimePageController', ['$scope', '$http', '$routeParams', functi
         that.commentaries = comments;
     });
     this.addComment = function () {
-        $http.post("/anime/"+ id + "/addComment",
-                    {rate: that.review.rate,
-                     body: that.review.body,
-                     author: that.review.author}).then(function (response) {
-            if (response.data != null){
+        $http.post("/anime/" + id + "/addComment",
+            {
+                rate: that.review.rate,
+                review: that.review.body
+            }).then(function (response) {
+            if (response.data != null) {
                 alert("Thanks for your review!");
+                that.review = {};
             } else {
                 alert("Can't load your review, sorry!");
             }
@@ -40,7 +42,7 @@ app.controller('AnimePageController', ['$scope', '$http', '$routeParams', functi
     };
 }]);
 
-app.controller('ReviewController', ['$scope', '$http', function ($scope, $http) {
+app.controller('UserReviewController', ['$scope', '$http', function ($scope, $http) {
     var that = this;
     $scope["$ctrl"] = this;
     that.revews = [];
@@ -54,6 +56,14 @@ app.controller('AuthorisationController', ['$scope', '$http', '$location', funct
     var that = this;
     $scope["$ctrl"] = this;
     that.user = {};
+    this.logOut = function () {
+        $http.post("/exit", {}).then(function (response) {
+            if (response.data == 0) {
+                $location.path("/authorisation");
+            }
+        });
+    };
+
     this.logIn = function () {
         $http.post("/authorisation", {
             login: that.user.login, password: that.user.password
@@ -63,7 +73,6 @@ app.controller('AuthorisationController', ['$scope', '$http', '$location', funct
                     $location.path("/registration");
                 }
             } else {
-                that.user.id = response;
                 $location.path("/user")
             }
         });

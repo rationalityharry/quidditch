@@ -1,10 +1,46 @@
-<div ng-controller="AnimePageController">
-    {{$ctrl.anime.name}}
-    {{$ctrl.anime.genre}}
-    {{$ctrl.anime.author}}
-    {{$ctrl.anime.description}}
-    <div ng-repeat="comment in $ctrl.commentaries">
-        {{comment.rate}}
+<div ng-controller="AnimePageController as animeCtrl">
+    <img ng-src="/anime/{{animeCtrl.anime.id}}/file" width="180" height="260"><br />
+    {{animeCtrl.anime.name}} <br />
+    {{animeCtrl.anime.genre}} <br />
+    {{animeCtrl.anime.author}} <br />
+    {{animeCtrl.anime.description}}<br />
+   <ul>
+       <li ng-repeat="comment in animeCtrl.commentaries">
+           <blockquote>
+               Оценка — {{comment.rate}}<br />
+               {{comment.body}}<br />
+               Оставил {{comment.user.login}}
+           </blockquote>
+
+       </li>
+   </ul>
+
+
+
+    <form name="reviewForm" role="form" ng-controller="AnimePageController as animeCtrl"
+          ng-submit="animeCtrl.addComment()" novalidate>
+
+        <blockquote ng-show="animeCtrl.review.rate">
+            <strong>{{animeCtrl.review.rate}}</strong><br />
+                    {{animeCtrl.review.body}}<br />
+        </blockquote>
+
+        <h4>Submit a Review</h4>
+        <fieldset class="form-group" required>
+            <select ng-model="animeCtrl.review.rate" class="form-control"
+                    ng-options="rate for rate in [10,9,8,7,6,5,4,3,2,1]" title="Rate">
+            </select>
+        </fieldset>
+        <fieldset class="form-group" required>
+            <textarea ng-model="animeCtrl.review.body" class="form-control"
+                      placeholder="Write a short review of the anime..." title="Review"></textarea>
+        </fieldset>
+        <fieldset class="form-group">
+            <input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
+        </fieldset>
+    </form>
+    <a ng-href='#!/animeAll'>All anime</a>
+    <div class="exit">
+        <button type="submit" ng-controller="AuthorisationController" ng-click="$ctrl.logOut()">Выйти</button>
     </div>
-    <a ng-href='#!/animeAll'>Registration</a>
 </div>

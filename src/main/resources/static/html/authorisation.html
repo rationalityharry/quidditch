@@ -1,12 +1,12 @@
 <form name="authorisationForm" ng-controller="AuthorisationController as authorisation"
-      data-ng-submit="authorisation.logIn()">
+      data-ng-submit="authorisation.logIn()" novalidate>
     <h4>Authorise user</h4>
 
     <fieldset>
         <textarea ng-model="$ctrl.user.login"  placeholder="Enter your login here"
-                  title="Login"></textarea><br/>
+                  title="Login" required></textarea><br />
         <input ng-model="$ctrl.user.password" type="password" class="form-control"
-               placeholder="Enter your password here" title="Password"/><br/>
+               placeholder="Enter your password here" title="Password" required/><br />
         <input type="submit" class="btn btn-primary pull-right" value="Log In"/>
         <a ng-href='#!/registration'>Registration</a>
     </fieldset>

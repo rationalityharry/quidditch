@@ -1,20 +1,23 @@
-<form class="form-group" ng-controller="AnimeAddController as animeCtrl" data-ng-submit="animeCtrl.addAnime()">
+<form class="anime-form" name="animeForm" ng-controller="AnimeAddController as animeCtrl"
+      data-ng-submit="animeForm.$valid && animeCtrl.addAnime()" novalidate>
 
     <textarea ng-model="animeCtrl.anime.name" class="form-control" placeholder="Enter anime name"
-                  title="name"></textarea><br/>
+                  title="name" required></textarea><br/>
 
     <textarea ng-model="animeCtrl.anime.author" class="form-control"
-              placeholder="Author" title="author"></textarea><br/>
+              placeholder="Author" title="author" required></textarea><br/>
 
     <textarea ng-model="animeCtrl.anime.genre"  class="form-control"
-              placeholder="Genres" title="genre"></textarea><br/>
+              placeholder="Genres" title="genre" required></textarea><br/>
 
     <textarea ng-model="animeCtrl.anime.description"  class="form-control"
-              placeholder="Deathcription" title="description"></textarea><br/>
+              placeholder="Deathcription" title="description" required></textarea><br/>
 
-
-    <input file="animeCtrl.image" type="file" name="file" /><br />
-
+    <input file="animeCtrl.image" type="file" name="file" required/><br />
 
     <input type="submit" value="Add anime"/> <a data-ng-href='#!/user'>Back to user options</a>
+    <div class="exit">
+        <button type="button" ng-controller="AuthorisationController" ng-click="$ctrl.logOut()">Выйти</button>
+    </div>
+
 </form>

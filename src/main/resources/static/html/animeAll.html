@@ -1,5 +1,16 @@
 <div ng-controller="AllAnimeViewController">
-    <div ng-repeat="anime in $ctrl.animeList">
-        <a ng-href='#!/anime/{{anime.id}}'>{{anime.name}}</a>
+    <div class="all-anime-block" ng-repeat="anime in $ctrl.animeList">
+        <p>
+            <a ng-href="#!/anime/{{anime.id}}">
+                <img ng-src="/anime/{{anime.id}}/file" width="90" height="130" align="bottom"><br />
+            </a>
+            <a ng-href='#!/anime/{{anime.id}}'>{{anime.name}}</a><br />
+            {{anime.author}}<br />
+            {{anime.genre}}<br />
+        </p>
+
+    </div>
+    <div class="exit">
+        <button type="submit" ng-controller="AuthorisationController" ng-click="$ctrl.logOut()">Выйти</button>
     </div>
 </div>

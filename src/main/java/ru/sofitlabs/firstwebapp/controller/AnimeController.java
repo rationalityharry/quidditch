@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.sofitlabs.firstwebapp.data.animebase.*;
+import ru.sofitlabs.firstwebapp.data.user.UserEntity;
 import ru.sofitlabs.firstwebapp.data.user.UserEntityService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @SessionAttributes(value = "user")
@@ -31,8 +32,25 @@ public class AnimeController {
     private static class CommentDTO {
         int rate;
         String review;
+        int userId;
 
         public CommentDTO() {
+        }
+
+        public int getRate() {
+            return rate;
+        }
+
+        public String getReview() {
+            return review;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(final int userId) {
+            this.userId = userId;
         }
 
         public void setRate(final int rate) {
@@ -104,11 +122,13 @@ public class AnimeController {
     @RequestMapping(value = "/{animeId}/addComment", method = RequestMethod.POST)
     @ResponseBody
     public CommentsEntity addComment(@PathVariable final Long animeId,
-                                     @RequestBody final CommentDTO comment) {
+                                     @RequestBody final CommentDTO comment,
+                                     final HttpServletRequest request) {
         CommentsEntity review = new CommentsEntity();
         review.setAnime(animeEntityService.findOneById(animeId));
         review.setRate(comment.rate);
-        review.setReviewText(comment.review);
+        review.setBody(comment.review);
+        review.setUser((UserEntity) request.getSession().getAttribute("user"));
 
         return commentsEntityService.add(review);
     }

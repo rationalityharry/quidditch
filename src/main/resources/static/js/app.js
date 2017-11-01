@@ -5,6 +5,9 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/", {
             templateUrl: "/html/authorisation.html"
         })
+        .when("/exit",{
+            templateUrl: "/html/authorisation.html"
+        })
         .when("/anime/:id", {
             templateUrl: "/html/animePage.html"
         })
