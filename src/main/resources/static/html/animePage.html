@@ -1,46 +1,130 @@
-<div ng-controller="AnimePageController as animeCtrl">
-    <img ng-src="/anime/{{animeCtrl.anime.id}}/file" width="180" height="260"><br />
-    {{animeCtrl.anime.name}} <br />
-    {{animeCtrl.anime.genre}} <br />
-    {{animeCtrl.anime.author}} <br />
-    {{animeCtrl.anime.description}}<br />
-   <ul>
-       <li ng-repeat="comment in animeCtrl.commentaries">
-           <blockquote>
-               Оценка — {{comment.rate}}<br />
-               {{comment.body}}<br />
-               Оставил {{comment.user.login}}
-           </blockquote>
+<!DOCTYPE html>
+<html lang="en">
 
-       </li>
-   </ul>
+  <head>
 
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 
+    <title>Shop Item - Start Bootstrap Template</title>
 
-    <form name="reviewForm" role="form" ng-controller="AnimePageController as animeCtrl"
-          ng-submit="animeCtrl.addComment()" novalidate>
+    <!-- Custom styles for this template -->
+    <link href="/css/allPagesStyles.css" rel="stylesheet">
 
-        <blockquote ng-show="animeCtrl.review.rate">
-            <strong>{{animeCtrl.review.rate}}</strong><br />
-                    {{animeCtrl.review.body}}<br />
-        </blockquote>
+  </head>
 
-        <h4>Submit a Review</h4>
-        <fieldset class="form-group" required>
-            <select ng-model="animeCtrl.review.rate" class="form-control"
-                    ng-options="rate for rate in [10,9,8,7,6,5,4,3,2,1]" title="Rate">
-            </select>
-        </fieldset>
-        <fieldset class="form-group" required>
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Start Bootstrap</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" ng-controller="AnimePageController as animeCtrl">
+
+      <div class="row">
+
+        <div class="col-lg-3">
+          <h1 class="my-4">Shop Name</h1>
+          <div class="list-group">
+            <a href="#" class="list-group-item active">Category 1</a>
+            <a href="#" class="list-group-item">Category 2</a>
+            <a href="#" class="list-group-item">Category 3</a>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+          <div class="card mt-4">
+            <img class="card-img-top img-fluid" ng-src="/anime/{{animeCtrl.anime.id}}/file" alt="">
+            <div class="card-body">
+              <h3 class="card-title">{{animeCtrl.anime.name}}</h3>
+              <h4>{{animeCtrl.anime.author}}</h4>
+              <h4>{{animeCtrl.anime.genre}}</h4>
+              <p class="card-text">{{animeCtrl.anime.description}}</p>
+              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+
+            </div>
+          </div>
+          <!-- /.card -->
+
+          <div class="card card-outline-secondary my-4" >
+            <div class="card-header">
+              Product Reviews
+            </div>
+            <div class="card-body" ng-repeat="comment in animeCtrl.commentaries">
+              <p>{{comment.body}}</p>
+              <small class="text-muted">Posted by {{comment.user.login}}</small>
+              <hr>
+            </div>
+            <div>
+              <a href="/html/animeComments.html" class="btn btn-success">Leave a Review</a>
+            </div>
+            <form name="reviewForm" role="form" ng-controller="AnimePageController as animeCtrl"
+                  ng-submit="animeCtrl.addComment()" novalidate>
+
+              <blockquote ng-show="animeCtrl.review.rate">
+                <strong>{{animeCtrl.review.rate}}</strong><br />
+                {{animeCtrl.review.body}}<br />
+              </blockquote>
+
+              <h4>Submit a Review</h4>
+              <fieldset class="form-group" required>
+                <select ng-model="animeCtrl.review.rate" class="form-control"
+                        ng-options="rate for rate in [10,9,8,7,6,5,4,3,2,1]" title="Rate">
+                </select>
+              </fieldset>
+              <fieldset class="form-group" required>
             <textarea ng-model="animeCtrl.review.body" class="form-control"
-                      placeholder="Write a short review of the anime..." title="Review"></textarea>
-        </fieldset>
-        <fieldset class="form-group">
-            <input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
-        </fieldset>
-    </form>
-    <a ng-href='#!/animeAll'>All anime</a>
-    <div class="exit">
-        <button type="submit" ng-controller="AuthorisationController" ng-click="$ctrl.logOut()">Выйти</button>
+                      placeholder="Write a short review about the anime..." title="Review"></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
+              </fieldset>
+            </form>
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+
     </div>
-</div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Copyright &copy; DimAss' 2017</p>
+    </div>
+
+  </body>
+
+</html>

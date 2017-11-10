@@ -1,6 +1,7 @@
-<a ng-href='#!/animeAll'>View All Anime</a>
-<a ng-href='#!/addAnime'>Add Anime</a>
-<a ng-href='#!/user/comments'>View your reviews</a>
-<div class="exit">
-    <button type="submit" ng-controller="AuthorisationController" ng-click="$ctrl.logOut()">Выйти</button>
+<link href="/css/allPagesStyles.css" rel="stylesheet">
+<div class="topnav" id="navbarResponsive">
+    <a ng-href="#!/authorisation" ng-controller="AuthorisationController" ng-click="$ctrl.logOut()">Выйти</a>
+    <a ng-href='#!/user/comments'>View your reviews</a>
+    <a ng-href='#!/addAnime'>Add Anime</a>
+    <a ng-href='#!/animeAll'>View All Anime</a>
 </div>

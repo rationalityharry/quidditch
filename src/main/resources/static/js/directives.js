@@ -18,7 +18,18 @@ app.directive("animePage", function () {
         templateUrl: "/html/animePage.html"
     }
 });
-
+app.directive("reviewForm", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/animeComments.html"
+    }
+});
+app.directive("navigation", function () {
+   return {
+       restrict: "E",
+       templateUrl: "/html/user.html"
+   }
+});
 app.directive('file', function () {
     return {
         scope: {

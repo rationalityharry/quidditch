@@ -1,0 +1,67 @@
+
+div.gallery {
+    max-width: 250px;
+    width: auto;
+    margin: 15px;
+    background-color: white;
+    border-radius: 8px;
+
+}
+
+
+
+div.gallery img {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 250px;
+    height: 350px;
+    object-fit: cover;
+
+}
+.gallery:hover {
+    transform: scale(1.01);
+    transition: all .5s ease;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.desc {
+    padding: 15px;
+    text-align: left;
+}
+.anime-author{
+    font-family: Serif;
+    font-size: 15px;
+}
+.anime-name{
+    font-size: 18px;
+    font-family: Arial;
+}
+.anime-genre{
+    font-family: Serif;
+    font-size: 15px;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    width: auto;
+    margin: 8px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    margin: auto;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width:600px) {
+    .column {
+        width: 100%;
+    }
+}
+.container{
+    max-width: 90%;
+    margin: 0 auto;
+}

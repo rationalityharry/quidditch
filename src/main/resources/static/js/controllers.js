@@ -73,7 +73,7 @@ app.controller('AuthorisationController', ['$scope', '$http', '$location', funct
                     $location.path("/registration");
                 }
             } else {
-                $location.path("/user")
+                $location.path("/animeAll")
             }
         });
     };

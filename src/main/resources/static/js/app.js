@@ -3,7 +3,7 @@ var app = angular.module("mainApp", ["ngRoute", "controllers", "directives"]);
 app.config(["$routeProvider", function ($routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "/html/authorisation.html"
+            templateUrl: "/html/animeAll.html"
         })
         .when("/exit",{
             templateUrl: "/html/authorisation.html"
@@ -16,9 +16,6 @@ app.config(["$routeProvider", function ($routeProvider) {
         })
         .when("/registration", {
             templateUrl: "/html/registration.html"
-        })
-        .when("/user", {
-            templateUrl: "/html/user.html"
         })
         .when("/addAnime", {
             templateUrl: "/html/addAnime.html"
