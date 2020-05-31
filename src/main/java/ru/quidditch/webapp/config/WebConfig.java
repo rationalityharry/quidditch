@@ -14,6 +14,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 .addPathPatterns("/user**")
                 .addPathPatterns("/anime/**")
                 .addPathPatterns("/addAnime**")
-                .addPathPatterns("/user/**");
+                .addPathPatterns("/user/**").addPathPatterns("/admin**").addPathPatterns("/admin/**");
     }
 }

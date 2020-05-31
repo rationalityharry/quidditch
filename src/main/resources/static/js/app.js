@@ -3,25 +3,25 @@ var app = angular.module("mainApp", ["ngRoute", "controllers", "directives"]);
 app.config(["$routeProvider", function ($routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "/html/animeAll.html"
+            templateUrl: "/html/admin/animeAll.html"
         })
         .when("/exit",{
-            templateUrl: "/html/authorisation.html"
+            templateUrl: "/html/auth/authorisation.html"
         })
         .when("/anime/:id", {
             templateUrl: "/html/animePage.html"
         })
         .when("/authorisation", {
-            templateUrl: "/html/authorisation.html"
+            templateUrl: "/html/auth/authorisation.html"
         })
         .when("/registration", {
-            templateUrl: "/html/registration.html"
+            templateUrl: "/html/auth/registration.html"
         })
         .when("/addAnime", {
             templateUrl: "/html/addAnime.html"
         })
         .when("/animeAll", {
-            templateUrl: "/html/animeAll.html"
+            templateUrl: "/html/admin/animeAll.html"
         })
         .when("/user/comments", {
             templateUrl: "/html/comments.html"
