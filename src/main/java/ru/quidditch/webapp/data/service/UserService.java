@@ -12,4 +12,8 @@ public interface UserService {
     List<UserEntity> getAllByLogin(String login);
 
     UserEntity getOneByLogin(String login);
+
+    UserEntity getById(Long id);
+
+    List<UserEntity> getAllDisabled();
 }

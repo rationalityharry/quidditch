@@ -1,40 +1,152 @@
-
-<form class="user-form" name="registrationForm" ng-controller="RegistrationController as registration"
-      data-ng-submit="registration.registerUser()" novalidate>
-
-    <h4>Add user</h4>
-
-    <fieldset class="form-group">
-        <input type="text" ng-model="$ctrl.user.login" class="form-control" placeholder="Enter your login here"
-                  title="Login" required/><br />
-
-        <input ng-model="$ctrl.user.password" type="password" class="form-control"
-               placeholder="Enter your password here" title="Password" required/><br />
-        <input ng-model="$ctrl.user.surname" type="text" class="form-control"
-               placeholder="Enter your surname here" title="Surname" required/><br />
-        <input ng-model="$ctrl.user.username" type="text" class="form-control"
-               placeholder="Enter your name here" title="Name" required/><br />
-        <input ng-model="$ctrl.user.patronymic" type="text" class="form-control"
-               placeholder="Enter your patronymic here" title="Patronymic" required/><br />
-        <input ng-model="$ctrl.user.email" type="email" class="form-control"
-               placeholder="example@domen.ru" title="Email" required/><br />
-        <select ng-model="$ctrl.user.role" class="form-control"
-              title="Role" required>
-            <option value="ADMINISTRATOR">Администратор</option>
-            <option value="COACH">Тренер</option>
-            <option value="DOCTOR">Врач</option>
-            <option value="STATISTICS_MANAGER">Статистик</option>
-            <option value="PLAYER" selected>Игрок</option>
-        </select> <br />
-        <select ng-model="$ctrl.user.faculty" class="form-control"
-                title="Faculty" required>
-            <option value="ALL">Вне факультета</option>
-            <option value="RAVENCLAW">Когтевран</option>
-            <option value="HUFFLEPUFF">Пуффендуй</option>
-            <option value="SLYTHERIN">Слизерин</option>
-            <option value="GRYFFINDOR">Гриффиндор</option>
-        </select><br />
-
-        <input type="submit" value="Register"/><a ng-href='#!/authorisation'>Back to authorisation</a>
-    </fieldset>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Регистрация</title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="/js/all.min.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-primary">
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Зарегистрироваться</h3></div>
+                            <div class="card-body">
+                                <form name="registrationForm"
+                                      ng-controller="RegistrationController as registration"
+                                      data-ng-submit="registration.registerUser()"
+                                      novalidate>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputLogin">Логин</label>
+                                                <input class="form-control py-4"
+                                                       ng-model="$ctrl.user.login"
+                                                       id="inputLogin"
+                                                       type="text"
+                                                       placeholder="Enter login"
+                                                       ng-required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputPassword">Пароль</label>
+                                                <input class="form-control py-4"
+                                                       id="inputPassword"
+                                                       type="password"
+                                                       placeholder="Enter password"
+                                                       ng-model="$ctrl.user.password"
+                                                       ng-required="true"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputFirstName">Имя</label>
+                                                <input class="form-control py-4"
+                                                       id="inputFirstName"
+                                                       ng-model="$ctrl.user.username"
+                                                       type="text"
+                                                       placeholder="Enter first name"
+                                                       ng-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputLastName">Фамилия</label>
+                                                <input class="form-control py-4"
+                                                       id="inputLastName"
+                                                       type="text"
+                                                       placeholder="Enter last name"
+                                                       ng-model="$ctrl.user.surname"
+                                                       ng-required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputPatronymic">Отчество</label>
+                                                <input class="form-control py-4"
+                                                       id="inputPatronymic"
+                                                       type="text"
+                                                       placeholder="Enter patronymic"
+                                                       ng-model="$ctrl.user.patronymic"
+                                                       ng-required="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                        <input class="form-control py-4"
+                                               id="inputEmailAddress"
+                                               type="email"
+                                               aria-describedby="emailHelp"
+                                               placeholder="Enter email address"
+                                               ng-model="$ctrl.user.email"
+                                               ng-required="true"/>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="selectRole">Выберите роль</label>
+                                                <select ng-model="$ctrl.user.role" class="form-control" id="selectRole"
+                                                        title="Role" ng-required="true">
+                                                    <option value="administrator">Администратор</option>
+                                                    <option value="coach">Тренер</option>
+                                                    <option value="doctor">Врач</option>
+                                                    <option value="stat_manager">Статистик</option>
+                                                    <option value="player" selected>Игрок</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="selectFaculty">Выберите факультет</label>
+                                                <select ng-model="$ctrl.user.faculty" class="form-control " id="selectFaculty"
+                                                        title="Faculty" ng-required="true">
+                                                    <option value="ALL">Вне факультета</option>
+                                                    <option value="RAVENCLAW">Когтевран</option>
+                                                    <option value="HUFFLEPUFF">Пуффендуй</option>
+                                                    <option value="SLYTHERIN">Слизерин</option>
+                                                    <option value="GRYFFINDOR">Гриффиндор</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-4 mb-0">
+                                        <input class="btn btn-primary btn-block" type="submit" value="Зарегистрироваться" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center">
+                                <div class="small"><a ng-href='#!/authorisation'>Зарегистрированы? Войдите</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Hogwarts 2020</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="/js/jquery.min.js" crossorigin="anonymous"></script>
+<script src="/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="/js/scripts.js"></script>
+</body>
+</html>

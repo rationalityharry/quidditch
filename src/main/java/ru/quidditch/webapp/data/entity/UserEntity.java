@@ -1,10 +1,9 @@
 package ru.quidditch.webapp.data.entity;
 
 import ru.quidditch.webapp.enums.Faculty;
+import ru.quidditch.webapp.enums.Roles;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Table(name = "users")
 @Entity
@@ -26,19 +25,19 @@ public class UserEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = true)
+    @Column
     private String patronimic;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @Column(nullable = false)
+    private Roles role;
 
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = true)
+    @Column
     private Faculty faculty;
 
-    @Column(nullable = true)
+    @Column
     private boolean enabled;
 
     public UserEntity() {
@@ -88,19 +87,12 @@ public class UserEntity {
         this.patronimic = patronimic;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Roles getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> role) {
-        this.roles = role;
-    }
-
-    public void addRole(Role role) {
-        if (this.roles == null) {
-            this.roles = new HashSet<>();
-        }
-        this.roles.add(role);
+    public void setRole(Roles roles) {
+        this.role = roles;
     }
 
     public String getEmail() {
@@ -141,7 +133,7 @@ public class UserEntity {
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", patronimic='" + patronimic + '\'' +
-                ", role=" + roles +
+                ", role=" + role +
                 ", email='" + email + '\'' +
                 '}';
     }

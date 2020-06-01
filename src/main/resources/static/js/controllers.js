@@ -1,55 +1,25 @@
 var app = angular.module('controllers', []);
 
-app.controller('UsersController', ['$scope', '$http', function ($scope, $http) {
+app.controller('AdminController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
     let that = this;
     $scope["$ctrl"] = this;
-    this.usersList = [];
-    $http.get("/admin/users").then(function (response) {
-        that.usersList = response.data;
+    that.allUsers = [];
+    that.usersToEnable = [];
+    /*$http.get("/admin/users").then(function (response) {
+        that.allUsers = response.data.data;
+    });*/
+    $http.get("/admin/disabledUsers").then(function (response2) {
+        that.usersToEnable = response2.data.data;
     });
-
-}]);
-
-app.controller('AnimePageController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
-    let that = this;
-    let id = $routeParams.id;
-    $scope["$ctrl"] = this;
-    that.anime = {};
-    that.commentaries = [];
-    that.review = {};
-    $http.get("/anime/" + id + "/info").then(function (response) {
-        let anime = response.data;
-        that.anime = anime;
-    });
-    $http.get("/anime/" + id + "/comments").then(function (response2) {
-        let comments = response2.data;
-        that.commentaries = comments;
-    });
-    this.addComment = function () {
-        $http.post("/anime/" + id + "/addComment",
-            {
-                rate: that.review.rate,
-                review: that.review.body
-            }).then(function (response) {
-            if (response.data != null) {
-                alert("Thanks for your review!");
-                that.review = {};
-            } else {
-                alert("Can't load your review, sorry!");
+    that.enableUser = function (id) {
+        $http.get("/admin/enableUser/" + id).then(function (response) {
+            if (response.data.response === "ok") {
+                alert("Пользователь активирован");
             }
         });
     };
 }]);
 
-app.controller('UserReviewController', ['$scope', '$http', function ($scope, $http) {
-    let that = this;
-    $scope["$ctrl"] = this;
-    that.revews = [];
-    $http.get("/user/comments").then(function (response) {
-        let comments = response.data;
-        that.reviews = comments;
-    });
-}]);
 
 app.controller('AuthorisationController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     let that = this;
@@ -65,54 +35,39 @@ app.controller('AuthorisationController', ['$scope', '$http', '$location', funct
 
     this.logIn = function () {
         $http.post("/authorisation", {
-            login: that.user.login, password: that.user.password
+            login: that.user.login,
+            password: that.user.password
         }).then(function (response) {
-            if (response.data === 0) {
-                if (confirm("No such user. Want to register now?") === true) {
-                    $location.path("/registration");
-                }
-            } else if (response.data === 1) {
-                alert("User is not confirmed by admin yet, try again later.")
-            } else {
-                $location.path("/animeAll")
+            switch (response.data.data) {
+                case "0":
+                    if (confirm("Пользователь не найден. Хотите зарегистрировать?") === true) {
+                        $location.path("/registration");
+                    }
+                    break;
+                case "1":
+                    alert("User is not confirmed by admin yet, try again later.")
+                    break;
+                case "administrator":
+                    $location.path("/admin")
+                    break;
+                case "player":
+                    $location.path("/admin")
+                    break;
+                case "coach":
+                    $location.path("/admin")
+                    break;
+                case "doctor":
+                    $location.path("/admin")
+                    break;
+                case "stat_manager":
+                    $location.path("/admin")
+                    break;
             }
-
         });
     };
 
 }]);
 
-app.controller('AnimeAddController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
-    let that = this;
-    that.anime = {};
-    that.image = {};
-    $scope["$ctrl"] = this;
-    this.addAnime = function () {
-        let formData = new FormData();
-        formData.append('file', that.image);
-        $http.post("/addAnime/loadImage", formData, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        }).then(function (response) {
-            if (response != null) {
-                alert("Image Successfully loaded");
-                $http.post("/anime/addAnime", {
-                    name: that.anime.name,
-                    genre: that.anime.genre,
-                    author: that.anime.author,
-                    description: that.anime.description,
-                    imageId: response.data.id
-                }).then(function (response) {
-                    if (response.data !== 0)
-                        alert("Success, take a look at this awesome anime!");
-                    $location.path("/anime/" + response.data)
-                });
-            } else {
-                alert("Some troubles with image loading")
-            }
-        });
-    }
-}]);
 
 app.controller('RegistrationController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     let that = this;
@@ -130,11 +85,10 @@ app.controller('RegistrationController', ['$scope', '$http', '$location', functi
                 faculty: that.user.faculty
             }
         ).then(function (response) {
-            if (response.data === 0) {
-                alert("Such user exists or login is empty, try again!");
+            if (response.data === "0") {
+                alert("Такой логин занят");
             } else {
                 that.user = response.data;
-                alert("Success, now try it!");
                 $location.path("/authorisation");
             }
         });

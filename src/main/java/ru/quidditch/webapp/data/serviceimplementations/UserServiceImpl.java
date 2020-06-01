@@ -38,4 +38,16 @@ public class UserServiceImpl implements UserService {
         }
         return allByLogin.get(0);
     }
+
+    @Override
+    public UserEntity getById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public List<UserEntity> getAllDisabled() {
+        return repository.findAllByEnabledIsNullOrEnabledIsFalse();
+    }
+
+
 }

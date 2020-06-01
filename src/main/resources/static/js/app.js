@@ -3,13 +3,10 @@ var app = angular.module("mainApp", ["ngRoute", "controllers", "directives"]);
 app.config(["$routeProvider", function ($routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "/html/admin/animeAll.html"
+            templateUrl: "/html/admin/index.html"
         })
         .when("/exit",{
             templateUrl: "/html/auth/authorisation.html"
-        })
-        .when("/anime/:id", {
-            templateUrl: "/html/animePage.html"
         })
         .when("/authorisation", {
             templateUrl: "/html/auth/authorisation.html"
@@ -17,15 +14,9 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/registration", {
             templateUrl: "/html/auth/registration.html"
         })
-        .when("/addAnime", {
-            templateUrl: "/html/addAnime.html"
+        .when("/admin", {
+            templateUrl: "/html/admin/index.html"
         })
-        .when("/animeAll", {
-            templateUrl: "/html/admin/animeAll.html"
-        })
-        .when("/user/comments", {
-            templateUrl: "/html/comments.html"
-        });
 }]);
 
 app.config(["$provide", function ($provide) {
@@ -46,7 +37,7 @@ app.config(["$provide", function ($provide) {
                 return response;
             },
             'responseError': function (rejection) {
-                if (rejection.status == 401) {
+                if (rejection.status === 401) {
                     $location.path("/authorisation");
                     return $q.reject(rejection);
                 }
