@@ -1,20 +1,22 @@
 package ru.quidditch.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import ru.quidditch.webapp.data.entity.UserEntity;
+import ru.quidditch.webapp.data.enums.Faculty;
+import ru.quidditch.webapp.data.enums.Roles;
 import ru.quidditch.webapp.data.service.UserService;
-import ru.quidditch.webapp.enums.Faculty;
-import ru.quidditch.webapp.enums.Roles;
-import ru.quidditch.webapp.utils.rest.RestResponse;
-import ru.quidditch.webapp.utils.rest.SuccessResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -27,9 +29,9 @@ public class AuthController {
 
 
     @RequestMapping(value = "registration", method = RequestMethod.POST)
-    public RestResponse<String> add(@RequestBody final RegistrationUserData user) {
+    public ResponseEntity<String> add(@RequestBody final RegistrationUserData user) {
         if (!userService.getAllByLogin(user.login).isEmpty()) {
-            return new SuccessResponse<>("");
+            return ResponseEntity.ok("");
         } else {
             final UserEntity createdUser = new UserEntity();
             createdUser.setLogin(user.login);
@@ -42,31 +44,36 @@ public class AuthController {
             createdUser.setRole(Roles.valueOf(user.getRole().toUpperCase()));
 
             final UserEntity added = userService.add(createdUser);
-            return new SuccessResponse<>(added.getLogin());
+            return ResponseEntity.ok(added.getLogin());
         }
     }
 
 
-    @RequestMapping(value = "authorisation", method = RequestMethod.POST)
-    public RestResponse<String> auth(@RequestBody final UserData userReceived,
-                                     final HttpServletRequest request) {
+    @RequestMapping(value = "authorisation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Map<String, String>> auth(@RequestBody final UserData userReceived,
+                                                    final HttpServletRequest request) {
         final UserEntity user = userService.getOneByLogin(userReceived.login);
+        Map<String, String> data = new HashMap<>();
         if (user == null || !user.getPassword().equals(userReceived.password)) {
-            return new SuccessResponse<>("0");
+            data.put("role", "0");
+            return ResponseEntity.ok(data);
         } else if (!user.isEnabled()) {
-            return new SuccessResponse<>("1");
+            data.put("role", "1");
+            return ResponseEntity.ok(data);
         } else {
             final HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            return new SuccessResponse<>(user.getRole().getName());
+            data.put("role", user.getRole().getName());
+            data.put("id", "" + user.getId());
+            return ResponseEntity.ok(data);
         }
     }
 
 
     @RequestMapping(value = "exit", method = RequestMethod.POST)
-    public RestResponse<Integer> logOut(final HttpServletRequest request) {
+    public ResponseEntity<Integer> logOut(final HttpServletRequest request) {
         request.getSession().removeAttribute("user");
-        return new SuccessResponse<>(0);
+        return ResponseEntity.ok(0);
     }
 
 

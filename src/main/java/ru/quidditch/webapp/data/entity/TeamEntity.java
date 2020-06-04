@@ -1,6 +1,6 @@
 package ru.quidditch.webapp.data.entity;
 
-import ru.quidditch.webapp.enums.Faculty;
+import ru.quidditch.webapp.data.enums.Faculty;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ru.quidditch.webapp.utils.rest;
+package ru.quidditch.webapp.utils.response;
 
 public abstract class RestResponse<T> {
 

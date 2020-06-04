@@ -1,4 +1,4 @@
-package ru.quidditch.webapp.utils.rest;
+package ru.quidditch.webapp.utils.response;
 
 public class SuccessResponse<T> extends RestResponse<T> {
 

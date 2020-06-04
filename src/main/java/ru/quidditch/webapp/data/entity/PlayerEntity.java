@@ -1,6 +1,6 @@
 package ru.quidditch.webapp.data.entity;
 
-import ru.quidditch.webapp.enums.PlayerPosition;
+import ru.quidditch.webapp.data.enums.PlayerPosition;
 
 import javax.persistence.*;
 

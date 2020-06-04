@@ -1,16 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <title>Регистрация</title>
-    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/styles.css" rel="stylesheet"/>
     <script src="/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-primary">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" ng-href="#">Панель пользователя</a>
+    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button
+    ><!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group" ng-controller="AuthorisationController as authorisation">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" ng-click="authorisation.logOut()">
+                    Выйти
+                </button>
+            </div>
+        </div>
+    </form>
+    <!-- Navbar-->
+    <!-- <ul class="navbar-nav ml-auto ml-md-0">
+         <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle"
+                id="userDropdown"
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                 <i class="fas fa-user fa-fw"></i>
+             </a>
+             <div class="dropdown-menu dropdown-menu-right"
+                  aria-labelledby="userDropdown">
+                 &lt;!&ndash;<a class="dropdown-item" href="#">Настройки</a>
+                 <div class="dropdown-divider"></div>&ndash;&gt;
+                 <a class="dropdown-item" ng-click="authorisation.logOut()">Выйти</a>
+             </div>
+         </li>
+     </ul>-->
+</nav>
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
         <main>
@@ -18,22 +54,27 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-7">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Зарегистрироваться</h3></div>
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Редактировать
+                                профиль</h3></div>
                             <div class="card-body">
-                                <form name="registrationForm"
-                                      ng-controller="RegistrationController as registration"
-                                      data-ng-submit="registration.registerUser()"
+                                <form name="editUserForm"
+                                      ng-controller="EditUserController as edit"
+                                      data-ng-submit="edit.editUser()"
                                       novalidate>
+
+                                    <img class="card-img-top" ng-src="/user/{{edit.user.id}}/img" alt="">
+                                    <input type="hidden" name="userId" ng-model="edit.user.id" ng-value="edit.user.id"/>
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6" ng-if="edit.isAdmin">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputLogin">Логин</label>
                                                 <input class="form-control py-4"
-                                                       ng-model="registration.user.login"
+                                                       ng-model="edit.user.login"
+                                                       ng-value="edit.user.login"
                                                        id="inputLogin"
                                                        type="text"
                                                        placeholder="Enter login"
-                                                       ng-required="true" />
+                                                       ng-required="true"/>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -43,7 +84,7 @@
                                                        id="inputPassword"
                                                        type="password"
                                                        placeholder="Enter password"
-                                                       ng-model="registration.user.password"
+                                                       ng-model="edit.user.password"
                                                        ng-required="true"/>
                                             </div>
                                         </div>
@@ -54,7 +95,8 @@
                                                 <label class="small mb-1" for="inputFirstName">Имя</label>
                                                 <input class="form-control py-4"
                                                        id="inputFirstName"
-                                                       ng-model="registration.user.username"
+                                                       ng-model="edit.user.name"
+                                                       ng-value="edit.user.name"
                                                        type="text"
                                                        placeholder="Enter first name"
                                                        ng-required="true"/>
@@ -67,8 +109,9 @@
                                                        id="inputLastName"
                                                        type="text"
                                                        placeholder="Enter last name"
-                                                       ng-model="registration.user.surname"
-                                                       ng-required="true" />
+                                                       ng-model="edit.user.surname"
+                                                       ng-value="edit.user.surname"
+                                                       ng-required="true"/>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -78,8 +121,9 @@
                                                        id="inputPatronymic"
                                                        type="text"
                                                        placeholder="Enter patronymic"
-                                                       ng-model="registration.user.patronymic"
-                                                       ng-required="true" />
+                                                       ng-model="edit.user.patronymic"
+                                                       ng-value="edit.user.patronymic"
+                                                       ng-required="true"/>
                                             </div>
                                         </div>
                                     </div>
@@ -90,15 +134,35 @@
                                                type="email"
                                                aria-describedby="emailHelp"
                                                placeholder="Enter email address"
-                                               ng-model="registration.user.email"
+                                               ng-model="edit.user.email"
+                                               ng-value="edit.user.email"
                                                ng-required="true"/>
                                     </div>
-                                    <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label class="small mb-1" for="inputAvatar">Аватар</label>
+                                        <input file="edit.image"
+                                               class="py-4"
+                                               id="inputAvatar"
+                                               name="file"
+                                               type="file"
+                                               aria-describedby="emailHelp"
+                                               ng-model="edit.image"/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                        <input class="form-control py-4"
+                                               id="inputPhone"
+                                               type="phone"
+                                               placeholder="+79999999999"
+                                               ng-model="edit.user.phone"
+                                               ng-value="edit.user.phone"
+                                               ng-required="true"/>
+                                    </div>
+                                    <div class="form-row" ng-if="edit.isAdmin">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="selectRole">Выберите роль</label>
-                                                <select ng-model="registration.user.role" class="form-control"
-                                                        id="selectRole"
+                                                <select ng-model="edit.user.role" class="form-control" id="selectRole"
                                                         title="Role" ng-required="true">
                                                     <option value="administrator">Администратор</option>
                                                     <option value="coach">Тренер</option>
@@ -111,10 +175,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="selectFaculty">Выберите факультет</label>
-                                                <select ng-model="registration.user.faculty" class="form-control "
+                                                <select ng-model="edit.user.faculty" class="form-control "
                                                         id="selectFaculty"
                                                         title="Faculty" ng-required="true">
-                                                    <option value="ALL">Вне факультета</option>
+                                                    <option value="ALL" selected>Вне факультета</option>
                                                     <option value="RAVENCLAW">Когтевран</option>
                                                     <option value="HUFFLEPUFF">Пуффендуй</option>
                                                     <option value="SLYTHERIN">Слизерин</option>
@@ -123,13 +187,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="small mb-1" style="height: fit-content" for="inputAdditionalInfo">О
+                                            себе</label>
+                                        <input class="form-control py-4"
+                                               id="inputAdditionalInfo"
+                                               type="text"
+                                               placeholder="Пару слов о себе"
+                                               aria-describedby="emailHelp"
+                                               ng-value="edit.user.info"
+                                               ng-model="edit.user.info"/>
+                                    </div>
                                     <div class="form-group mt-4 mb-0">
-                                        <input class="btn btn-primary btn-block" type="submit" value="Зарегистрироваться" />
+                                        <input class="btn btn-primary btn-block" type="submit" value="Сохранить"/>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="card-footer text-center">
-                                <div class="small"><a ng-href='#!/authorisation'>Зарегистрированы? Войдите</a></div>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 package ru.quidditch.webapp.data.entity;
 
-import ru.quidditch.webapp.enums.Faculty;
-import ru.quidditch.webapp.enums.Roles;
+import ru.quidditch.webapp.data.enums.Faculty;
+import ru.quidditch.webapp.data.enums.Roles;
 
 import javax.persistence.*;
 
@@ -39,6 +39,16 @@ public class UserEntity {
 
     @Column
     private boolean enabled;
+
+    @Column
+    private String phone;
+
+    @Column
+    private String info;
+
+    @OneToOne
+    @JoinColumn(name = "avatarImage_id")
+    private ImageEntity userKey;
 
     public UserEntity() {
     }
@@ -122,6 +132,30 @@ public class UserEntity {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public ImageEntity getUserKey() {
+        return userKey;
+    }
+
+    public void setUserKey(ImageEntity userKey) {
+        this.userKey = userKey;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     @Override

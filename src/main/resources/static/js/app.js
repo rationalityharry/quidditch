@@ -17,6 +17,12 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/admin", {
             templateUrl: "/html/admin/index.html"
         })
+        .when("/editUser/:id", {
+            templateUrl: "/html/user/profile.html"
+        })
+        .when("/404", {
+            templateUrl: "/html/default/404.html"
+        })
 }]);
 
 app.config(["$provide", function ($provide) {

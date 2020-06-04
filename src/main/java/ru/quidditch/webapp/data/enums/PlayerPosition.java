@@ -1,4 +1,4 @@
-package ru.quidditch.webapp.enums;
+package ru.quidditch.webapp.data.enums;
 
 public enum PlayerPosition {
 
