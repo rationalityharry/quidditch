@@ -24,6 +24,7 @@ app.controller('EditUserController', ['$scope', '$http', '$location', '$routePar
     let that = this;
     let id = $routeParams.id;
     that.user = {};
+    that.id = id;
     that.image = {};
     that.isAdmin = false;
     $scope["$ctrl"] = this;
