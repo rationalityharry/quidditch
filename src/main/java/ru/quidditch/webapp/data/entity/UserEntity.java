@@ -47,7 +47,7 @@ public class UserEntity {
     private String info;
 
     @OneToOne
-    @JoinColumn(name = "avatarImage_id")
+    @JoinColumn(name = "avatarImageId")
     private ImageEntity userKey;
 
     public UserEntity() {

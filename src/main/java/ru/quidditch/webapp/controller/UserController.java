@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.quidditch.webapp.data.entity.UserEntity;
 import ru.quidditch.webapp.data.enums.Faculty;
 import ru.quidditch.webapp.data.enums.Roles;
+import ru.quidditch.webapp.data.service.ImageEntityService;
 import ru.quidditch.webapp.data.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ImageEntityService imageService;
 
     @RequestMapping(value = "data/{userId}", method = GET)
     public ResponseEntity<UserData> getEditInfo(HttpServletRequest request, @PathVariable Long userId) {
@@ -47,6 +51,7 @@ public class UserController {
             userEntity.setEmail(user.email);
             userEntity.setPhone(user.phone);
             userEntity.setInfo(user.info);
+            userEntity.setUserKey(imageService.getById(user.imageId));
 
             UserEntity currentUser = (UserEntity) request.getSession().getAttribute("user");
             switch (currentUser.getRole()) {
@@ -92,7 +97,7 @@ public class UserController {
             this.faculty = entity.getFaculty().getName();
             this.phone = entity.getPhone();
             this.info = entity.getInfo();
-            this.imageId = entity.getUserKey() != null ? entity.getUserKey().getId() : -1;
+            this.imageId = entity.getUserKey() != null ? entity.getUserKey().getAvatarImageid() : -1;
             this.id = entity.getId();
             this.isAdmin = entity.getRole().equals(Roles.ADMINISTRATOR);
         }

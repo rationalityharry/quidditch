@@ -30,7 +30,7 @@ public class ImageEntityServiceImpl implements ImageEntityService {
 
     @Override
     public ImageEntity getOneByUser(final UserEntity user) {
-        return imageRepository.findOne(userRepository.findOne(user.getId()).getUserKey().getId());
+        return imageRepository.findOne(userRepository.findOne(user.getId()).getUserKey().getAvatarImageid());
     }
 
     @Override

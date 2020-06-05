@@ -60,7 +60,7 @@ app.controller('EditUserController', ['$scope', '$http', '$location', '$routePar
                     faculty: that.user.faculty,
                     info: that.user.info,
                     phone: that.user.phone,
-                    imageId: response.data.id
+                    imageId: response.data
                 }).then(function (response) {
                     if (response.data !== 0) {
                         alert("Success!");

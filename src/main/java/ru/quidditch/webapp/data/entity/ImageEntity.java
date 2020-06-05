@@ -14,22 +14,22 @@ public class ImageEntity {
 
     @Transient
     @OneToOne(mappedBy = "userKey")
-    private UserEntity avatarImage;
+    private UserEntity user;
 
     @Id
     @GeneratedValue
     @Column
-    private long id;
+    private long avatarImageId;
 
     public ImageEntity() {
     }
 
     public UserEntity getUserId() {
-        return avatarImage;
+        return user;
     }
 
     public void setAnimeId(final UserEntity anime) {
-        this.avatarImage = anime;
+        this.user = anime;
     }
 
     public String getImagePath() {
@@ -40,12 +40,20 @@ public class ImageEntity {
         this.imagePath = imagePath;
     }
 
-    public long getId() {
-        return id;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setId(final long id) {
-        this.id = id;
+    public void setUser(UserEntity avatarImage) {
+        this.user = avatarImage;
+    }
+
+    public long getAvatarImageid() {
+        return avatarImageId;
+    }
+
+    public void setAvatarImageid(long avatarImageid) {
+        this.avatarImageId = avatarImageid;
     }
 
     public String getImageName() {

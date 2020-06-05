@@ -36,11 +36,11 @@ public class FileTransferController {
     StorageService storageService;
 
     @RequestMapping(value = "/loadImage", method = RequestMethod.POST)
-    public ImageEntity submit(@RequestBody final MultipartFile file) {
+    public Long submit(@RequestBody final MultipartFile file) {
         ImageEntity newImage = new ImageEntity();
         newImage.setImagePath(storageService.addFile(file));
         newImage.setImageName(file.getOriginalFilename());
-        return imageService.add(newImage);
+        return imageService.add(newImage).getAvatarImageid();
     }
 
     @RequestMapping(value = "/user/{userId}/img", method = RequestMethod.GET)
@@ -48,7 +48,7 @@ public class FileTransferController {
         ResponseEntity<byte[]> respEntity;
 
         UserEntity user = userService.getById(userId);
-        ImageEntity image = imageService.getOneByUser(user);
+        ImageEntity image = user.getUserKey();
         String address = user.getUserKey().getImagePath();
         File result = new File(address);
 
