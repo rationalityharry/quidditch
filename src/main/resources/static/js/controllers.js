@@ -31,6 +31,7 @@ app.controller('EditUserController', ['$scope', '$http', '$location', '$routePar
     $http.get("/user/data/" + id).then(function (privilegResponse) {
         that.isAdmin = privilegResponse.data.isAdmin;
         that.user.login = privilegResponse.data.login;
+        that.user.id = id;
         that.user.password = privilegResponse.data.password;
         that.user.surname = privilegResponse.data.surname;
         that.user.name = privilegResponse.data.name;
