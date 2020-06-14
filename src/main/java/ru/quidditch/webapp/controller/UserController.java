@@ -3,10 +3,7 @@ package ru.quidditch.webapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.quidditch.webapp.data.entity.UserEntity;
 import ru.quidditch.webapp.data.enums.Faculty;
 import ru.quidditch.webapp.data.enums.Roles;
@@ -14,9 +11,6 @@ import ru.quidditch.webapp.data.service.ImageEntityService;
 import ru.quidditch.webapp.data.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -29,22 +23,23 @@ public class UserController {
     @Autowired
     private ImageEntityService imageService;
 
-    @RequestMapping(value = "data/{userId}", method = GET)
+    @GetMapping(value = "data/{userId}")
     public ResponseEntity<UserData> getEditInfo(HttpServletRequest request, @PathVariable Long userId) {
         UserEntity userInfo = userService.getById(userId);
+        UserEntity currentUser = (UserEntity) request.getSession().getAttribute("user");
         if (userInfo == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        else return ResponseEntity.ok(new UserData(userInfo));
+        else return ResponseEntity.ok(new UserData(userInfo, currentUser));
 
     }
 
 
-    @RequestMapping(value = "edit/{userId}", method = POST)
+    @PostMapping(value = "edit/{userId}")
     public ResponseEntity<String> editUser(@RequestBody final UserData user, @PathVariable Long userId, HttpServletRequest request) {
         UserEntity userEntity = userService.getById(userId);
         if (userEntity == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } else {
-            userEntity.setPassword(user.password);
+
             userEntity.setSurname(user.surname);
             userEntity.setName(user.name);
             userEntity.setPatronimic(user.patronymic);
@@ -57,8 +52,9 @@ public class UserController {
             switch (currentUser.getRole()) {
                 case ADMINISTRATOR:
                     userEntity.setLogin(user.login);
-                    userEntity.setFaculty(user.faculty != null ? Faculty.valueOf(user.faculty) : null);
+                    userEntity.setFaculty(user.faculty != null ? Faculty.valueOf(user.faculty.toUpperCase()) : null);
                     userEntity.setRole(Roles.valueOf(user.getRole().toUpperCase()));
+                    userEntity.setPassword(user.password);
                     break;
             }
 
@@ -86,7 +82,7 @@ public class UserController {
         public UserData() {
         }
 
-        public UserData(UserEntity entity) {
+        public UserData(UserEntity entity, UserEntity currentUser) {
             this.login = entity.getLogin();
             this.password = entity.getPassword();
             this.surname = entity.getSurname();
@@ -99,7 +95,7 @@ public class UserController {
             this.info = entity.getInfo();
             this.imageId = entity.getUserKey() != null ? entity.getUserKey().getAvatarImageid() : -1;
             this.id = entity.getId();
-            this.isAdmin = entity.getRole().equals(Roles.ADMINISTRATOR);
+            this.isAdmin = currentUser.getRole().equals(Roles.ADMINISTRATOR);
         }
 
 

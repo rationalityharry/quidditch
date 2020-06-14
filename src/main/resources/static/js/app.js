@@ -3,7 +3,10 @@ var app = angular.module("mainApp", ["ngRoute", "controllers", "directives"]);
 app.config(["$routeProvider", function ($routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl: "/html/admin/index.html"
+            templateUrl: "/html/mainIndex.html"
+        })
+        .when("/index", {
+            templateUrl: "/html/mainIndex.html"
         })
         .when("/exit",{
             templateUrl: "/html/auth/authorisation.html"
@@ -17,12 +20,25 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/admin", {
             templateUrl: "/html/admin/index.html"
         })
+        .when("/coach", {
+            templateUrl: "/html/coach/index.html"
+        })
+        .when("/player", {
+            templateUrl: "/html/player/index.html"
+        })
+        .when("/doctor", {
+            templateUrl: "/html/doctor/index.html"
+        })
+        .when("/statistic", {
+            templateUrl: "/html/statistics/index.html"
+        })
         .when("/editUser/:id", {
-            templateUrl: "/html/user/profile.html"
+            templateUrl: "/html/user/index.html"
         })
         .when("/404", {
             templateUrl: "/html/default/404.html"
         })
+
 }]);
 
 app.config(["$provide", function ($provide) {

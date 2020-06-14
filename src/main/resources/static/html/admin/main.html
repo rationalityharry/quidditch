@@ -1,0 +1,64 @@
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Главная</h1>
+
+        <div class="card mb-4" ng-controller="AdminController as adminctrl">
+            <div class="card-header"><i class="fas fa-table mr-1"></i>Пользователи в очереди на активацию</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Факультет</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Факультет</th>
+                            <th></th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr ng-repeat="user in adminctrl.usersToEnable">
+                            <td> {{user.name}}</td>
+                            <td>{{user.surname}}</td>
+                            <td>{{user.faculty}}</td>
+                            <td><a href="#" ng-click="adminctrl.enableUser(user.id)">Активировать</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4" ng-controller="AdminController as adminctrl">
+            <div class="card-header"><i class="fas fa-table mr-1"></i>Пользователи</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Факультет</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in adminctrl.allUsers">
+                            <td> {{user.name}}</td>
+                            <td>{{user.surname}}</td>
+                            <td>{{user.faculty}}</td>
+                            <td><a ng-href='#!/editUser/{{user.id}}'>Редактировать</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

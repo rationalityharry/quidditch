@@ -46,6 +46,9 @@ public class UserEntity {
     @Column
     private String info;
 
+    @Column
+    private String birthday;
+
     @OneToOne
     @JoinColumn(name = "avatarImageId")
     private ImageEntity userKey;
@@ -158,17 +161,11 @@ public class UserEntity {
         this.info = info;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", surname='" + surname + '\'' +
-                ", name='" + name + '\'' +
-                ", patronimic='" + patronimic + '\'' +
-                ", role=" + role +
-                ", email='" + email + '\'' +
-                '}';
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }

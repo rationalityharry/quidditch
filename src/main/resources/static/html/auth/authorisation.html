@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Регистрация</title>
+    <title>Авторизация</title>
     <link href="/css/styles.css" rel="stylesheet" />
-    <script src="/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-primary">
 <div id="layoutAuthentication">
@@ -22,14 +21,14 @@
                             <div class="card-body">
                                 <form name="registrationForm"
                                       ng-controller="AuthorisationController as authorisation"
-                                      data-ng-submit="$ctrl2.logIn()"
+                                      data-ng-submit="$ctrlAuth.logIn()"
                                       novalidate>
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputLogin">Логин</label>
                                                 <input class="form-control py-4"
-                                                       ng-model="$ctrl2.user.login"
+                                                       ng-model="$ctrlAuth.user.login"
                                                        id="inputLogin"
                                                        type="text"
                                                        placeholder="Enter first name"
@@ -43,7 +42,7 @@
                                                        id="inputPassword"
                                                        type="password"
                                                        placeholder="Enter password"
-                                                       ng-model="$ctrl2.user.password"
+                                                       ng-model="$ctrlAuth.user.password"
                                                        ng-required="true"/>
                                             </div>
                                         </div>
@@ -72,8 +71,5 @@
         </footer>
     </div>
 </div>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/scripts.js"></script>
 </body>
 </html>

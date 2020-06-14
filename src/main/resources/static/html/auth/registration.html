@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Регистрация</title>
     <link href="/css/styles.css" rel="stylesheet" />
-    <script src="/js/all.min.js" crossorigin="anonymous"></script>
+
 </head>
 <body class="bg-primary">
 <div id="layoutAuthentication">
@@ -79,20 +79,35 @@
                                                        type="text"
                                                        placeholder="Enter patronymic"
                                                        ng-model="registration.user.patronymic"
-                                                       ng-required="true" />
+                                                       ng-required="true"/>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                        <input class="form-control py-4"
-                                               id="inputEmailAddress"
-                                               type="email"
-                                               aria-describedby="emailHelp"
-                                               placeholder="Enter email address"
-                                               ng-model="registration.user.email"
-                                               ng-required="true"/>
+                                    <div class="form-row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputBirthDate">Дата рождения</label>
+                                                <input class="form-control py-4"
+                                                       id="inputBirthDate"
+                                                       type="date"
+                                                       ng-model="registration.user.birthdate"
+                                                       ng-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                                <input class="form-control py-4"
+                                                       id="inputEmailAddress"
+                                                       type="email"
+                                                       aria-describedby="emailHelp"
+                                                       placeholder="Enter email address"
+                                                       ng-model="registration.user.email"
+                                                       ng-required="true"/>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -114,11 +129,11 @@
                                                 <select ng-model="registration.user.faculty" class="form-control "
                                                         id="selectFaculty"
                                                         title="Faculty" ng-required="true">
-                                                    <option value="ALL">Вне факультета</option>
-                                                    <option value="RAVENCLAW">Когтевран</option>
-                                                    <option value="HUFFLEPUFF">Пуффендуй</option>
-                                                    <option value="SLYTHERIN">Слизерин</option>
-                                                    <option value="GRYFFINDOR">Гриффиндор</option>
+                                                    <option value="all">Вне факультета</option>
+                                                    <option value="ravenclaw">Когтевран</option>
+                                                    <option value="hufflepuff">Пуффендуй</option>
+                                                    <option value="slytherin">Слизерин</option>
+                                                    <option value="gryffindor">Гриффиндор</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -147,8 +162,6 @@
         </footer>
     </div>
 </div>
-<script src="/js/jquery.min.js" crossorigin="anonymous"></script>
-<script src="/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="/js/scripts.js"></script>
+
 </body>
 </html>

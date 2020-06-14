@@ -14,3 +14,41 @@ app.directive('file', function () {
         }
     };
 });
+
+app.directive("navigation", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/default/topNav.html"
+    }
+});
+app.directive("adminContent", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/admin/main.html"
+    }
+});
+app.directive("coachContent", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/coach/main.html"
+    }
+});
+app.directive("sideNavigation", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/default/sideNav.html"
+    }
+});
+app.directive("profile", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/user/profile.html"
+    }
+});
+
+app.directive("footer-hog", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/default/footer.html"
+    }
+});

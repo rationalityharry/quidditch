@@ -35,7 +35,7 @@ public class FileTransferController {
     @Autowired
     StorageService storageService;
 
-    @RequestMapping(value = "/loadImage", method = RequestMethod.POST)
+    @PostMapping(value = "/loadImage")
     public Long submit(@RequestBody final MultipartFile file) {
         ImageEntity newImage = new ImageEntity();
         newImage.setImagePath(storageService.addFile(file));
@@ -43,7 +43,7 @@ public class FileTransferController {
         return imageService.add(newImage).getAvatarImageid();
     }
 
-    @RequestMapping(value = "/user/{userId}/img", method = RequestMethod.GET)
+    @GetMapping(value = "/user/{userId}/img")
     ResponseEntity<byte[]> getFile(@PathVariable Long userId) throws IOException {
         ResponseEntity<byte[]> respEntity;
 

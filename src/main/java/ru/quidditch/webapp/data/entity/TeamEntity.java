@@ -23,8 +23,6 @@ public class TeamEntity {
     @OneToOne
     private UserEntity coach;
 
-    @OneToOne
-    private UserEntity doctor;
 
     @OneToMany(mappedBy = "gameId", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<GameEntity> games;
@@ -63,14 +61,6 @@ public class TeamEntity {
 
     public void setCoach(UserEntity coach) {
         this.coach = coach;
-    }
-
-    public UserEntity getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(UserEntity doctor) {
-        this.doctor = doctor;
     }
 
     public List<GameEntity> getGames() {

@@ -3,6 +3,7 @@ package ru.quidditch.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminController {
@@ -27,17 +26,16 @@ public class AdminController {
     @Autowired
     private MailSender mailSender;
 
-    @RequestMapping(value = "/users", method = GET)
+    @GetMapping(value = "/users")
     public ResponseEntity<List<UserEntity>> getUsers(HttpServletRequest request, Principal principal) {
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        System.out.println(principal.getName());
         if (user != null && user.getRole().equals(Roles.ADMINISTRATOR)) {
             return ResponseEntity.ok(userService.getAll());
         }
         return null;
     }
 
-    @RequestMapping(value = "/disabledUsers", method = GET)
+    @GetMapping(value = "/disabledUsers")
     public ResponseEntity<List<UserEntity>> getDisabledUsers(HttpServletRequest request) {
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
         if (user != null && user.getRole().equals(Roles.ADMINISTRATOR)) {
@@ -46,7 +44,7 @@ public class AdminController {
         return null;
     }
 
-    @RequestMapping(value = "/enableUser/{userId}", method = GET)
+    @GetMapping(value = "/enableUser/{userId}")
     public ResponseEntity<Boolean> enableUser(@PathVariable final Long userId) {
         UserEntity user = userService.getById(userId);
         user.setEnabled(true);

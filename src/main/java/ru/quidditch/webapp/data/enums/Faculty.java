@@ -6,7 +6,7 @@ public enum Faculty {
     GRYFFINDOR("gryffindor"),
     HUFFLEPUFF("hufflepuff"),
     SLYTHERIN("slytherin"),
-    ALL("all faculties");
+    ALL("all");
 
     private String name;
 

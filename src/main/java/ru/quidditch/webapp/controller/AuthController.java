@@ -1,12 +1,8 @@
 package ru.quidditch.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.quidditch.webapp.data.entity.UserEntity;
 import ru.quidditch.webapp.data.enums.Faculty;
@@ -18,8 +14,6 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 @RestController
 @RequestMapping(value = "/")
 public class AuthController {
@@ -28,7 +22,7 @@ public class AuthController {
     private UserService userService;
 
 
-    @RequestMapping(value = "registration", method = RequestMethod.POST)
+    @PostMapping(value = "registration")
     public ResponseEntity<String> add(@RequestBody final RegistrationUserData user) {
         if (!userService.getAllByLogin(user.login).isEmpty()) {
             return ResponseEntity.ok("");
@@ -40,8 +34,9 @@ public class AuthController {
             createdUser.setName(user.name);
             createdUser.setPatronimic(user.patronymic);
             createdUser.setEmail(user.email);
-            createdUser.setFaculty(user.faculty != null ? Faculty.valueOf(user.faculty) : null);
+            createdUser.setFaculty(user.faculty != null ? Faculty.valueOf(user.faculty.toUpperCase()) : null);
             createdUser.setRole(Roles.valueOf(user.getRole().toUpperCase()));
+            createdUser.setBirthday(user.birthdate);
 
             final UserEntity added = userService.add(createdUser);
             return ResponseEntity.ok(added.getLogin());
@@ -49,8 +44,8 @@ public class AuthController {
     }
 
 
-    @RequestMapping(value = "authorisation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map<String, String>> auth(@RequestBody final UserData userReceived,
+    @PostMapping(value = "authorisation")
+    public ResponseEntity<Map<String, String>> auth(@RequestBody final AuthData userReceived,
                                                     final HttpServletRequest request) {
         final UserEntity user = userService.getOneByLogin(userReceived.login);
         Map<String, String> data = new HashMap<>();
@@ -65,24 +60,58 @@ public class AuthController {
             session.setAttribute("user", user);
             data.put("role", user.getRole().getName());
             data.put("id", "" + user.getId());
+            data.put("login", user.getLogin());
             return ResponseEntity.ok(data);
         }
     }
 
+    @GetMapping(value = "role")
+    public ResponseEntity<Map<String, String>> role(final HttpServletRequest request) {
+        final UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        Map<String, String> data = new HashMap<>();
 
-    @RequestMapping(value = "exit", method = RequestMethod.POST)
+        data.put("role", user.getRole().getName());
+        data.put("id", "" + user.getId());
+        data.put("login", user.getLogin());
+        return ResponseEntity.ok(data);
+
+    }
+
+
+    @PostMapping(value = "exit")
     public ResponseEntity<Integer> logOut(final HttpServletRequest request) {
         request.getSession().removeAttribute("user");
         return ResponseEntity.ok(0);
     }
 
+    @PostMapping(value = "changePassword")
+    public ResponseEntity<Map<String, Integer>> changePassword(@RequestBody PasswordDTO passwords) {
+        UserEntity user = userService.getById(passwords.userId);
+        Map<String, Integer> response = new HashMap<>();
+        if (user == null) {
+            response.put("reason", 0);
+            return ResponseEntity.ok(response);
+        }
+        if (!passwords.newPassword.equals(passwords.newPasswordConfirmation)) {
+            response.put("reason", 1);
+        } else if (!user.getPassword().equals(passwords.oldPassword)) {
+            response.put("reason", 2);
+        } else {
+            user.setPassword(passwords.newPassword);
+            userService.add(user);
+            response.put("reason", 3);
+        }
+        return ResponseEntity.ok(response);
+    }
 
-    @RequestMapping(value = {"authorisation", ""}, method = GET)
+
+    @GetMapping(value = {"authorisation", ""})
     public ModelAndView viewAuthorisation() {
         return new ModelAndView("main");
     }
 
     private static class RegistrationUserData {
+
         private String login;
         private String password;
         private String surname;
@@ -91,6 +120,7 @@ public class AuthController {
         private String role;
         private String email;
         private String faculty;
+        private String birthdate;
 
         public RegistrationUserData() {
         }
@@ -158,14 +188,23 @@ public class AuthController {
         public void setEmail(String email) {
             this.email = email;
         }
+
+        public String getBirthdate() {
+            return birthdate;
+        }
+
+        public void setBirthdate(String birthdate) {
+            this.birthdate = birthdate;
+        }
     }
 
-    private static class UserData {
+    private static class AuthData {
+
         private String login;
         private String password;
 
 
-        public UserData() {
+        public AuthData() {
         }
 
         public String getLogin() {
@@ -186,4 +225,43 @@ public class AuthController {
 
     }
 
+    private static class PasswordDTO {
+
+        Long userId;
+        String oldPassword;
+        String newPassword;
+        String newPasswordConfirmation;
+
+        public Long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+
+        public String getOldPassword() {
+            return oldPassword;
+        }
+
+        public void setOldPassword(String oldPassword) {
+            this.oldPassword = oldPassword;
+        }
+
+        public String getNewPassword() {
+            return newPassword;
+        }
+
+        public void setNewPassword(String newPassword) {
+            this.newPassword = newPassword;
+        }
+
+        public String getNewPasswordConfirmation() {
+            return newPasswordConfirmation;
+        }
+
+        public void setNewPasswordConfirmation(String newPasswordConfirmation) {
+            this.newPasswordConfirmation = newPasswordConfirmation;
+        }
+    }
 }
