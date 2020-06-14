@@ -37,6 +37,9 @@ public class FileTransferController {
 
     @PostMapping(value = "/loadImage")
     public Long submit(@RequestBody final MultipartFile file) {
+        if (file == null) {
+            return 0L;
+        }
         ImageEntity newImage = new ImageEntity();
         newImage.setImagePath(storageService.addFile(file));
         newImage.setImageName(file.getOriginalFilename());

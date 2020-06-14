@@ -46,6 +46,9 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public String addFile(MultipartFile file) {
+        if (file == null) {
+            return "";
+        }
         String filename = file.getOriginalFilename();
         try {
             if (file.isEmpty()) {

@@ -46,7 +46,13 @@ public class UserController {
             userEntity.setEmail(user.email);
             userEntity.setPhone(user.phone);
             userEntity.setInfo(user.info);
-            userEntity.setUserKey(imageService.getById(user.imageId));
+            if (userEntity.getUserKey() != null && user.imageId == 0) {
+                userEntity.setUserKey(userEntity.getUserKey());
+            } else {
+                userEntity.setUserKey(imageService.getById(user.imageId));
+            }
+
+            userEntity.setBirthday(user.birthdate);
 
             UserEntity currentUser = (UserEntity) request.getSession().getAttribute("user");
             switch (currentUser.getRole()) {
@@ -77,6 +83,7 @@ public class UserController {
         private String info;
         private Long imageId;
         private Long id;
+        private String birthdate;
         private boolean isAdmin;
 
         public UserData() {
@@ -96,8 +103,17 @@ public class UserController {
             this.imageId = entity.getUserKey() != null ? entity.getUserKey().getAvatarImageid() : -1;
             this.id = entity.getId();
             this.isAdmin = currentUser.getRole().equals(Roles.ADMINISTRATOR);
+            this.birthdate = entity.getBirthday();
         }
 
+
+        public String getBirthdate() {
+            return birthdate;
+        }
+
+        public void setBirthdate(String birthdate) {
+            this.birthdate = birthdate;
+        }
 
         public String getLogin() {
             return login;
