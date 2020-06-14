@@ -35,8 +35,10 @@ public class TrainingsController {
         if (!Roles.COACH.equals(currentUser.getRole())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(false);
         }
-
-        TrainingEntity trainingEntity = new TrainingEntity();
+        TrainingEntity trainingEntity = trainingService.getTrainingsByCoach(currentUser);
+        if (trainingEntity == null) {
+            trainingEntity = new TrainingEntity();
+        }
         trainingEntity.setFaculty(currentUser.getFaculty());
         trainingEntity.setMonday(training.monday);
         trainingEntity.setTuesday(training.tuesday);
