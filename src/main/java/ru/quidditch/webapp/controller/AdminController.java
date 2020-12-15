@@ -48,9 +48,16 @@ public class AdminController {
     public ResponseEntity<Boolean> enableUser(@PathVariable final Long userId) {
         UserEntity user = userService.getById(userId);
         user.setEnabled(true);
-        userService.add(user);
+        userService.save(user);
         mailSender.send(user.getEmail(), user.getName() + ", Your registration in quidditch ", user.getName() + ",\nВаша учетная запись активирована в команде квиддитча,\n Всегда ваш, Админ");
         return ResponseEntity.ok(true);
     }
-
+    @GetMapping(value = "/disableUser/{userId}")
+    public ResponseEntity<Boolean> disableUser(@PathVariable final Long userId) {
+        UserEntity user = userService.getById(userId);
+        user.setDisabled(true);
+        userService.save(user);
+        mailSender.send(user.getEmail(), user.getName() + ", Your account in quidditch ", user.getName() + ",\nВаша учетная запись заблокирована в команде квиддитча,\n Всегда ваш, Админ");
+        return ResponseEntity.ok(true);
+    }
 }

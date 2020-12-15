@@ -64,7 +64,7 @@ public class UserController {
                     break;
             }
 
-            UserEntity added = userService.add(userEntity);
+            UserEntity added = userService.save(userEntity);
 
             return ResponseEntity.ok(added.getLogin());
         }

@@ -5,6 +5,7 @@ public enum Roles {
     COACH("coach"),
     DOCTOR("doctor"),
     PLAYER("player"),
+    OPERATOR("operator"),
     STATISTIC("statistic");
 
     private final String name;

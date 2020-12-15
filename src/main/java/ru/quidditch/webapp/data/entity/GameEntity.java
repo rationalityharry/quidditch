@@ -1,6 +1,7 @@
 package ru.quidditch.webapp.data.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "games")
 @Entity
@@ -8,7 +9,7 @@ public class GameEntity {
 
     @Id
     @GeneratedValue
-    private long gameId;
+    private long id;
 
     @OneToOne
     private TeamEntity team1;
@@ -22,6 +23,12 @@ public class GameEntity {
     @Column
     private int team2Score;
 
+    @Column
+    private String Location;
+
+    @Column
+    private Date date;
+
     public GameEntity() {
     }
 
@@ -29,12 +36,12 @@ public class GameEntity {
         return Integer.compare(team2Score, team1Score);
     }
 
-    public long getGameId() {
-        return gameId;
+    public long getId() {
+        return id;
     }
 
-    public void setGameId(long gameId) {
-        this.gameId = gameId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public TeamEntity getTeam1() {
@@ -47,6 +54,22 @@ public class GameEntity {
 
     public TeamEntity getTeam2() {
         return team2;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setTeam2(TeamEntity team2) {

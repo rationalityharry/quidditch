@@ -5,7 +5,7 @@ import ru.quidditch.webapp.data.entity.UserEntity;
 import java.util.List;
 
 public interface UserService {
-    UserEntity add(UserEntity userEntity);
+    UserEntity save(UserEntity userEntity);
 
     List<UserEntity> getAll();
 

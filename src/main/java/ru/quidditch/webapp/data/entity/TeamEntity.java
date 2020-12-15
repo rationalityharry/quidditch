@@ -14,18 +14,22 @@ public class TeamEntity {
     @Column
     private long id;
 
-    @OneToMany(mappedBy = "playerId", orphanRemoval = true, fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "teamEntity")
     private List<PlayerEntity> players;
 
     @Column
     private Faculty faculty;
 
+    @OneToMany(mappedBy = "team")
+    private List<NewsEntity> news;
+
     @OneToOne
-    private UserEntity coach;
+    private CoachEntity coach;
 
 
-    @OneToMany(mappedBy = "gameId", orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<GameEntity> games;
+    /*@OneToMany(mappedBy = "team", orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<GameEntity> games;*/
 
 
     public TeamEntity() {
@@ -55,20 +59,27 @@ public class TeamEntity {
         this.faculty = faculty;
     }
 
-    public UserEntity getCoach() {
+    public CoachEntity getCoach() {
         return coach;
     }
 
-    public void setCoach(UserEntity coach) {
+    public void setCoach(CoachEntity coach) {
         this.coach = coach;
     }
 
-    public List<GameEntity> getGames() {
+   /* public List<GameEntity> getGames() {
         return games;
     }
 
     public void setGames(List<GameEntity> games) {
         this.games = games;
+    }*/
+
+    public List<NewsEntity> getNews() {
+        return news;
     }
 
+    public void setNews(List<NewsEntity> news) {
+        this.news = news;
+    }
 }

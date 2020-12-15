@@ -17,7 +17,7 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/registration", {
             templateUrl: "/html/auth/registration.html"
         })
-        .when("/admin", {
+        .when("/administrator", {
             templateUrl: "/html/admin/index.html"
         })
         .when("/coach", {
@@ -29,7 +29,7 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/doctor", {
             templateUrl: "/html/doctor/index.html"
         })
-        .when("/statistic", {
+        .when("/stat_manager", {
             templateUrl: "/html/statistics/index.html"
         })
         .when("/editUser/:id", {

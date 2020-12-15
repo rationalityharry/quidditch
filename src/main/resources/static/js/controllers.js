@@ -18,6 +18,13 @@ app.controller('AdminController', ['$scope', '$http', function ($scope, $http) {
             }
         });
     };
+    that.disableUser = function (id) {
+        $http.get("/admin/disableUser/" + id).then(function (response) {
+            if (response.data === "ok") {
+                alert("Пользователь деактивирован");
+            }
+        });
+    };
 }]);
 
 app.controller('TrainingsController', ['$scope', '$http', function ($scope, $http) {
@@ -238,22 +245,13 @@ app.controller('AuthorisationController', ['$scope', '$http', '$location', funct
                     }
                     break;
                 case "1":
-                    alert("User is not confirmed by admin yet, try again later.")
+                    alert("User is not confirmed by admin yet, try again later.");
                     break;
-                case "administrator":
-                    $location.path("/admin")
+                case "operator":
+                    $location.path("/stat_manager");
                     break;
-                case "player":
-                    $location.path("/player")
-                    break;
-                case "coach":
-                    $location.path("/coach")
-                    break;
-                case "doctor":
-                    $location.path("/doctor")
-                    break;
-                case "stat_manager":
-                    $location.path("/statistic")
+                default :
+                    $location.path("/" + response.data.role);
                     break;
             }
         });
@@ -294,6 +292,30 @@ app.controller('RegistrationController', ['$scope', '$http', '$location', functi
                 $location.path("/authorisation");
             }
         });
+    }
+}]);
+
+
+app.controller('NewsController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+    let that = this;
+    $scope["$ctrlNews"] = this;
+    that.existingNews = {};
+    $http.get("/news/all")
+        .then((response) => {
+            that.existingNews = response.data;
+        });
+
+    that.news = {};
+    that.createNews = function () {
+        $http.post("/news/create", {
+            headline: that.news.headline,
+            content: that.news.content
+        })
+            .then(function (response) {
+                if (response.data) {
+                    alert("hui");
+                }
+            });
     }
 }]);
 

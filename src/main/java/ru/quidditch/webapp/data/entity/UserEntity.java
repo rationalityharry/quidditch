@@ -37,8 +37,14 @@ public class UserEntity {
     @Column
     private Faculty faculty;
 
+    @OneToOne
+    private TeamEntity team;
+
     @Column
     private boolean enabled;
+
+    @Column
+    private boolean disabled;
 
     @Column
     private String phone;
@@ -167,5 +173,21 @@ public class UserEntity {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    public TeamEntity getTeam() {
+        return team;
+    }
+
+    public void setTeam(TeamEntity team) {
+        this.team = team;
     }
 }

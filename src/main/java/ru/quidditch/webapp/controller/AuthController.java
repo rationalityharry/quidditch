@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import ru.quidditch.webapp.data.entity.UserEntity;
+import ru.quidditch.webapp.data.entity.*;
 import ru.quidditch.webapp.data.enums.Faculty;
 import ru.quidditch.webapp.data.enums.Roles;
-import ru.quidditch.webapp.data.service.UserService;
+import ru.quidditch.webapp.data.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,7 +20,14 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private OperatorService operatorService;
+    @Autowired
+    private PlayerEntityService playerEntityService;
+    @Autowired
+    private CoachService coachService;
+    @Autowired
+    private DoctorService doctorService;
 
     @PostMapping(value = "registration")
     public ResponseEntity<String> add(@RequestBody final RegistrationUserData user) {
@@ -38,7 +45,24 @@ public class AuthController {
             createdUser.setRole(Roles.valueOf(user.getRole().toUpperCase()));
             createdUser.setBirthday(user.birthdate);
 
-            final UserEntity added = userService.add(createdUser);
+
+            final UserEntity added = userService.save(createdUser);
+            switch (added.getRole()){
+                case OPERATOR:
+                    final OperatorEntity createdOperator = operatorService.save(new OperatorEntity(added));
+                    break;
+                case PLAYER:
+                    final PlayerEntity playerEntity = playerEntityService.save(new PlayerEntity(added));
+                    break;
+
+                case COACH:
+                    final CoachEntity coachEntity = coachService.save(new CoachEntity(added));
+                    break;
+
+                case DOCTOR:
+                    final DoctorEntity doctorEntity = doctorService.save(new DoctorEntity(added));
+                    break;
+            }
             return ResponseEntity.ok(added.getLogin());
         }
     }
@@ -98,7 +122,7 @@ public class AuthController {
             response.put("reason", 2);
         } else {
             user.setPassword(passwords.newPassword);
-            userService.add(user);
+            userService.save(user);
             response.put("reason", 3);
         }
         return ResponseEntity.ok(response);

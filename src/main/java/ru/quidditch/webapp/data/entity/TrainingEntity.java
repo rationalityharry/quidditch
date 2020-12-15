@@ -11,7 +11,7 @@ public class TrainingEntity {
 
     @Id
     @GeneratedValue
-    private long trainingId;
+    private long id;
 
     @Column
     private String monday;
@@ -37,12 +37,12 @@ public class TrainingEntity {
     @Column
     private Faculty faculty;
 
-    public long getTrainingId() {
-        return trainingId;
+    public long getId() {
+        return id;
     }
 
-    public void setTrainingId(long trainingId) {
-        this.trainingId = trainingId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getMonday() {

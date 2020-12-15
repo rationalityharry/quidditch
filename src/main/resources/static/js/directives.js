@@ -46,9 +46,22 @@ app.directive("profile", function () {
     }
 });
 
-app.directive("footer-hog", function () {
+app.directive("footerHog", function () {
     return {
         restrict: "E",
         templateUrl: "/html/default/footer.html"
+    }
+});
+app.directive("news", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/shared/news.html"
+    }
+});
+
+app.directive("createNews", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/statistics/createNews.html"
     }
 });

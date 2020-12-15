@@ -10,7 +10,7 @@ public class PlayerEntity {
 
     @Id
     @GeneratedValue
-    private long playerId;
+    private long id;
 
     @Column
     private int rate;
@@ -18,22 +18,29 @@ public class PlayerEntity {
     @Column
     private PlayerPosition position;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne
     private UserEntity user;
 
     @Column
     private boolean captain;
 
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private TeamEntity teamEntity;
+
     public PlayerEntity() {
     }
 
-    public long getPlayerId() {
-        return playerId;
+    public PlayerEntity(UserEntity user) {
+        this.user = user;
     }
 
-    public void setPlayerId(long playerId) {
-        this.playerId = playerId;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getRate() {
@@ -66,5 +73,13 @@ public class PlayerEntity {
 
     public void setCaptain(boolean captain) {
         this.captain = captain;
+    }
+
+    public TeamEntity getTeamEntity() {
+        return teamEntity;
+    }
+
+    public void setTeamEntity(TeamEntity team) {
+        this.teamEntity = team;
     }
 }

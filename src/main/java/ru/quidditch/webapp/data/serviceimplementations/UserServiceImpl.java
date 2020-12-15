@@ -18,13 +18,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public UserEntity add(UserEntity userEntity) {
+    public UserEntity save(UserEntity userEntity) {
         return repository.save(userEntity);
     }
 
     @Override
     public List<UserEntity> getAll() {
-        return repository.findAll();
+        return repository.findAllByDisabledIsFalse();
     }
 
     public List<UserEntity> getAllByLogin(String login) {
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserEntity> getAllDisabled() {
-        return repository.findAllByEnabledIsNullOrEnabledIsFalse();
+        return repository.findAllByEnabledIsFalse();
     }
 
 
