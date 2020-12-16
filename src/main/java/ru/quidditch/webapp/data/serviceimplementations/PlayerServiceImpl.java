@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.quidditch.webapp.data.entity.PlayerEntity;
 import ru.quidditch.webapp.data.repository.PlayerRepository;
-import ru.quidditch.webapp.data.service.PlayerEntityService;
+import ru.quidditch.webapp.data.service.PlayerService;
 
 @Service
 @Transactional
-public class PlayerEntityServiceImpl implements PlayerEntityService {
+public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     public PlayerRepository playerRepository;

@@ -14,6 +14,7 @@ import ru.quidditch.webapp.data.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,19 +28,24 @@ public class AdminController {
     private MailSender mailSender;
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserEntity>> getUsers(HttpServletRequest request, Principal principal) {
+    public ResponseEntity<List<UserDTO>> getUsers(HttpServletRequest request, Principal principal) {
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
         if (user != null && user.getRole().equals(Roles.ADMINISTRATOR)) {
-            return ResponseEntity.ok(userService.getAll());
+            List<UserDTO> result = new ArrayList<>();
+            userService.getAll().forEach(userEntity -> result.add(new UserDTO(userEntity)));
+            return ResponseEntity.ok(result);
         }
         return null;
     }
 
     @GetMapping(value = "/disabledUsers")
-    public ResponseEntity<List<UserEntity>> getDisabledUsers(HttpServletRequest request) {
+    public ResponseEntity<List<UserDTO>> getDisabledUsers(HttpServletRequest request) {
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
         if (user != null && user.getRole().equals(Roles.ADMINISTRATOR)) {
-            return ResponseEntity.ok(userService.getAllDisabled());
+            List<UserDTO> result = new ArrayList<>();
+            userService.getAllDisabled().forEach(userEntity -> result.add(new UserDTO(userEntity)));
+            return ResponseEntity.ok(result);
+
         }
         return null;
     }
@@ -52,6 +58,7 @@ public class AdminController {
         mailSender.send(user.getEmail(), user.getName() + ", Your registration in quidditch ", user.getName() + ",\nВаша учетная запись активирована в команде квиддитча,\n Всегда ваш, Админ");
         return ResponseEntity.ok(true);
     }
+
     @GetMapping(value = "/disableUser/{userId}")
     public ResponseEntity<Boolean> disableUser(@PathVariable final Long userId) {
         UserEntity user = userService.getById(userId);
@@ -59,5 +66,54 @@ public class AdminController {
         userService.save(user);
         mailSender.send(user.getEmail(), user.getName() + ", Your account in quidditch ", user.getName() + ",\nВаша учетная запись заблокирована в команде квиддитча,\n Всегда ваш, Админ");
         return ResponseEntity.ok(true);
+    }
+
+    private static class UserDTO {
+        String name;
+        String surname;
+        String faculty;
+        Long id;
+
+        public UserDTO() {
+        }
+
+        UserDTO(UserEntity userEntity) {
+            this.name = userEntity.getName();
+            this.surname = userEntity.getSurname();
+            this.faculty = userEntity.getFaculty().getName();
+            this.id = userEntity.getId();
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSurname() {
+            return surname;
+        }
+
+        public void setSurname(String surname) {
+            this.surname = surname;
+        }
+
+        public String getFaculty() {
+            return faculty;
+        }
+
+        public void setFaculty(String faculty) {
+            this.faculty = faculty;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
     }
 }

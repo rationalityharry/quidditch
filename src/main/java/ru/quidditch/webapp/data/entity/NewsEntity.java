@@ -1,7 +1,5 @@
 package ru.quidditch.webapp.data.entity;
 
-import ru.quidditch.webapp.data.enums.NewsTypes;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -26,9 +24,6 @@ public class NewsEntity {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private TeamEntity team;
-
-    @Column
-    private NewsTypes newsType;
 
     @Column
     private Date date;
@@ -71,14 +66,6 @@ public class NewsEntity {
 
     public void setOperator(OperatorEntity operator) {
         this.operator = operator;
-    }
-
-    public NewsTypes getNewsType() {
-        return newsType;
-    }
-
-    public void setNewsType(NewsTypes newsType) {
-        this.newsType = newsType;
     }
 
     public Date getDate() {

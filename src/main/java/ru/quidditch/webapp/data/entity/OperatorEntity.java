@@ -5,42 +5,18 @@ import java.util.List;
 
 @Entity
 @Table(name = "operators")
-public class OperatorEntity {
-
-    @Id
-    @GeneratedValue
-    private long id;
-
-    @OneToOne
-    private UserEntity user;
+public class OperatorEntity extends UserEntity {
 
     @Column
-    @OneToMany (mappedBy = "operator", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "operator", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<NewsEntity> news;
 
     public OperatorEntity() {
     }
 
-    public OperatorEntity(UserEntity user) {
-        this.user = user;
-    }
 
-
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public OperatorEntity(UserEntity createdUser) {
+    super(createdUser);
     }
 
     public List<NewsEntity> getNews() {

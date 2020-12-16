@@ -5,8 +5,8 @@ import ru.quidditch.webapp.data.enums.Roles;
 
 import javax.persistence.*;
 
-@Table(name = "users")
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class UserEntity {
 
     @Id
@@ -37,7 +37,8 @@ public class UserEntity {
     @Column
     private Faculty faculty;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "team_id")
     private TeamEntity team;
 
     @Column
@@ -60,6 +61,25 @@ public class UserEntity {
     private ImageEntity userKey;
 
     public UserEntity() {
+    }
+
+    public UserEntity(UserEntity user) {
+        this.id = user.getId();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.surname = user.getSurname();
+        this.name = user.getName();
+        this.patronimic = user.getPatronimic();
+        this.role = user.getRole();
+        this.email = user.getEmail();
+        this.faculty = user.getFaculty();
+        this.team = user.getTeam();
+        this.enabled = user.isEnabled();
+        this.disabled = user.isDisabled();
+        this.phone = user.getPhone();
+        this.info = user.getInfo();
+        this.birthday = user.getBirthday();
+        this.userKey = user.getUserKey();
     }
 
     public long getId() {

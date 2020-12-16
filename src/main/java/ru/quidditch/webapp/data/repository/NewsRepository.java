@@ -6,14 +6,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.quidditch.webapp.data.entity.NewsEntity;
 import ru.quidditch.webapp.data.entity.TeamEntity;
-import ru.quidditch.webapp.data.enums.NewsTypes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
 public interface NewsRepository extends JpaRepository<NewsEntity, Long> {
-    List<NewsEntity> findAllByNewsTypeOrderByDateDesc(NewsTypes type);
+
+    List<NewsEntity> findAllByTeamOrderByDateDesc(TeamEntity teamEntity);
 
 }

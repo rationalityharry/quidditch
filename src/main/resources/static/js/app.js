@@ -29,7 +29,7 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/doctor", {
             templateUrl: "/html/doctor/index.html"
         })
-        .when("/stat_manager", {
+        .when("/news", {
             templateUrl: "/html/statistics/viewNews.html"
         })
         .when("/create_news", {

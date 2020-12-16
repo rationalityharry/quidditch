@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.quidditch.webapp.data.entity.CoachEntity;
-import ru.quidditch.webapp.data.entity.OperatorEntity;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)

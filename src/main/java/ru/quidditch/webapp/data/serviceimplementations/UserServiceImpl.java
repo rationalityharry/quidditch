@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.quidditch.webapp.data.entity.UserEntity;
 import ru.quidditch.webapp.data.repository.UserRepository;
-import ru.quidditch.webapp.data.service.UserService;
+import ru.quidditch.webapp.data.service.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -16,6 +16,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private OperatorService operatorService;
+    @Autowired
+    private CoachService coachService;
+    @Autowired
+    private DoctorService doctorService;
+    @Autowired
+    private PlayerService playerService;
+
 
     @Override
     public UserEntity save(UserEntity userEntity) {

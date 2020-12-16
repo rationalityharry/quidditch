@@ -2,7 +2,7 @@ package ru.quidditch.webapp.data.service;
 
 import ru.quidditch.webapp.data.entity.PlayerEntity;
 
-public interface PlayerEntityService {
+public interface PlayerService {
 
     PlayerEntity save(PlayerEntity playerEntity);
 

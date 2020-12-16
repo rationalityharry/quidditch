@@ -15,13 +15,13 @@ public class TeamEntity {
     private long id;
 
 
-    @OneToMany(mappedBy = "teamEntity")
-    private List<PlayerEntity> players;
+    @OneToMany(mappedBy = "team")
+    private List<UserEntity> users;
 
     @Column
     private Faculty faculty;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     private List<NewsEntity> news;
 
     @OneToOne
@@ -43,12 +43,12 @@ public class TeamEntity {
         this.id = id;
     }
 
-    public List<PlayerEntity> getPlayers() {
-        return players;
+    public List<UserEntity> getUsers() {
+        return users;
     }
 
-    public void setPlayers(List<PlayerEntity> players) {
-        this.players = players;
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 
     public Faculty getFaculty() {

@@ -2,15 +2,13 @@ package ru.quidditch.webapp.data.entity;
 
 import ru.quidditch.webapp.data.enums.PlayerPosition;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Table(name = "players")
 @Entity
-public class PlayerEntity {
-
-    @Id
-    @GeneratedValue
-    private long id;
+public class PlayerEntity extends UserEntity {
 
     @Column
     private int rate;
@@ -18,29 +16,14 @@ public class PlayerEntity {
     @Column
     private PlayerPosition position;
 
-    @OneToOne
-    private UserEntity user;
-
     @Column
     private boolean captain;
-
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    private TeamEntity teamEntity;
 
     public PlayerEntity() {
     }
 
-    public PlayerEntity(UserEntity user) {
-        this.user = user;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public PlayerEntity(UserEntity createdUser) {
+        super(createdUser);
     }
 
     public int getRate() {
@@ -59,14 +42,6 @@ public class PlayerEntity {
         this.position = position;
     }
 
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
     public boolean isCaptain() {
         return captain;
     }
@@ -75,11 +50,4 @@ public class PlayerEntity {
         this.captain = captain;
     }
 
-    public TeamEntity getTeamEntity() {
-        return teamEntity;
-    }
-
-    public void setTeamEntity(TeamEntity team) {
-        this.teamEntity = team;
-    }
 }

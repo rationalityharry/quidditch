@@ -12,14 +12,14 @@ app.controller('AdminController', ['$scope', '$http', function ($scope, $http) {
         that.usersToEnable = response2.data;
     });
     that.enableUser = function (id) {
-        $http.get("/admin/enableUser/" + id).then(function (response) {
+        $http.get(`/admin/enableUser/${id}`).then(function (response) {
             if (response.data === "ok") {
                 alert("Пользователь активирован");
             }
         });
     };
     that.disableUser = function (id) {
-        $http.get("/admin/disableUser/" + id).then(function (response) {
+        $http.get(`/admin/disableUser/${id}`).then(function (response) {
             if (response.data === "ok") {
                 alert("Пользователь деактивирован");
             }
@@ -119,7 +119,7 @@ app.controller('EditUserController', ['$scope', '$http', '$location', '$routePar
 
 app.controller('ChangePasswordController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     let that = this;
-    that.data = {}
+    that.data = {};
 
     this.changePassword = function () {
         if (that.data.newPassword !== that.data.newPasswordConfirmation) {
@@ -147,7 +147,7 @@ app.controller('ChangePasswordController', ['$scope', '$http', '$location', func
                 }
             });
         }
-    }
+    };
 
     this.editUser = function () {
         let formData = new FormData();
@@ -183,7 +183,7 @@ app.controller('ChangePasswordController', ['$scope', '$http', '$location', func
     }
 }]);
 
-app.controller('RoleController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+app.controller('RoleController', ['$scope', '$http', '$location', function ($scope, $http) {
     let that = this;
     $scope["$ctrlRole"] = this;
 
@@ -250,11 +250,8 @@ app.controller('AuthorisationController', ['$scope', '$http', '$location', funct
                 case "1":
                     alert("User is not confirmed by admin yet, try again later.");
                     break;
-                case "operator":
-                    $location.path("/stat_manager");
-                    break;
                 default :
-                    $location.path("/" + response.data.role);
+                    $location.path("/news");
                     break;
             }
         });
@@ -299,7 +296,7 @@ app.controller('RegistrationController', ['$scope', '$http', '$location', functi
 }]);
 
 
-app.controller('NewsController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+app.controller('NewsController', ['$scope', '$http', '$location', function ($scope, $http) {
     let that = this;
     $scope["$ctrlNews"] = this;
     that.existingNews = {};
@@ -311,12 +308,14 @@ app.controller('NewsController', ['$scope', '$http', '$location', function ($sco
     that.news = {};
     that.createNews = function () {
         $http.post("/news/create", {
+            id: null,
             headline: that.news.headline,
-            content: that.news.content
+            content: that.news.content,
+            faculty: that.news.faculty
         })
             .then(function (response) {
                 if (response.data) {
-                    alert("hui");
+                    alert("Новость добавлена");
                 }
             });
     }

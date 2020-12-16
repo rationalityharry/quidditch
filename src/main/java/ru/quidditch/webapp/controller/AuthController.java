@@ -23,47 +23,55 @@ public class AuthController {
     @Autowired
     private OperatorService operatorService;
     @Autowired
-    private PlayerEntityService playerEntityService;
+    private PlayerService playerService;
     @Autowired
     private CoachService coachService;
     @Autowired
     private DoctorService doctorService;
+    @Autowired
+    private TeamService teamService;
 
     @PostMapping(value = "registration")
-    public ResponseEntity<String> add(@RequestBody final RegistrationUserData user) {
+    public ResponseEntity<Long> add(@RequestBody final RegistrationUserData user) {
         if (!userService.getAllByLogin(user.login).isEmpty()) {
-            return ResponseEntity.ok("");
+            return ResponseEntity.ok(-1L);
         } else {
-            final UserEntity createdUser = new UserEntity();
+            UserEntity createdUser = new UserEntity();
+            Roles role = (Roles.valueOf(user.getRole().toUpperCase()));
+            Faculty faculty = Faculty.valueOf(user.faculty.toUpperCase());
+            TeamEntity team = teamService.getTeamByFaculty(faculty);
+            if (team == null){
+                team = new TeamEntity();
+                team.setFaculty(faculty);
+                team = teamService.save(team);
+            }
             createdUser.setLogin(user.login);
             createdUser.setPassword(user.password);
             createdUser.setSurname(user.surname);
             createdUser.setName(user.name);
             createdUser.setPatronimic(user.patronymic);
             createdUser.setEmail(user.email);
-            createdUser.setFaculty(user.faculty != null ? Faculty.valueOf(user.faculty.toUpperCase()) : null);
-            createdUser.setRole(Roles.valueOf(user.getRole().toUpperCase()));
+            createdUser.setFaculty(faculty);
+            createdUser.setRole(role);
+            createdUser.setTeam(team);
             createdUser.setBirthday(user.birthdate);
-
-
-            final UserEntity added = userService.save(createdUser);
-            switch (added.getRole()){
+            switch (createdUser.getRole()) {
                 case OPERATOR:
-                    final OperatorEntity createdOperator = operatorService.save(new OperatorEntity(added));
+                    createdUser = operatorService.save(new OperatorEntity(createdUser));
                     break;
                 case PLAYER:
-                    final PlayerEntity playerEntity = playerEntityService.save(new PlayerEntity(added));
+                    createdUser = playerService.save(new PlayerEntity(createdUser));
                     break;
-
                 case COACH:
-                    final CoachEntity coachEntity = coachService.save(new CoachEntity(added));
+                    createdUser = coachService.save(new CoachEntity(createdUser));
                     break;
-
                 case DOCTOR:
-                    final DoctorEntity doctorEntity = doctorService.save(new DoctorEntity(added));
+                    createdUser = doctorService.save(new DoctorEntity(createdUser));
                     break;
+                case ADMINISTRATOR:
+                    createdUser = userService.save(createdUser);
             }
-            return ResponseEntity.ok(added.getLogin());
+            return ResponseEntity.ok(createdUser.getId());
         }
     }
 

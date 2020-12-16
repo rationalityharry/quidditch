@@ -3,15 +3,14 @@ package ru.quidditch.webapp.data.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Table(name = "doctors")
 @Entity
-public class DoctorEntity extends UserEntity {
+@Table(name = "admins")
+public class AdminEntity extends UserEntity {
 
-    public DoctorEntity() {
+    public AdminEntity() {
     }
 
-    public DoctorEntity(UserEntity user) {
+    public AdminEntity(UserEntity user) {
         super(user);
     }
-
 }

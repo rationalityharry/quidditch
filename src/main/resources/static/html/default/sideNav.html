@@ -3,16 +3,17 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
 
+                <a class="nav-link" ng-href="#!/news" >
+                    Новости
+                </a>
+
                 <div ng-if="role.isAdministrator">
-                    <a class="nav-link" ng-href="#!/admin">
+                    <a class="nav-link" ng-href="#!/administrator">
                         Главная
                     </a>
                 </div>
 
                 <div ng-if="role.isPlayer">
-                    <a class="nav-link" ng-href="#!/player" >
-                        Новости
-                    </a>
                     <a class="nav-link" ng-href="#!/player" >
                         Статистика
                     </a>
@@ -22,9 +23,7 @@
                 </div>
 
                 <div  ng-if="role.isCoach">
-                    <a class="nav-link" ng-href="#!/coach">
-                        Главная
-                    </a>
+
                     <a class="nav-link" ng-href="#!/coach">
                         Тренировки
                     </a>
@@ -35,9 +34,7 @@
 
 
                 <div ng-if="role.isDoctor">
-                    <a class="nav-link" ng-href="#!/doctor" >
-                        Главная
-                    </a>
+
                     <a class="nav-link" ng-href="#!/doctor" >
                         Медицинские отчеты
                     </a>
@@ -45,9 +42,7 @@
 
 
                 <div ng-if="role.isOperator">
-                    <a class="nav-link" ng-href="#!/stat_manager" >
-                        Главная
-                    </a>
+
                     <a class="nav-link" ng-href="#!/create_news" >
                         Создать новость
                     </a>
