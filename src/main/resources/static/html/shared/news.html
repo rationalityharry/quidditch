@@ -1,25 +1,25 @@
-<div id="layoutAuthentication" ng-controller="NewsController as newsctrl">
-    <div id="layoutAuthentication_content">
-        <main>
-            <div class="container" >
-                <div class="row justify-content-center">
-                    <div class="col-lg-7">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5" >
-                            <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Новости</h3>
-                            </div>
-                            <div class="card-body" ng-repeat=" exist in newsctrl.existingNews">
-                                <h3 >{{exist.headline}}</h3>
-                                <h5 >{{exist.content}}</h5>
-                            </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-sm-flex align-items-center justify-content-between ">
+            <h1 class="h3 mb-0 text-gray-800">Новости</h1>
+        </div>
+    </div>
+    <div class="row"  ng-controller="NewsController as newsctrl">
+        <div class="container">
+            <!-- Earnings (Monthly) Card Example -->
+            <div ng-repeat=" exist in newsctrl.existingNews">
+                <div class="row">
+                    <!-- Default Card Example -->
+                    <div class="card shadow col-lg-12 col-md-12">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">{{exist.headline}}</h6>
+                        </div>
+                        <div class="card-body">
+                            {{exist.content}}
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
-    <div id="layoutAuthentication_footer">
-        <footer-hog></footer-hog>
+        </div>
     </div>
 </div>
-

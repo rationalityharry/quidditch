@@ -1,24 +1,64 @@
-<div id="layoutSidenav_nav" class="sb-sidenav accordion sb-sidenav-dark" ng-controller="RoleController as role">
+<div class="sb-sidenav accordion sb-sidenav-dark" ng-controller="RoleController as role">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Основное</div>
 
-                <a class="nav-link" ng-href="#!/admin" ng-if="role.isAdministrator">
-                    Главная
-                </a>
-                <a class="nav-link" ng-href="#!/player" ng-if="role.isPlayer">
-                    Новости
-                </a>
-                <a class="nav-link" ng-href="#!/coach" ng-if="role.isCoach">
-                    Главная
-                </a>
-                <a class="nav-link" ng-href="#!/doctor" ng-if="role.isDoctor">
-                    Главная
-                </a>
-                <a class="nav-link" ng-href="#!/statistic" ng-if="role.isStatistic">
-                    Статистика
-                </a>
+                <div ng-if="role.isAdministrator">
+                    <a class="nav-link" ng-href="#!/admin">
+                        Главная
+                    </a>
+                </div>
+
+                <div ng-if="role.isPlayer">
+                    <a class="nav-link" ng-href="#!/player" >
+                        Новости
+                    </a>
+                    <a class="nav-link" ng-href="#!/player" >
+                        Статистика
+                    </a>
+                    <a class="nav-link" ng-href="#!/player" >
+                        Рейтинг команды
+                    </a>
+                </div>
+
+                <div  ng-if="role.isCoach">
+                    <a class="nav-link" ng-href="#!/coach">
+                        Главная
+                    </a>
+                    <a class="nav-link" ng-href="#!/coach">
+                        Тренировки
+                    </a>
+                    <a class="nav-link" ng-href="#!/coach">
+                        Рейтинг
+                    </a>
+                </div>
+
+
+                <div ng-if="role.isDoctor">
+                    <a class="nav-link" ng-href="#!/doctor" >
+                        Главная
+                    </a>
+                    <a class="nav-link" ng-href="#!/doctor" >
+                        Медицинские отчеты
+                    </a>
+                </div>
+
+
+                <div ng-if="role.isOperator">
+                    <a class="nav-link" ng-href="#!/stat_manager" >
+                        Главная
+                    </a>
+                    <a class="nav-link" ng-href="#!/create_news" >
+                        Создать новость
+                    </a>
+                    <a class="nav-link" ng-href="#!/create_news">
+                        Создать Матч
+                    </a>
+                    <a class="nav-link" ng-href="#!/create_news" >
+                        Оценить матч
+                    </a>
+
+                </div>
 
                 <a class="nav-link" ng-href="#!/editUser/{{role.userId}}">
                     Редактировать профиль

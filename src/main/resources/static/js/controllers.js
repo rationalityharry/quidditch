@@ -191,7 +191,7 @@ app.controller('RoleController', ['$scope', '$http', '$location', function ($sco
     that.isCoach = false;
     that.isDoctor = false;
     that.isPlayer = false;
-    that.isStatistic = false;
+    that.isOperator = false;
     that.userId = -1;
     that.login = "Not authorised";
 
@@ -210,14 +210,17 @@ app.controller('RoleController', ['$scope', '$http', '$location', function ($sco
                 that.isDoctor = true;
                 break;
             case "stat_manager":
-                that.isStatistic = true;
+                that.isOperator = true;
+                break;
+            case "operator":
+                that.isOperator = true;
                 break;
             default :
                 that.isAdministrator = false;
                 that.isCoach = false;
                 that.isDoctor = false;
                 that.isPlayer = false;
-                that.isStatistic = false;
+                that.isOperator = false;
                 that.userId = -1;
                 that.login = "Not authorised";
         }

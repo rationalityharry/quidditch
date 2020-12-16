@@ -30,7 +30,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "/html/doctor/index.html"
         })
         .when("/stat_manager", {
-            templateUrl: "/html/statistics/index.html"
+            templateUrl: "/html/statistics/viewNews.html"
+        })
+        .when("/create_news", {
+            templateUrl: "/html/statistics/viewCreateNews.html"
         })
         .when("/editUser/:id", {
             templateUrl: "/html/user/index.html"

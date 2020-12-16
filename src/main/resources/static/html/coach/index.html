@@ -12,28 +12,15 @@
 </head>
 <body class="sb-nav-fixed">
 
-<navigation>
-</navigation>
+<navigation></navigation>
 
 <div id="layoutSidenav">
 
-    <side-navigation>
-
-    </side-navigation>
+    <side-navigation></side-navigation>
 
     <div id="layoutSidenav_content" ng-controller="RoleController as role">
-
-        <coach-content ng-if="role.isCoach">
-
-        </coach-content>
-
-        <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Hogwarts 2020</div>
-                </div>
-            </div>
-        </footer>
+        <coach-content ng-if="role.isCoach"></coach-content>
+        <footer-hog class="mt-auto"></footer-hog>
     </div>
 </div>
 

@@ -1,63 +1,55 @@
+<div class="row">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-4">Создание новости</h3>
+                    </div>
+                    <div class="card-body">
 
-<div id="layoutAuthentication">
-    <div id="layoutAuthentication_content">
-        <main>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-7">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Редактировать расписание тренировок</h3>
+                        <form name="newsform"
+                              id="newsform"
+                              ng-controller="NewsController as news"
+                              data-ng-submit="news.createNews()"
+                              novalidate>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="headline">Заголовок</label>
+                                        <input class="form-control py-4"
+                                               ng-model="news.news.headline"
+                                               id="headline"
+                                               type="text"
+                                               placeholder="Enter headline"
+                                               ng-required="true"/>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-
-                                <form name="newsform"
-                                      id="newsform"
-                                      ng-controller="NewsController as news"
-                                      data-ng-submit="news.createNews()"
-                                      novalidate>
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="headline">Заголовок</label>
-                                                <input class="form-control py-4"
-                                                       ng-model="news.news.headline"
-                                                       id="headline"
-                                                       type="text"
-                                                       placeholder="Enter headline"
-                                                       ng-required="true"/>
-                                            </div>
-                                        </div>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="text">Текст новости</label>
+                                        <textarea class="form-control py-4"
+                                                  ng-model="news.news.content"
+                                                  id="text"
+                                                  type="text"
+                                                  placeholder="Enter text"
+                                                  rows="8"
+                                                  form="newsform"
+                                                  ng-required="true"></textarea>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="text">Текст новости</label>
-                                                <textarea class="form-control py-4"
-                                                          ng-model="news.news.content"
-                                                          id="text"
-                                                          type="text"
-                                                          placeholder="Enter text"
-                                                          rows="8"
-                                                          form="newsform"
-                                                          ng-required="true"></textarea>
-                                            </div>
-                                        </div>
+                                </div>
 
-                                    </div>
-
-                                    <div class="form-group mt-4 mb-0">
-                                        <input class="btn btn-primary btn-block" type="submit" value="Создать новость"/>
-                                    </div>
-                                </form>
                             </div>
-                        </div>
+
+                            <div class="form-group mt-4 mb-0">
+                                <input class="btn btn-primary btn-block" type="submit" value="Создать новость"/>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
-    <div id="layoutAuthentication_footer">
-        <footer-hog></footer-hog>
+        </div>
     </div>
 </div>
