@@ -28,7 +28,7 @@
                             <td> {{user.name}}</td>
                             <td>{{user.surname}}</td>
                             <td>{{user.faculty}}</td>
-                            <td><a href="#" ng-click="adminctrl.enableUser(user.id)">Активировать</a></td>
+                            <td><a href="#!/administrator"  onclick="window.location.reload()" ng-click="adminctrl.enableUser(user.id)">Активировать</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -55,7 +55,7 @@
                             <td>{{user.surname}}</td>
                             <td>{{user.faculty}}</td>
                             <td><a ng-href='#!/editUser/{{user.id}}'>Редактировать</a></td>
-                            <td><a href="#" ng-click="adminctrl.disableUser(user.id)">Деактивировать</a></td>
+                            <td><a href="#!/administrator" onclick="window.location.reload()" ng-click="adminctrl.disableUser(user.id)">Деактивировать</a></td>
                         </tr>
                         </tbody>
                     </table>

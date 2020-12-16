@@ -13,14 +13,14 @@ app.controller('AdminController', ['$scope', '$http', function ($scope, $http) {
     });
     that.enableUser = function (id) {
         $http.get(`/admin/enableUser/${id}`).then(function (response) {
-            if (response.data === "ok") {
+            if (response.data === true) {
                 alert("Пользователь активирован");
             }
         });
     };
     that.disableUser = function (id) {
         $http.get(`/admin/disableUser/${id}`).then(function (response) {
-            if (response.data === "ok") {
+            if (response.data === true) {
                 alert("Пользователь деактивирован");
             }
         });

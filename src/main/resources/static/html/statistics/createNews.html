@@ -1,3 +1,4 @@
+<div class="container-fluid" ng-controller="RoleController as role">
 <div class="row">
     <div class="container">
         <div class="row justify-content-center">
@@ -44,12 +45,14 @@
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="small mb-1" for="faculty">Доступность</label>
-                                        <select class="form-control py-4"
-                                                  ng-model="news.news.faculty"
-                                                  id="faculty"
-                                                  ng-required="true">
-                                            <option value="all" selected>Общая новость</option>
+                                        <label class="small mb-1" for="faculty">Кому видна новость</label>
+                                        <select class="form-control"
+                                                ng-model="news.news.faculty"
+                                                id="faculty"
+                                                name="faculty"
+                                                required="true"
+                                                ng-required="true">
+                                            <option value="all" ng-selected="true">Общая новость</option>
                                             <option value="ravenclaw">Когтевран</option>
                                             <option value="hufflepuff">Пуффендуй</option>
                                             <option value="slytherin">Слизерин</option>
@@ -68,4 +71,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
