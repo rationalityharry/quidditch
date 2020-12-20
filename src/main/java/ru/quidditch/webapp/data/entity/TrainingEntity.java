@@ -35,6 +35,27 @@ public class TrainingEntity {
     private String sunday;
 
     @Column
+    private String mondayPlan;
+
+    @Column
+    private String tuesdayPlan;
+
+    @Column
+    private String wednesdayPlan;
+
+    @Column
+    private String thursdayPlan;
+
+    @Column
+    private String fridayPlan;
+
+    @Column
+    private String saturdayPlan;
+
+    @Column
+    private String sundayPlan;
+
+    @Column
     private Faculty faculty;
 
     public long getId() {
@@ -107,5 +128,61 @@ public class TrainingEntity {
 
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
+    }
+
+    public String getMondayPlan() {
+        return mondayPlan;
+    }
+
+    public void setMondayPlan(String mondayPlan) {
+        this.mondayPlan = mondayPlan;
+    }
+
+    public String getTuesdayPlan() {
+        return tuesdayPlan;
+    }
+
+    public void setTuesdayPlan(String tuesdayPlan) {
+        this.tuesdayPlan = tuesdayPlan;
+    }
+
+    public String getWednesdayPlan() {
+        return wednesdayPlan;
+    }
+
+    public void setWednesdayPlan(String wednesdayPlan) {
+        this.wednesdayPlan = wednesdayPlan;
+    }
+
+    public String getThursdayPlan() {
+        return thursdayPlan;
+    }
+
+    public void setThursdayPlan(String thursdayPlan) {
+        this.thursdayPlan = thursdayPlan;
+    }
+
+    public String getFridayPlan() {
+        return fridayPlan;
+    }
+
+    public void setFridayPlan(String fridayPlan) {
+        this.fridayPlan = fridayPlan;
+    }
+
+    public String getSaturdayPlan() {
+        return saturdayPlan;
+    }
+
+    public void setSaturdayPlan(String saturdayPlan) {
+        this.saturdayPlan = saturdayPlan;
+    }
+
+    public String getSundayPlan() {
+        return sundayPlan;
+    }
+
+    public void setSundayPlan(String sundayPlan) {
+        this.sundayPlan = sundayPlan;
     }
 }

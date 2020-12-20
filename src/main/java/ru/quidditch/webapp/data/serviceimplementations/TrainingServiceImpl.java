@@ -18,12 +18,12 @@ public class TrainingServiceImpl implements TrainingService {
     private TrainingRepository repository;
 
     @Override
-    public TrainingEntity getTrainingsByCoach(UserEntity coach) {
-        return repository.findByFaculty(coach.getFaculty());
+    public TrainingEntity getTrainingsByUserFaculty(UserEntity user) {
+        return repository.findByFaculty(user.getFaculty());
     }
 
     @Override
-    public TrainingEntity add(TrainingEntity trainingEntity) {
+    public TrainingEntity save(TrainingEntity trainingEntity) {
         return repository.save(trainingEntity);
     }
 }

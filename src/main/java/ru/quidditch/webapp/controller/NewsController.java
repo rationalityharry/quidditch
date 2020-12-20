@@ -37,12 +37,11 @@ public class NewsController {
         Map<String, List<NewsDTO>> result = new HashMap<>();
 
         List<NewsDTO> news = new LinkedList<>();
-         newsService.getNews(teamService.getTeamByFaculty(user.getFaculty())).forEach(newsEntity -> news.add(new NewsDTO(newsEntity)));
-
+        newsService.getNews(teamService.getTeamByFaculty(user.getFaculty())).forEach(newsEntity -> news.add(new NewsDTO(newsEntity)));
         result.put("team", news);
 
         List<NewsDTO> news1 = new LinkedList<>();
-        newsService.getNews(null).forEach(newsEntity -> news1.add(new NewsDTO(newsEntity)));
+        newsService.getNews(teamService.getTeamByFaculty(Faculty.ALL)).forEach(newsEntity -> news1.add(new NewsDTO(newsEntity)));
         result.put("allNews", news1);
 
         return ResponseEntity.ok(result);

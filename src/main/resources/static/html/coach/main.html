@@ -10,13 +10,13 @@
                             </div>
                             <div class="card-body">
 
-                                <form name="trainigForm"
+                                <form name="trainingForm"
                                       ng-controller="TrainingsController as ctrl"
                                       data-ng-submit="ctrl.saveTraining()"
                                       novalidate>
 
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="monday">Понедельник</label>
                                                 <input class="form-control py-4"
@@ -28,9 +28,21 @@
                                                        ng-required="true"/>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="mondayPlan">План тренировки</label>
+                                                <textarea class="form-control py-4"
+                                                       ng-model="ctrl.training.mondayPlan"
+                                                       ng-value="ctrl.training.mondayPlan"
+                                                       id="mondayPlan"
+                                                       type="text"
+                                                       placeholder="Enter training plan"
+                                                       ng-required="true"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="tuesday">Вторник</label>
                                                 <input class="form-control py-4"
@@ -42,9 +54,21 @@
                                                        ng-required="true"/>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="tuesdayPlan">План тренировки</label>
+                                                <textarea class="form-control py-4"
+                                                       ng-model="ctrl.training.tuesdayPlan"
+                                                       ng-value="ctrl.training.tuesdayPlan"
+                                                       id="tuesdayPlan"
+                                                       type="text"
+                                                       placeholder="Enter training plan"
+                                                       ng-required="true"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="wednesday">Среда</label>
                                                 <input class="form-control py-4"
@@ -56,9 +80,21 @@
                                                        ng-required="true"/>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="wednesdayPlan">План тренировки</label>
+                                                <textarea class="form-control py-4"
+                                                       ng-model="ctrl.training.wednesdayPlan"
+                                                       ng-value="ctrl.training.wednesdayPlan"
+                                                       id="wednesdayPlan"
+                                                       type="text"
+                                                       placeholder="Enter training plan"
+                                                       ng-required="true"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="thursday">Четверг</label>
                                                 <input class="form-control py-4"
@@ -70,9 +106,21 @@
                                                        ng-required="true"/>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="thursdayPlan">План тренировки</label>
+                                                <textarea class="form-control py-4"
+                                                       ng-model="ctrl.training.thursdayPlan"
+                                                       ng-value="ctrl.training.thursdayPlan"
+                                                       id="thursdayPlan"
+                                                       type="text"
+                                                       placeholder="Enter training plan"
+                                                       ng-required="true"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="friday">Пятница</label>
                                                 <input class="form-control py-4"
@@ -84,9 +132,21 @@
                                                        ng-required="true"/>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="fridayPlan">План тренировки</label>
+                                                <textarea class="form-control py-4"
+                                                       ng-model="ctrl.training.fridayPlan"
+                                                       ng-value="ctrl.training.fridayPlan"
+                                                       id="fridayPlan"
+                                                       type="text"
+                                                       placeholder="Enter training plan"
+                                                       ng-required="true"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="saturday">Суббота</label>
                                                 <input class="form-control py-4"
@@ -98,9 +158,21 @@
                                                        ng-required="true"/>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="saturdayPlan">План тренировки</label>
+                                                <textarea class="form-control py-4"
+                                                       ng-model="ctrl.training.saturdayPlan"
+                                                       ng-value="ctrl.training.saturdayPlan"
+                                                       id="saturdayPlan"
+                                                       type="text"
+                                                       placeholder="Enter training plan"
+                                                       ng-required="true"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="sunday">Воскресенье</label>
                                                 <input class="form-control py-4"
@@ -110,6 +182,18 @@
                                                        type="text"
                                                        placeholder="Enter time i.e. 10:30"
                                                        ng-required="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="sundayPlan">План тренировки</label>
+                                                <textarea class="form-control py-4"
+                                                       ng-model="ctrl.training.sundayPlan"
+                                                       ng-value="ctrl.training.sundayPlan"
+                                                       id="sundayPlan"
+                                                       type="text"
+                                                       placeholder="Enter training plan"
+                                                          ng-required="true"></textarea>
                                             </div>
                                         </div>
                                     </div>
