@@ -72,10 +72,3 @@ app.directive("examinations", function () {
         templateUrl: "/html/doctor/index.html"
     }
 });
-
-app.directive("examinations", function () {
-    return {
-        restrict: "E",
-        templateUrl: "/html/doctor/index.html"
-    }
-});
