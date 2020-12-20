@@ -1,5 +1,32 @@
 <div class="container-fluid" ng-controller="NewsController as newsctrl">
     <div class="row">
+        <div class="card mb-4">
+            <div class="card-header"><i class="fas fa-table mr-1"></i>Рейтинг игроков</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Факультет</th>
+                            <th>Рейтинг</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="player in newsctrl.players">
+                            <td> {{player.name}}</td>
+                            <td>{{player.surname}}</td>
+                            <td>{{player.faculty}}</td>
+                            <td>{{player.rating}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="d-flex justify-content-between justify-content-md-center justify-content-end">
             <h1 class="h3 mb-0 text-gray-800">Новости команды</h1>
         </div>

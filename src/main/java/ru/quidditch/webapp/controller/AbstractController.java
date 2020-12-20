@@ -8,12 +8,12 @@ import java.util.List;
 
 public abstract class AbstractController {
 
-    boolean checkUser(HttpServletRequest request, Roles role) {
+    boolean checkUserNull(HttpServletRequest request, Roles role) {
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        return user != null && role.equals(user.getRole());
+        return user == null || !role.equals(user.getRole());
     }
-    boolean checkUser(UserEntity user, Roles role) {
-        return user != null && role.equals(user.getRole());
+    boolean checkUserNull(UserEntity user, Roles role) {
+        return user == null || !role.equals(user.getRole());
     }
     boolean checkUser(HttpServletRequest request, List<Roles> roles) {
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
@@ -21,6 +21,13 @@ public abstract class AbstractController {
     }
     boolean checkUser(UserEntity user, List<Roles> roles) {
         return user != null && roles.contains(user.getRole());
+    }
+    boolean checkUser(UserEntity user) {
+        return user != null;
+    }
+    boolean checkUserNull(HttpServletRequest request) {
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        return user == null;
     }
 
 }
