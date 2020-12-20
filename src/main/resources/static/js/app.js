@@ -21,7 +21,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "/html/admin/index.html"
         })
         .when("/coach", {
-            templateUrl: "/html/coach/index.html"
+            templateUrl: "/html/coach/viewTrainings.html"
+        })
+        .when("/ratingChange", {
+            templateUrl: "/html/coach/viewRating.html"
         })
         .when("/player", {
             templateUrl: "/html/player/index.html"

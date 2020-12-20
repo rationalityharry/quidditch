@@ -1,6 +1,7 @@
 package ru.quidditch.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -100,13 +101,14 @@ public class AuthController {
     @GetMapping(value = "role")
     public ResponseEntity<Map<String, String>> role(final HttpServletRequest request) {
         final UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
         Map<String, String> data = new HashMap<>();
-
         data.put("role", user.getRole().getName());
         data.put("id", "" + user.getId());
         data.put("login", user.getLogin());
         return ResponseEntity.ok(data);
-
     }
 
 
