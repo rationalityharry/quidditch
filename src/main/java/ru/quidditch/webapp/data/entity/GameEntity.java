@@ -17,6 +17,10 @@ public class GameEntity {
     @OneToOne
     private TeamEntity team2;
 
+    @ManyToOne
+    @JoinColumn(name = "operator_id")
+    private OperatorEntity operator;
+
     @Column
     private int team1Score;
 
@@ -24,10 +28,13 @@ public class GameEntity {
     private int team2Score;
 
     @Column
-    private String Location;
+    private String location;
 
     @Column
     private Date date;
+
+    @Column
+    private Date time;
 
     public GameEntity() {
     }
@@ -57,11 +64,11 @@ public class GameEntity {
     }
 
     public String getLocation() {
-        return Location;
+        return location;
     }
 
     public void setLocation(String location) {
-        Location = location;
+        this.location = location;
     }
 
     public Date getDate() {
@@ -90,5 +97,21 @@ public class GameEntity {
 
     public void setTeam2Score(int team2Score) {
         this.team2Score = team2Score;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public OperatorEntity getOperator() {
+        return operator;
+    }
+
+    public void setOperator(OperatorEntity operator) {
+        this.operator = operator;
     }
 }

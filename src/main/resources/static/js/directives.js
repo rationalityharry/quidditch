@@ -79,3 +79,17 @@ app.directive("playerRating", function () {
         templateUrl: "/html/coach/playerRating.html"
     }
 });
+
+app.directive("games", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/shared/games.html"
+    }
+});
+
+app.directive("createGames", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/statistics/createGames.html"
+    }
+});

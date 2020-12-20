@@ -11,9 +11,20 @@ public class OperatorEntity extends UserEntity {
     @OneToMany(mappedBy = "operator", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<NewsEntity> news;
 
+    @Column
+    @OneToMany(mappedBy = "operator")
+    private List<GameEntity> games;
+
     public OperatorEntity() {
     }
 
+    public List<GameEntity> getGames() {
+        return games;
+    }
+
+    public void setGames(List<GameEntity> games) {
+        this.games = games;
+    }
 
     public OperatorEntity(UserEntity createdUser) {
     super(createdUser);
