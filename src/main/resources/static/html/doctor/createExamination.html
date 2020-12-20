@@ -1,0 +1,75 @@
+<div class="container-fluid" ng-controller="RoleController as role">
+    <div class="row">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        <div class="card-header">
+                            <h3 class="text-center font-weight-light my-4">Создание осмотра</h3>
+                        </div>
+                        <div class="card-body">
+
+                            <form name="examinationform"
+                                  id="examinationform"
+                                  ng-controller="MedicalExaminationController as examination"
+                                  data-ng-submit="examination.createExamination()"
+                                  novalidate>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="fullname">Имя, фамилия</label>
+                                            <input class="form-control py-4"
+                                                   ng-model="examination.examination.fullname"
+                                                   id="fullname"
+                                                   type="text"
+                                                   placeholder="Имя, фамилия<"
+                                                   ng-required="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="sick">Болен ли игрок?</label>
+                                            <input class="form-control py-4"
+                                                   ng-model="examination.examination.sick"
+                                                   id="sick"
+                                                   type="radio"
+                                            />
+                                            <label for="sick">Болен</label>
+
+                                            <input class="form-control py-4"
+                                                   ng-model="examination.examination.sick"
+                                                   id="notsick"
+                                                   type="radio"
+                                            />
+                                            <label for="notsick">Здоров</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="text">Дополнительная информация</label>
+                                            <textarea class="form-control py-4"
+                                                      ng-model="examination.examination.text"
+                                                      id="text"
+                                                      type="text"
+                                                      placeholder="Enter text"
+                                                      rows="8"
+                                                      form="examinationform"
+                                                      ng-required="true"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-4 mb-0">
+                                    <input class="btn btn-primary btn-block" type="submit" value="Создать осмотр"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

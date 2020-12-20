@@ -4,7 +4,9 @@ import ru.quidditch.webapp.data.enums.PlayerPosition;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Table(name = "players")
 @Entity
@@ -18,6 +20,12 @@ public class PlayerEntity extends UserEntity {
 
     @Column
     private boolean captain;
+
+    @Column
+    private boolean isSick;
+
+    @OneToMany (mappedBy = "player")
+    private List<MedicalExaminationEntity> examinations;
 
     public PlayerEntity() {
     }

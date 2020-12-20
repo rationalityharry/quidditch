@@ -65,3 +65,17 @@ app.directive("createNews", function () {
         templateUrl: "/html/statistics/createNews.html"
     }
 });
+
+app.directive("examinations", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/doctor/index.html"
+    }
+});
+
+app.directive("examinations", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/doctor/index.html"
+    }
+});
