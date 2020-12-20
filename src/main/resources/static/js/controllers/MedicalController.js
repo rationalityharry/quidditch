@@ -7,7 +7,8 @@ appControllers.controller('MedicalExaminationController', ['$scope', '$http', '$
     that.createExamination = function () {
         $http.post("/examinations/create", {
             id: null,
-            fullname: that.examination.fullname,
+            name: that.examination.name,
+            surname: that.examination.surname,
             sick: that.examination.sick,
             text: that.examination.text
         })

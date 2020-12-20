@@ -9,4 +9,6 @@ import ru.quidditch.webapp.data.entity.DoctorEntity;
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
 public interface DoctorRepository extends JpaRepository<DoctorEntity, Long> {
+
+
 }

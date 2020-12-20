@@ -17,12 +17,25 @@
                                 <div class="form-row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="small mb-1" for="fullname">Имя, фамилия</label>
+                                            <label class="small mb-1" for="name">Имя</label>
                                             <input class="form-control py-4"
-                                                   ng-model="examination.examination.fullname"
-                                                   id="fullname"
+                                                   ng-model="examination.examination.name"
+                                                   id="name"
                                                    type="text"
-                                                   placeholder="Имя, фамилия<"
+                                                   placeholder="Имя"
+                                                   ng-required="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="surname">Фамилия</label>
+                                            <input class="form-control py-4"
+                                                   ng-model="examination.examination.surname"
+                                                   id="surname"
+                                                   type="text"
+                                                   placeholder="Фамилия"
                                                    ng-required="true"/>
                                         </div>
                                     </div>
@@ -31,7 +44,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="small mb-1" for="sick">Болен ли игрок?</label>
-                                            <input class="form-control py-4"
+                                            <input class="left-container"
                                                    ng-model="examination.examination.sick"
                                                    id="sick"
                                                    type="checkbox"
@@ -47,7 +60,7 @@
                                                       ng-model="examination.examination.text"
                                                       id="text"
                                                       type="text"
-                                                      placeholder="Enter text"
+                                                      placeholder="Дополнительная информация"
                                                       rows="8"
                                                       form="examinationform"
                                                       ng-required="true"></textarea>

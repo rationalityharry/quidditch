@@ -69,6 +69,12 @@ app.directive("createNews", function () {
 app.directive("examinations", function () {
     return {
         restrict: "E",
-        templateUrl: "/html/doctor/index.html"
+        templateUrl: "/html/doctor/examinations.html"
+    }
+});
+app.directive("createExamination", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/doctor/createExamination.html"
     }
 });
