@@ -27,16 +27,13 @@ app.config(["$routeProvider", function ($routeProvider) {
             templateUrl: "/html/player/index.html"
         })
         .when("/doctor", {
-            templateUrl: "/html/doctor/index.html"
+            templateUrl: "/html/doctor/viewPatients.html"
         })
         .when("/news", {
             templateUrl: "/html/statistics/viewNews.html"
         })
         .when("/create_examination", {
             templateUrl: "/html/doctor/viewCreateExamination.html"
-        })
-        .when("/examinations", {
-            templateUrl: "/html/doctor/viewNews.html"
         })
         .when("/create_news", {
             templateUrl: "/html/statistics/viewCreateNews.html"

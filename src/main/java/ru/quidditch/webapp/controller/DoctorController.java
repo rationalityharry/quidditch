@@ -1,12 +1,11 @@
 package ru.quidditch.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.quidditch.webapp.data.entity.PlayerEntity;
-import ru.quidditch.webapp.data.entity.UserEntity;
 import ru.quidditch.webapp.data.enums.Faculty;
 import ru.quidditch.webapp.data.enums.Roles;
 import ru.quidditch.webapp.data.service.DoctorService;
@@ -18,28 +17,28 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/doctor")
-public class DoctorController {
+public class DoctorController extends AbstractController {
+
     @Autowired
     private DoctorService doctorService;
     @Autowired
     private PlayerService playerService;
 
-    @GetMapping(value = "/get")
+    @GetMapping(value = "/patients")
     public ResponseEntity<List<PatientDTO>> getPatients(HttpServletRequest request) {
-        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (user != null && user.getRole().equals(Roles.DOCTOR)) {
-            List<PatientDTO> result = new ArrayList<>();
-            playerService.getAll().forEach(playerEntity ->
-                    result.add(new PatientDTO(playerEntity.getName(),
-                            playerEntity.getSurname(),
-                            playerEntity.getFaculty(),
-                            playerEntity.getBirthday(),
-                            playerEntity.getId()
-                            )));
-
-            return ResponseEntity.ok(result);
+        if (!checkUser(request, Roles.DOCTOR)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-        return null;
+        List<PatientDTO> result = new ArrayList<>();
+        playerService.getAll().forEach(playerEntity ->
+                result.add(new PatientDTO(playerEntity.getName(),
+                        playerEntity.getSurname(),
+                        playerEntity.getFaculty(),
+                        playerEntity.getBirthday(),
+                        playerEntity.getId()
+                )));
+
+        return ResponseEntity.ok(result);
     }
 
     private static class PatientDTO {

@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
         return repository.findAllByLogin(login);
     }
 
+
     public UserEntity getOneByLogin(String login) {
         final List<UserEntity> allByLogin = repository.findAllByLogin(login);
         if (allByLogin.isEmpty()) {

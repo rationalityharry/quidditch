@@ -18,6 +18,9 @@ appControllers.controller('AuthorisationController', ['$scope', '$http', '$locat
                 case "1":
                     alert("User is not confirmed by admin yet, try again later.");
                     break;
+                case "doctor":
+                    $location.path("/doctor");
+                    break;
                 default :
                     $location.path("/news");
                     break;

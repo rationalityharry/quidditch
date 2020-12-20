@@ -66,10 +66,10 @@ app.directive("createNews", function () {
     }
 });
 
-app.directive("examinations", function () {
+app.directive("patients", function () {
     return {
         restrict: "E",
-        templateUrl: "/html/doctor/examinations.html"
+        templateUrl: "/html/doctor/patients.html"
     }
 });
 app.directive("createExamination", function () {

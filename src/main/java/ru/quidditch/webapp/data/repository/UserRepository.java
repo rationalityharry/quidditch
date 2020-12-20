@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     List<UserEntity> findAllByDisabledIsFalse();
 
+    List<UserEntity> findAllByEnabledIsTrue();
+
     List<UserEntity> findAllByDisabledIsTrue();
 
     List<UserEntity> findAllByEnabledIsFalse();
