@@ -9,6 +9,8 @@ public interface UserService {
 
     List<UserEntity> getAll();
 
+    List<UserEntity> getAllAdmins();
+
     List<UserEntity> getAllByLogin(String login);
 
     UserEntity getOneByLogin(String login);

@@ -1,49 +1,65 @@
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-7">
+        <div class="col-lg-12">
             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header">
-                    <h3 class="text-center font-weight-light my-4">Редактировать рейтинг игроков команды</h3>
-                </div>
-                <div class="card-body">
-
-                    <form name="ratingForm"
-                          ng-controller="TrainingsController as ctrl"
-                          ng-init="ctrl.getTeamPlayers()"
-                          novalidate>
-
-                        <div class="form-row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="playerSelect">Выберите игрока</label>
-                                    <select class="form-control"
-                                            name="player"
-                                            id="playerSelect"
-                                            ng-model="ctrl.selectedPlayer"
-                                            ng-options="player.id as  player.name for player in ctrl.players"></select><br>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="rating">Изменение рейтинга</label>
-                                    <input class="form-control"
-                                              ng-model="ctrl.rating"
-                                              ng-value="ctrl.rating"
-                                              id="rating"
-                                              type="number"
-                                              placeholder="Rating"
-                                              ng-required="true"/>
-                                </div>
-                            </div>
+                <div class="card mb-12" ng-controller="TrainingsController as ctrl" ng-init="ctrl.getTeamPlayers()">
+                    <div class="card-header"><i class="fas fa-table mr-1"></i>Управление командой</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Имя</th>
+                                    <th>Фамилия</th>
+                                    <th>Отчество</th>
+                                    <th>Рейтинг</th>
+                                    <th>Болеет</th>
+                                    <th>Позиция</th>
+                                    <th>В запасе</th>
+                                    <th>Капитан</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="player in ctrl.players">
+                                    <td>{{player.name}}</td>
+                                    <td>{{player.surname}}</td>
+                                    <td>{{player.patronymic}}</td>
+                                    <td>
+                                        <input ng-change="ctrl.savePlayer(player.id, player.inStock, player.captain, player.position, player.rating)"
+                                               ng-model="player.rating"
+                                               ng-value="player.rating"/>
+                                    </td>
+                                    <td>
+                                        <input ng-change="ctrl.savePlayer(player.id, player.inStock, player.captain, player.position, player.rating)"
+                                               type="checkbox"
+                                               disabled
+                                               ng-model="player.sick"
+                                               ng-value="player.sick"/>
+                                    </td>
+                                    <td>
+                                        <select ng-model="player.position"
+                                                ng-change="ctrl.savePlayer(player.id, player.inStock, player.captain, player.position, player.rating)">
+                                            <option ng-repeat="position in ctrl.positions" ng-selected="player.position === position.name">{{position.name}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input ng-change="ctrl.savePlayer(player.id, player.inStock, player.captain, player.position, player.rating)"
+                                               type="checkbox"
+                                               ng-model="player.inStock"
+                                               ng-value="player.inStock"/>
+                                    </td>
+                                    <td>
+                                        <input ng-change="ctrl.savePlayer(player.id, player.inStock, player.captain, player.position, player.rating)"
+                                               type="checkbox"
+                                               ng-model="player.captain"
+                                               ng-value="player.captain"/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-
-                        <div class="form-group mt-4 mb-0">
-                            <input class="btn btn-primary btn-block" type="submit" value="Увеличить" ng-click="ctrl.savePlayerRating(1)"/>
-                        </div>
-                        <div class="form-group mt-4 mb-0">
-                            <input class="btn btn-primary btn-block" type="submit" value="Уменьшить" ng-click="ctrl.savePlayerRating(-1)"/>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

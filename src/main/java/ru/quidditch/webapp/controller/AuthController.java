@@ -70,6 +70,8 @@ public class AuthController {
                     createdUser = doctorService.save(new DoctorEntity(createdUser));
                     break;
                 case ADMINISTRATOR:
+                    if (userService.getAllAdmins().size() == 0)
+                        createdUser.setEnabled(true);
                     createdUser = userService.save(createdUser);
             }
             return ResponseEntity.ok(createdUser.getId());

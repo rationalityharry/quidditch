@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.quidditch.webapp.data.entity.PlayerEntity;
 import ru.quidditch.webapp.data.entity.TrainingEntity;
 import ru.quidditch.webapp.data.entity.UserEntity;
+import ru.quidditch.webapp.data.enums.PlayerPosition;
 import ru.quidditch.webapp.data.enums.Roles;
 import ru.quidditch.webapp.data.service.PlayerService;
 import ru.quidditch.webapp.data.service.TrainingService;
@@ -14,6 +15,7 @@ import ru.quidditch.webapp.data.service.TrainingService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/training")
@@ -64,8 +66,8 @@ public class TrainingsController extends AbstractController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping(value = "/changeRating")
-    public ResponseEntity<Boolean> changePlayerRating(HttpServletRequest request, @RequestBody PlayerDTO playerDTO) {
+    @PostMapping(value = "/changePlayer")
+    public ResponseEntity<Boolean> changePlayer(HttpServletRequest request, @RequestBody PlayerDTO playerDTO) {
 
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
         if (checkUserNull(user, Roles.COACH)) {
@@ -75,7 +77,10 @@ public class TrainingsController extends AbstractController {
         if (player == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
 
-        player.setRate(player.getRate() + playerDTO.getRating());
+        player.setCaptain(playerDTO.captain);
+        player.setRate(playerDTO.rating);
+        player.setPosition(PlayerPosition.getByName(playerDTO.getPosition()));
+        player.setInStock(playerDTO.inStock);
         playerService.save(player);
         return ResponseEntity.ok(true);
     }
@@ -94,6 +99,17 @@ public class TrainingsController extends AbstractController {
                 result.add(new PlayerDTO(player));
             });
         }
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/positions")
+    public ResponseEntity<List<PositionDTO>> getPlayersPositions(HttpServletRequest request) {
+
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (!checkUser(user, List.of(Roles.COACH))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        List<PositionDTO> result = List.of(PlayerPosition.values()).stream().map(PositionDTO::new).collect(Collectors.toCollection(LinkedList::new));
         return ResponseEntity.ok(result);
     }
 
@@ -238,6 +254,11 @@ public class TrainingsController extends AbstractController {
         private String patronymic;
         private String birthday;
         private Long id;
+        private String position;
+        private Boolean sick;
+        private Boolean captain;
+        private Boolean inStock;
+
 
         public PlayerDTO() {
         }
@@ -249,6 +270,10 @@ public class TrainingsController extends AbstractController {
             this.birthday = player.getBirthday();
             this.id = player.getId();
             this.rating = player.getRate();
+            this.position = player.getPosition().getName();
+            this.sick = player.isSick();
+            this.captain = player.isCaptain();
+            this.inStock = player.isInStock();
         }
 
         public Integer getRating() {
@@ -297,6 +322,64 @@ public class TrainingsController extends AbstractController {
 
         public void setId(Long id) {
             this.id = id;
+        }
+
+        public String getPosition() {
+            return position;
+        }
+
+        public void setPosition(String position) {
+            this.position = position;
+        }
+
+        public Boolean getSick() {
+            return sick;
+        }
+
+        public void setSick(Boolean sick) {
+            this.sick = sick;
+        }
+
+        public Boolean getCaptain() {
+            return captain;
+        }
+
+        public void setCaptain(Boolean captain) {
+            this.captain = captain;
+        }
+
+        public Boolean getInStock() {
+            return inStock;
+        }
+
+        public void setInStock(Boolean inStock) {
+            this.inStock = inStock;
+        }
+    }
+
+    private static class PositionDTO {
+        private String name;
+        private String value;
+
+        public PositionDTO(PlayerPosition position) {
+            this.name = position.getName();
+            this.value = position.name();
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
         }
     }
 

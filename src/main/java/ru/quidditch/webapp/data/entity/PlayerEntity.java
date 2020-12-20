@@ -24,6 +24,10 @@ public class PlayerEntity extends UserEntity {
     @Column
     private boolean isSick = false;
 
+    @Column
+    private boolean inStock = true;
+
+
     @OneToMany (mappedBy = "player")
     private List<MedicalExaminationEntity> examinations;
 
@@ -33,6 +37,11 @@ public class PlayerEntity extends UserEntity {
 
     public PlayerEntity(UserEntity createdUser) {
         super(createdUser);
+        this.isSick = false;
+        this.captain = false;
+        this.rate = 0;
+        this.isSick = false;
+        this.inStock = true;
     }
 
     public int getRate() {
@@ -59,4 +68,27 @@ public class PlayerEntity extends UserEntity {
         this.captain = captain;
     }
 
+    public boolean isSick() {
+        return isSick;
+    }
+
+    public void setSick(boolean sick) {
+        isSick = sick;
+    }
+
+    public List<MedicalExaminationEntity> getExaminations() {
+        return examinations;
+    }
+
+    public void setExaminations(List<MedicalExaminationEntity> examinations) {
+        this.examinations = examinations;
+    }
+
+    public boolean isInStock() {
+        return inStock;
+    }
+
+    public void setInStock(boolean inStock) {
+        this.inStock = inStock;
+    }
 }
