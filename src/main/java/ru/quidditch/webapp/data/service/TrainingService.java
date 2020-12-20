@@ -5,8 +5,8 @@ import ru.quidditch.webapp.data.entity.UserEntity;
 
 public interface TrainingService {
 
-    TrainingEntity getTrainingsByCoach(UserEntity coach);
+    TrainingEntity getTrainingsByUserFaculty(UserEntity coach);
 
 
-    TrainingEntity add(TrainingEntity trainingEntity);
+    TrainingEntity save(TrainingEntity trainingEntity);
 }

@@ -21,21 +21,17 @@ public class TrainingsController {
     @GetMapping(value = "/get")
     public ResponseEntity<TrainingEntity> getTrainings(HttpServletRequest request) {
         UserEntity currentUser = (UserEntity) request.getSession().getAttribute("user");
-        if (!Roles.COACH.equals(currentUser.getRole())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-        }
-
-        return ResponseEntity.ok(trainingService.getTrainingsByCoach(currentUser));
+        return ResponseEntity.ok(trainingService.getTrainingsByUserFaculty(currentUser));
     }
 
     @PostMapping(value = "/saveTraining")
-    public ResponseEntity<Boolean> changeTrainig(HttpServletRequest request, @RequestBody TrainingDTO training) {
+    public ResponseEntity<Boolean> changeTraining(HttpServletRequest request, @RequestBody TrainingDTO training) {
 
         UserEntity currentUser = (UserEntity) request.getSession().getAttribute("user");
         if (!Roles.COACH.equals(currentUser.getRole())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(false);
         }
-        TrainingEntity trainingEntity = trainingService.getTrainingsByCoach(currentUser);
+        TrainingEntity trainingEntity = trainingService.getTrainingsByUserFaculty(currentUser);
         if (trainingEntity == null) {
             trainingEntity = new TrainingEntity();
         }
@@ -47,7 +43,15 @@ public class TrainingsController {
         trainingEntity.setFriday(training.friday);
         trainingEntity.setSaturday(training.saturday);
         trainingEntity.setSunday(training.sunday);
-        trainingService.add(trainingEntity);
+
+        trainingEntity.setMondayPlan(training.mondayPlan);
+        trainingEntity.setTuesdayPlan(training.tuesdayPlan);
+        trainingEntity.setWednesdayPlan(training.wednesdayPlan);
+        trainingEntity.setThursdayPlan(training.thursdayPlan);
+        trainingEntity.setFridayPlan(training.fridayPlan);
+        trainingEntity.setSaturdayPlan(training.saturdayPlan);
+        trainingEntity.setSundayPlan(training.sundayPlan);
+        trainingService.save(trainingEntity);
         return ResponseEntity.ok(true);
     }
 
@@ -61,6 +65,16 @@ public class TrainingsController {
         private String friday;
         private String saturday;
         private String sunday;
+        private String mondayPlan;
+        private String tuesdayPlan;
+        private String wednesdayPlan;
+        private String thursdayPlan;
+        private String fridayPlan;
+        private String saturdayPlan;
+        private String sundayPlan;
+
+        public TrainingDTO() {
+        }
 
         public String getMonday() {
             return monday;
@@ -116,6 +130,62 @@ public class TrainingsController {
 
         public void setSunday(String sunday) {
             this.sunday = sunday;
+        }
+
+        public String getMondayPlan() {
+            return mondayPlan;
+        }
+
+        public void setMondayPlan(String mondayPlan) {
+            this.mondayPlan = mondayPlan;
+        }
+
+        public String getTuesdayPlan() {
+            return tuesdayPlan;
+        }
+
+        public void setTuesdayPlan(String tuesdayPlan) {
+            this.tuesdayPlan = tuesdayPlan;
+        }
+
+        public String getWednesdayPlan() {
+            return wednesdayPlan;
+        }
+
+        public void setWednesdayPlan(String wednesdayPlan) {
+            this.wednesdayPlan = wednesdayPlan;
+        }
+
+        public String getThursdayPlan() {
+            return thursdayPlan;
+        }
+
+        public void setThursdayPlan(String thursdayPlan) {
+            this.thursdayPlan = thursdayPlan;
+        }
+
+        public String getFridayPlan() {
+            return fridayPlan;
+        }
+
+        public void setFridayPlan(String fridayPlan) {
+            this.fridayPlan = fridayPlan;
+        }
+
+        public String getSaturdayPlan() {
+            return saturdayPlan;
+        }
+
+        public void setSaturdayPlan(String saturdayPlan) {
+            this.saturdayPlan = saturdayPlan;
+        }
+
+        public String getSundayPlan() {
+            return sundayPlan;
+        }
+
+        public void setSundayPlan(String sundayPlan) {
+            this.sundayPlan = sundayPlan;
         }
     }
 
