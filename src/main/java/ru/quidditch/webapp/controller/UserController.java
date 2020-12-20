@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/user")
-public class UserController {
+public class UserController extends AbstractController {
 
 
     @Autowired

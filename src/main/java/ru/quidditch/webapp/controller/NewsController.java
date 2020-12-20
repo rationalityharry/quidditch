@@ -18,7 +18,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping(value = "/news")
-public class NewsController {
+public class NewsController extends AbstractController {
 
     @Autowired
     private NewsService newsService;

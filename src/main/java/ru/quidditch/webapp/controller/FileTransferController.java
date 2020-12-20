@@ -24,7 +24,7 @@ import java.net.URLConnection;
 @RestController
 @SessionAttributes(value = "user")
 @RequestMapping(value = "")
-public class FileTransferController {
+public class FileTransferController extends AbstractController {
 
     @Autowired
     ImageEntityService imageService;
@@ -52,7 +52,10 @@ public class FileTransferController {
 
         UserEntity user = userService.getById(userId);
         ImageEntity image = user.getUserKey();
-        String address = user.getUserKey().getImagePath();
+        if (image == null) {
+            return null;
+        }
+        String address = image.getImagePath();
         File result = new File(address);
 
         if (result.exists()) {

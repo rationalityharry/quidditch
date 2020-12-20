@@ -18,4 +18,9 @@ public class PlayerServiceImpl implements PlayerService {
     public PlayerEntity save(PlayerEntity playerEntity) {
         return playerRepository.save(playerEntity);
     }
+
+    @Override
+    public PlayerEntity findPlayerById(Long id) {
+        return playerRepository.findOne(id);
+    }
 }

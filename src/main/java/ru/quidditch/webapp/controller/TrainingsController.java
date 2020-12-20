@@ -4,38 +4,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.quidditch.webapp.data.entity.PlayerEntity;
 import ru.quidditch.webapp.data.entity.TrainingEntity;
 import ru.quidditch.webapp.data.entity.UserEntity;
 import ru.quidditch.webapp.data.enums.Roles;
+import ru.quidditch.webapp.data.service.PlayerService;
 import ru.quidditch.webapp.data.service.TrainingService;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/training")
-public class TrainingsController {
+public class TrainingsController extends AbstractController {
 
     @Autowired
     private TrainingService trainingService;
+    @Autowired
+    private PlayerService playerService;
 
     @GetMapping(value = "/get")
     public ResponseEntity<TrainingEntity> getTrainings(HttpServletRequest request) {
-        UserEntity currentUser = (UserEntity) request.getSession().getAttribute("user");
-        return ResponseEntity.ok(trainingService.getTrainingsByUserFaculty(currentUser));
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (!checkUser(user, Roles.COACH)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        return ResponseEntity.ok(trainingService.getTrainingsByUserFaculty(user));
     }
 
     @PostMapping(value = "/saveTraining")
     public ResponseEntity<Boolean> changeTraining(HttpServletRequest request, @RequestBody TrainingDTO training) {
 
-        UserEntity currentUser = (UserEntity) request.getSession().getAttribute("user");
-        if (!Roles.COACH.equals(currentUser.getRole())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(false);
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (!checkUser(user, Roles.COACH)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-        TrainingEntity trainingEntity = trainingService.getTrainingsByUserFaculty(currentUser);
+        TrainingEntity trainingEntity = trainingService.getTrainingsByUserFaculty(user);
         if (trainingEntity == null) {
             trainingEntity = new TrainingEntity();
         }
-        trainingEntity.setFaculty(currentUser.getFaculty());
+        trainingEntity.setFaculty(user.getFaculty());
         trainingEntity.setMonday(training.monday);
         trainingEntity.setTuesday(training.tuesday);
         trainingEntity.setWednesday(training.wednesday);
@@ -52,6 +59,22 @@ public class TrainingsController {
         trainingEntity.setSaturdayPlan(training.saturdayPlan);
         trainingEntity.setSundayPlan(training.sundayPlan);
         trainingService.save(trainingEntity);
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping(value = "/changeRating/{playerId}")
+    public ResponseEntity<Boolean> changePlayerRating(HttpServletRequest request, @PathVariable Long playerId, @RequestAttribute Long rating) {
+
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (!checkUser(user, Roles.COACH)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        PlayerEntity player = playerService.findPlayerById(playerId);
+
+
+
+
+
         return ResponseEntity.ok(true);
     }
 
