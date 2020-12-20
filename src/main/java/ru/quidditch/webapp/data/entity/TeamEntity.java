@@ -14,7 +14,6 @@ public class TeamEntity {
     @Column
     private long id;
 
-
     @OneToMany(mappedBy = "team")
     private List<UserEntity> users;
 
@@ -26,11 +25,6 @@ public class TeamEntity {
 
     @OneToOne
     private CoachEntity coach;
-
-
-    /*@OneToMany(mappedBy = "team", orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<GameEntity> games;*/
-
 
     public TeamEntity() {
     }

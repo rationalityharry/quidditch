@@ -22,13 +22,11 @@ appControllers.controller('GamesController', ['$scope', '$http', '$location', fu
 
     that.createGame = function () {
         $http.post("/games/create", {
-            id: null,
             date: that.game.date,
             time: that.game.time,
             location: that.game.location,
             team1: that.game.team1,
             team2: that.game.team2,
-
         })
             .then(function (response) {
                 if (response.data) {
@@ -36,4 +34,14 @@ appControllers.controller('GamesController', ['$scope', '$http', '$location', fu
                 }
             });
     }
+
+    that.saveEnded = function () {
+        $http.post(`/games/create`, {
+
+        }).then(function (response) {
+            if (response.data === true) {
+                alert("Очки сохранены");
+            }
+        });
+    };
 }]);
