@@ -3,7 +3,7 @@
         <div class="col-lg-7">
             <div class="card shadow-lg border-0 rounded-lg mt-5">
                 <div class="card-header">
-                    <h3 class="text-center font-weight-light my-4">Редактировать расписание тренировок</h3>
+                    <h3 class="text-center font-weight-light my-4">Редактировать рейтинг игроков команды</h3>
                 </div>
                 <div class="card-body">
 
@@ -13,19 +13,20 @@
                           novalidate>
 
                         <div class="form-row">
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="playerSelect">Игрок</label>
-                                    <select name="player"
+                                    <label class="small mb-1" for="playerSelect">Выберите игрока</label>
+                                    <select class="form-control"
+                                            name="player"
                                             id="playerSelect"
                                             ng-model="ctrl.selectedPlayer"
                                             ng-options="player.id as  player.name for player in ctrl.players"></select><br>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="rating">План тренировки</label>
-                                    <input class="form-control py-4"
+                                    <label class="small mb-1" for="rating">Изменение рейтинга</label>
+                                    <input class="form-control"
                                               ng-model="ctrl.rating"
                                               ng-value="ctrl.rating"
                                               id="rating"

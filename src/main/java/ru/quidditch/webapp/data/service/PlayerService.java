@@ -16,5 +16,7 @@ public interface PlayerService {
     List<PlayerEntity> getAll();
 
 
+    List<PlayerEntity> findPlayersByRating();
+
     List<PlayerEntity> findPlayersByFaculty(Faculty faculty);
 }

@@ -27,7 +27,7 @@ public class TrainingsController extends AbstractController {
     @GetMapping(value = "/getTraining")
     public ResponseEntity<TrainingEntity> getTrainings(HttpServletRequest request) {
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (!checkUser(user, Roles.COACH)) {
+        if (checkUserNull(user, Roles.COACH)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         return ResponseEntity.ok(trainingService.getTrainingsByUserFaculty(user));
@@ -37,7 +37,7 @@ public class TrainingsController extends AbstractController {
     public ResponseEntity<Boolean> changeTraining(HttpServletRequest request, @RequestBody TrainingDTO training) {
 
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (!checkUser(user, Roles.COACH)) {
+        if (checkUserNull(user, Roles.COACH)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         TrainingEntity trainingEntity = trainingService.getTrainingsByUserFaculty(user);
@@ -68,7 +68,7 @@ public class TrainingsController extends AbstractController {
     public ResponseEntity<Boolean> changePlayerRating(HttpServletRequest request, @RequestBody PlayerDTO playerDTO) {
 
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (!checkUser(user, Roles.COACH)) {
+        if (checkUserNull(user, Roles.COACH)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         PlayerEntity player = playerService.findPlayerById(playerDTO.id);

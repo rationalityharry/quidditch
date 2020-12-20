@@ -29,7 +29,7 @@ public class AdminController extends AbstractController {
     @GetMapping(value = "/users")
     public ResponseEntity<List<UserDTO>> getUsers(HttpServletRequest request) {
 
-        if (!checkUser(request, Roles.ADMINISTRATOR)) {
+        if (checkUserNull(request, Roles.ADMINISTRATOR)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         List<UserDTO> result = new ArrayList<>();
@@ -40,7 +40,7 @@ public class AdminController extends AbstractController {
 
     @GetMapping(value = "/disabledUsers")
     public ResponseEntity<List<UserDTO>> getDisabledUsers(HttpServletRequest request) {
-        if (!checkUser(request, Roles.ADMINISTRATOR)) {
+        if (checkUserNull(request, Roles.ADMINISTRATOR)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         List<UserDTO> result = new ArrayList<>();
@@ -50,7 +50,7 @@ public class AdminController extends AbstractController {
 
     @GetMapping(value = "/enableUser/{userId}")
     public ResponseEntity<Boolean> enableUser(HttpServletRequest request, @PathVariable final Long userId) {
-        if (!checkUser(request, Roles.ADMINISTRATOR)) {
+        if (checkUserNull(request, Roles.ADMINISTRATOR)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         UserEntity user = userService.getById(userId);
@@ -62,7 +62,7 @@ public class AdminController extends AbstractController {
 
     @GetMapping(value = "/disableUser/{userId}")
     public ResponseEntity<Boolean> disableUser(HttpServletRequest request, @PathVariable final Long userId) {
-        if (!checkUser(request, Roles.ADMINISTRATOR)) {
+        if (checkUserNull(request, Roles.ADMINISTRATOR)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         UserEntity user = userService.getById(userId);
