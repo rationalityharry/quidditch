@@ -24,13 +24,13 @@ app.directive("navigation", function () {
 app.directive("adminContent", function () {
     return {
         restrict: "E",
-        templateUrl: "/html/admin/main.html"
+        templateUrl: "/html/admin/activation.html"
     }
 });
 app.directive("coachContent", function () {
     return {
         restrict: "E",
-        templateUrl: "/html/coach/main.html"
+        templateUrl: "/html/coach/trainingsPlan.html"
     }
 });
 app.directive("sideNavigation", function () {

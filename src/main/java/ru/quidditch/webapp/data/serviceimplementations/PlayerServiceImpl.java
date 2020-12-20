@@ -25,4 +25,9 @@ public class PlayerServiceImpl implements PlayerService {
     public List<PlayerEntity> getAll() {
         return playerRepository.findAllByDisabledIsFalse();
     }
+
+    @Override
+    public PlayerEntity findPlayerById(Long id) {
+        return playerRepository.findOne(id);
+    }
 }

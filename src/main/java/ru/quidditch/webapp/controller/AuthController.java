@@ -40,7 +40,7 @@ public class AuthController {
             Roles role = (Roles.valueOf(user.getRole().toUpperCase()));
             Faculty faculty = Faculty.valueOf(user.faculty.toUpperCase());
             TeamEntity team = teamService.getTeamByFaculty(faculty);
-            if (team == null){
+            if (team == null) {
                 team = new TeamEntity();
                 team.setFaculty(faculty);
                 team = teamService.save(team);

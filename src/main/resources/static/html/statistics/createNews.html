@@ -1,75 +1,75 @@
 <div class="container-fluid" ng-controller="RoleController as role">
-<div class="row">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header">
-                        <h3 class="text-center font-weight-light my-4">Создание новости</h3>
-                    </div>
-                    <div class="card-body">
+    <div class="row">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        <div class="card-header">
+                            <h3 class="text-center font-weight-light my-4">Создание новости</h3>
+                        </div>
+                        <div class="card-body">
 
-                        <form name="newsform"
-                              id="newsform"
-                              ng-controller="NewsController as news"
-                              data-ng-submit="news.createNews()"
-                              novalidate>
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="headline">Заголовок</label>
-                                        <input class="form-control py-4"
-                                               ng-model="news.news.headline"
-                                               id="headline"
-                                               type="text"
-                                               placeholder="Enter headline"
-                                               ng-required="true"/>
+                            <form name="newsform"
+                                  id="newsform"
+                                  ng-controller="NewsController as news"
+                                  data-ng-submit="news.createNews()"
+                                  novalidate>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="headline">Заголовок</label>
+                                            <input class="form-control py-4"
+                                                   ng-model="news.news.headline"
+                                                   id="headline"
+                                                   type="text"
+                                                   placeholder="Enter headline"
+                                                   ng-required="true"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="text">Текст новости</label>
-                                        <textarea class="form-control py-4"
-                                                  ng-model="news.news.content"
-                                                  id="text"
-                                                  type="text"
-                                                  placeholder="Enter text"
-                                                  rows="8"
-                                                  form="newsform"
-                                                  ng-required="true"></textarea>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="text">Текст новости</label>
+                                            <textarea class="form-control py-4"
+                                                      ng-model="news.news.content"
+                                                      id="text"
+                                                      type="text"
+                                                      placeholder="Enter text"
+                                                      rows="8"
+                                                      form="newsform"
+                                                      ng-required="true"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="faculty">Кому видна новость</label>
-                                        <select class="form-control"
-                                                ng-model="news.news.faculty"
-                                                id="faculty"
-                                                name="faculty"
-                                                required="true"
-                                                ng-required="true">
-                                            <option value="all" ng-selected="true">Общая новость</option>
-                                            <option value="ravenclaw">Когтевран</option>
-                                            <option value="hufflepuff">Пуффендуй</option>
-                                            <option value="slytherin">Слизерин</option>
-                                            <option value="gryffindor">Гриффиндор</option>
-                                        </select>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="faculty">Кому видна новость</label>
+                                            <select class="form-control"
+                                                    ng-model="news.news.faculty"
+                                                    id="faculty"
+                                                    name="faculty"
+                                                    required="true"
+                                                    ng-required="true">
+                                                <option value="all" ng-selected="true">Общая новость</option>
+                                                <option value="ravenclaw">Когтевран</option>
+                                                <option value="hufflepuff">Пуффендуй</option>
+                                                <option value="slytherin">Слизерин</option>
+                                                <option value="gryffindor">Гриффиндор</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group mt-4 mb-0">
-                                <input class="btn btn-primary btn-block" type="submit" value="Создать новость"/>
-                            </div>
-                        </form>
+                                <div class="form-group mt-4 mb-0">
+                                    <input class="btn btn-primary btn-block" type="submit" value="Создать новость"/>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

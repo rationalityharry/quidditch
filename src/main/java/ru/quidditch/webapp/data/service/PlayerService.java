@@ -8,6 +8,8 @@ public interface PlayerService {
 
     PlayerEntity save(PlayerEntity playerEntity);
 
+    PlayerEntity findPlayerById(Long id);
+
     List<PlayerEntity> getAll();
 
 

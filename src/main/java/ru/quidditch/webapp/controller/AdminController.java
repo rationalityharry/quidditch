@@ -2,6 +2,7 @@ package ru.quidditch.webapp.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,13 +14,12 @@ import ru.quidditch.webapp.data.enums.Roles;
 import ru.quidditch.webapp.data.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/admin")
-public class AdminController {
+public class AdminController extends AbstractController {
 
     @Autowired
     private UserService userService;
@@ -28,30 +28,32 @@ public class AdminController {
     private MailSender mailSender;
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserDTO>> getUsers(HttpServletRequest request, Principal principal) {
-        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (user != null && user.getRole().equals(Roles.ADMINISTRATOR)) {
-            List<UserDTO> result = new ArrayList<>();
-            userService.getAll().forEach(userEntity -> result.add(new UserDTO(userEntity)));
-            return ResponseEntity.ok(result);
+    public ResponseEntity<List<UserDTO>> getUsers(HttpServletRequest request) {
+
+        if (!checkUser(request, Roles.ADMINISTRATOR)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-        return null;
+        List<UserDTO> result = new ArrayList<>();
+        userService.getAll().forEach(userEntity -> result.add(new UserDTO(userEntity)));
+        return ResponseEntity.ok(result);
+
     }
 
     @GetMapping(value = "/disabledUsers")
     public ResponseEntity<List<UserDTO>> getDisabledUsers(HttpServletRequest request) {
-        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (user != null && user.getRole().equals(Roles.ADMINISTRATOR)) {
-            List<UserDTO> result = new ArrayList<>();
-            userService.getAllDisabled().forEach(userEntity -> result.add(new UserDTO(userEntity)));
-            return ResponseEntity.ok(result);
-
+        if (!checkUser(request, Roles.ADMINISTRATOR)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-        return null;
+        List<UserDTO> result = new ArrayList<>();
+        userService.getAllDisabled().forEach(userEntity -> result.add(new UserDTO(userEntity)));
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = "/enableUser/{userId}")
-    public ResponseEntity<Boolean> enableUser(@PathVariable final Long userId) {
+    public ResponseEntity<Boolean> enableUser(HttpServletRequest request, @PathVariable final Long userId) {
+        if (!checkUser(request, Roles.ADMINISTRATOR)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
         UserEntity user = userService.getById(userId);
         user.setEnabled(true);
         userService.save(user);
@@ -60,7 +62,10 @@ public class AdminController {
     }
 
     @GetMapping(value = "/disableUser/{userId}")
-    public ResponseEntity<Boolean> disableUser(@PathVariable final Long userId) {
+    public ResponseEntity<Boolean> disableUser(HttpServletRequest request, @PathVariable final Long userId) {
+        if (!checkUser(request, Roles.ADMINISTRATOR)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
         UserEntity user = userService.getById(userId);
         user.setDisabled(true);
         userService.save(user);

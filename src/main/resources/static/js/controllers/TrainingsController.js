@@ -2,7 +2,6 @@ appControllers.controller('TrainingsController', ['$scope', '$http', function ($
     let that = this;
     $scope["$ctrlCoach"] = this;
     that.training = {};
-
     $http.get("/training/get").then(function (response) {
         that.training.monday = response.data.monday;
         that.training.tuesday = response.data.tuesday;
@@ -18,7 +17,6 @@ appControllers.controller('TrainingsController', ['$scope', '$http', function ($
         that.training.fridayPlan = response.data.fridayPlan;
         that.training.saturdayPlan = response.data.saturdayPlan;
         that.training.sundayPlan = response.data.sundayPlan;
-
     });
     that.saveTraining = function () {
         $http.post("/training/saveTraining", {
