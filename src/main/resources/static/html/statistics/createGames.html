@@ -1,0 +1,82 @@
+<div class="container-fluid" ng-controller="RoleController as role">
+    <div class="row">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        <div class="card-header">
+                            <h3 class="text-center font-weight-light my-4">Добавление матча</h3>
+                        </div>
+                        <div class="card-body">
+
+                            <form name="gameform"
+                                  id="gameform"
+                                  ng-controller="GamesController as game"
+                                  data-ng-submit="game.createGame()"
+                                  novalidate>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputDate">Дата</label>
+                                        <input class="form-control py-4"
+                                               id="inputDate"
+                                               type="date"
+                                               placeholder="дд.мм.гггг"
+                                               ng-model="game.game.date"
+                                               ng-required="true"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputTime">Время</label>
+                                        <input class="form-control py-4"
+                                               id="inputTime"
+                                               type="time"
+                                               ng-model="game.game.time"
+                                               ng-required="true"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="location">Место</label>
+                                        <input class="form-control py-4"
+                                               id="location"
+                                               type="text"
+                                               placeholder="Укажите место"
+                                               ng-model="game.game.location"
+                                               ng-required="true"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="team1">Название команды 1</label>
+                                        <input class="form-control py-4"
+                                               id="team1"
+                                               type="text"
+                                               placeholder="Команда 1"
+                                               ng-model="game.game.team1"
+                                               ng-required="true"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="team2">Название команды 2</label>
+                                        <input class="form-control py-4"
+                                               id="team2"
+                                               type="text"
+                                               placeholder="Команда 2"
+                                               ng-model="game.game.team2"
+                                               ng-required="true"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="form-group mt-4 mb-0">
+                                <input class="btn btn-primary btn-block" type="submit" value="Добавить матч"/>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

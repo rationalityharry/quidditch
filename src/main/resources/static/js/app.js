@@ -35,8 +35,14 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/news", {
             templateUrl: "/html/statistics/viewNews.html"
         })
+        .when("/games", {
+            templateUrl: "/html/statistics/viewGames.html"
+        })
         .when("/create_news", {
             templateUrl: "/html/statistics/viewCreateNews.html"
+        })
+        .when("/create_games", {
+            templateUrl: "/html/statistics/viewCreateGames.html"
         })
         .when("/editUser/:id", {
             templateUrl: "/html/user/index.html"

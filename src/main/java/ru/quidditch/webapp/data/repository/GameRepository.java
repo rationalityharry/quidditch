@@ -6,9 +6,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.quidditch.webapp.data.entity.GameEntity;
 
+import java.util.Date;
+import java.util.List;
+
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
 public interface GameRepository extends JpaRepository<GameEntity, Long> {
 
+    List<GameEntity> findAllByDateIsGreaterThan(Date date);
 
 }

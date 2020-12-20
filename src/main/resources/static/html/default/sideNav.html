@@ -3,8 +3,12 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
 
-                <a class="nav-link" ng-href="#!/news" >
+                <a class="nav-link" ng-href="#!/news">
                     Новости
+                </a>
+
+                <a class="nav-link" ng-href="#!/games">
+                    Календарь матчей
                 </a>
 
                 <div ng-if="role.isAdministrator">
@@ -14,15 +18,15 @@
                 </div>
 
                 <div ng-if="role.isPlayer">
-                    <a class="nav-link" ng-href="#!/player" >
+                    <a class="nav-link" ng-href="#!/player">
                         Статистика
                     </a>
-                    <a class="nav-link" ng-href="#!/player" >
+                    <a class="nav-link" ng-href="#!/player">
                         Рейтинг команды
                     </a>
                 </div>
 
-                <div  ng-if="role.isCoach">
+                <div ng-if="role.isCoach">
 
                     <a class="nav-link" ng-href="#!/coach">
                         Тренировки
@@ -35,7 +39,7 @@
 
                 <div ng-if="role.isDoctor">
 
-                    <a class="nav-link" ng-href="#!/doctor" >
+                    <a class="nav-link" ng-href="#!/doctor">
                         Пациенты
                     </a>
                 </div>
@@ -43,13 +47,13 @@
 
                 <div ng-if="role.isOperator">
 
-                    <a class="nav-link" ng-href="#!/create_news" >
+                    <a class="nav-link" ng-href="#!/create_news">
                         Создать новость
                     </a>
+                    <a class="nav-link" ng-href="#!/create_games">
+                        Добавить Матч
+                    </a>
                     <a class="nav-link" ng-href="#!/create_news">
-                    Создать Матч
-                </a>
-                    <a class="nav-link" ng-href="#!/create_news" >
                         Оценить матч
                     </a>
 
