@@ -12,6 +12,8 @@ import ru.quidditch.webapp.data.service.PlayerService;
 import ru.quidditch.webapp.data.service.TrainingService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/training")
@@ -22,7 +24,7 @@ public class TrainingsController extends AbstractController {
     @Autowired
     private PlayerService playerService;
 
-    @GetMapping(value = "/get")
+    @GetMapping(value = "/getTraining")
     public ResponseEntity<TrainingEntity> getTrainings(HttpServletRequest request) {
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
         if (!checkUser(user, Roles.COACH)) {
@@ -62,20 +64,37 @@ public class TrainingsController extends AbstractController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping(value = "/changeRating/{playerId}")
-    public ResponseEntity<Boolean> changePlayerRating(HttpServletRequest request, @PathVariable Long playerId, @RequestAttribute Long rating) {
+    @PostMapping(value = "/changeRating")
+    public ResponseEntity<Boolean> changePlayerRating(HttpServletRequest request, @RequestBody PlayerDTO playerDTO) {
 
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
         if (!checkUser(user, Roles.COACH)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-        PlayerEntity player = playerService.findPlayerById(playerId);
+        PlayerEntity player = playerService.findPlayerById(playerDTO.id);
+        if (player == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
 
-
-
-
-
+        player.setRate(player.getRate() + playerDTO.getRating());
+        playerService.save(player);
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping(value = "/players")
+    public ResponseEntity<List<PlayerDTO>> getPlayers(HttpServletRequest request) {
+
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (!checkUser(user, List.of(Roles.COACH, Roles.DOCTOR))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        List<PlayerEntity> players = playerService.findPlayersByFaculty(user.getFaculty());
+        List<PlayerDTO> result = new LinkedList<>();
+        if (players != null) {
+            players.forEach(player -> {
+                result.add(new PlayerDTO(player));
+            });
+        }
+        return ResponseEntity.ok(result);
     }
 
 
@@ -209,6 +228,75 @@ public class TrainingsController extends AbstractController {
 
         public void setSundayPlan(String sundayPlan) {
             this.sundayPlan = sundayPlan;
+        }
+    }
+
+    private static class PlayerDTO {
+        private String name;
+        private Integer rating;
+        private String surname;
+        private String patronymic;
+        private String birthday;
+        private Long id;
+
+        public PlayerDTO() {
+        }
+
+        PlayerDTO(PlayerEntity player) {
+            this.name = player.getName();
+            this.surname = player.getSurname();
+            this.patronymic = player.getPatronimic();
+            this.birthday = player.getBirthday();
+            this.id = player.getId();
+            this.rating = player.getRate();
+        }
+
+        public Integer getRating() {
+            return rating;
+        }
+
+        public void setRating(Integer rating) {
+            this.rating = rating;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSurname() {
+            return surname;
+        }
+
+        public void setSurname(String surname) {
+            this.surname = surname;
+        }
+
+        public String getPatronymic() {
+            return patronymic;
+        }
+
+        public void setPatronymic(String patronymic) {
+            this.patronymic = patronymic;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
         }
     }
 

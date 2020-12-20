@@ -27,7 +27,7 @@ app.directive("adminContent", function () {
         templateUrl: "/html/admin/activation.html"
     }
 });
-app.directive("coachContent", function () {
+app.directive("trainingPlan", function () {
     return {
         restrict: "E",
         templateUrl: "/html/coach/trainingsPlan.html"
@@ -63,5 +63,11 @@ app.directive("createNews", function () {
     return {
         restrict: "E",
         templateUrl: "/html/statistics/createNews.html"
+    }
+});
+app.directive("playerRating", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/coach/playerRating.html"
     }
 });
