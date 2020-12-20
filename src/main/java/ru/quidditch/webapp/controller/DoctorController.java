@@ -3,16 +3,20 @@ package ru.quidditch.webapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.quidditch.webapp.data.entity.DoctorEntity;
+import ru.quidditch.webapp.data.entity.MedicalExaminationEntity;
+import ru.quidditch.webapp.data.entity.PlayerEntity;
+import ru.quidditch.webapp.data.entity.UserEntity;
 import ru.quidditch.webapp.data.enums.Faculty;
 import ru.quidditch.webapp.data.enums.Roles;
 import ru.quidditch.webapp.data.service.DoctorService;
+import ru.quidditch.webapp.data.service.MedicalExaminationService;
 import ru.quidditch.webapp.data.service.PlayerService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,8 +25,12 @@ public class DoctorController extends AbstractController {
 
     @Autowired
     private DoctorService doctorService;
+
     @Autowired
     private PlayerService playerService;
+
+    @Autowired
+    private MedicalExaminationService examinationService;
 
     @GetMapping(value = "/patients")
     public ResponseEntity<List<PatientDTO>> getPatients(HttpServletRequest request) {
@@ -41,11 +49,36 @@ public class DoctorController extends AbstractController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping(value = "/patients/{userId}")
+    public ResponseEntity<Boolean> startExamination(HttpServletRequest request, @PathVariable final Long userId) {
+        if (!checkUser(request, Roles.DOCTOR)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        PlayerEntity player = playerService.findPlayerById(userId);
+        return ResponseEntity.ok(true);
+    }
+
+//    @PostMapping(value = "/create")
+//    public ResponseEntity<ExaminationDTO> createExamination(HttpServletRequest request, @RequestBody ExaminationDTO examinationDTO) {
+//        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+//        if (!checkUser(request, Roles.DOCTOR)) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+//        }
+//        MedicalExaminationEntity examination = new MedicalExaminationEntity();
+//        examination.setDate(new Date());
+//        examination.setDoctor((DoctorEntity) user);
+//        examination.setInfo(examinationDTO.text);
+//        examination.setSick(examinationDTO.isSick);
+//
+//        examination = examinationService.save(examination);
+//        return ResponseEntity.ok(new ExaminationDTO(examination));
+//    }
+
     private static class PatientDTO {
         String name;
         String surname;
         Faculty faculty;
-        String age;
+        String birthday;
         Long id;
 
         public PatientDTO() {
@@ -55,7 +88,7 @@ public class DoctorController extends AbstractController {
             this.name = name;
             this.surname = surname;
             this.faculty = faculty;
-            this.age = birthday;
+            this.birthday = birthday;
             this.id = id;
         }
 
@@ -83,12 +116,12 @@ public class DoctorController extends AbstractController {
             this.faculty = faculty;
         }
 
-        public String getAge() {
-            return age;
+        public String getBirthday() {
+            return birthday;
         }
 
-        public void setAge(String age) {
-            this.age = age;
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
         }
 
         public Long getId() {
@@ -97,6 +130,65 @@ public class DoctorController extends AbstractController {
 
         public void setId(Long id) {
             this.id = id;
+        }
+    }
+
+    private static class ExaminationDTO {
+        Long id;
+        String name;
+        String surname;
+        String text;
+        Boolean isSick;
+
+        public ExaminationDTO() {
+        }
+
+        public ExaminationDTO(Long id, String name, String surname, String text, Boolean isSick) {
+            this.id = id;
+            this.name = name;
+            this.surname = surname;
+            this.text = text;
+            this.isSick = isSick;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSurname() {
+            return surname;
+        }
+
+        public void setSurname(String surname) {
+            this.surname = surname;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public Boolean getSick() {
+            return isSick;
+        }
+
+        public void setSick(Boolean sick) {
+            isSick = sick;
         }
     }
 }

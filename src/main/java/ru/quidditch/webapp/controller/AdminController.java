@@ -33,7 +33,8 @@ public class AdminController extends AbstractController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         List<UserDTO> result = new ArrayList<>();
-        userService.getAll().forEach(userEntity -> result.add(new UserDTO(userEntity)));
+        List<UserEntity> all = userService.getAll();
+        all.forEach(userEntity -> result.add(new UserDTO(userEntity)));
         return ResponseEntity.ok(result);
     }
 

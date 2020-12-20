@@ -22,12 +22,13 @@ public class PlayerEntity extends UserEntity {
     private boolean captain;
 
     @Column
-    private boolean isSick;
+    private boolean isSick = false;
 
     @OneToMany (mappedBy = "player")
     private List<MedicalExaminationEntity> examinations;
 
     public PlayerEntity() {
+
     }
 
     public PlayerEntity(UserEntity createdUser) {

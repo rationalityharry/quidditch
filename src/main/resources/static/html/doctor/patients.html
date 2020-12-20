@@ -1,0 +1,29 @@
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Пациенты</h1>
+        <div class="card mb-4" ng-controller="DoctorController as docctrl">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Дата Рождения</th>
+                        <th>Факультет</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="patient in docctrl.patients">
+                        <td> {{patient.name}}</td>
+                        <td>{{patient.surname}}</td>
+                        <td>{{patient.birthday}}</td>
+                        <td>{{patient.faculty}}</td>
+                        <td><a href="#!/doctor" ng-click="docctrl.patients(patient.id)">Осмотреть</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

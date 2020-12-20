@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserEntity> getAll() {
-        return repository.findAllByDisabledIsFalse();
+        return repository.findAllByDisabledIsFalseOrDisabledIsNull();
     }
 
     public List<UserEntity> getAllByLogin(String login) {
