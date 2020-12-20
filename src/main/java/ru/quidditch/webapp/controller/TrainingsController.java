@@ -11,6 +11,7 @@ import ru.quidditch.webapp.data.enums.PlayerPosition;
 import ru.quidditch.webapp.data.enums.Roles;
 import ru.quidditch.webapp.data.service.PlayerService;
 import ru.quidditch.webapp.data.service.TrainingService;
+import ru.quidditch.webapp.data.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
@@ -25,6 +26,8 @@ public class TrainingsController extends AbstractController {
     private TrainingService trainingService;
     @Autowired
     private PlayerService playerService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/getTraining")
     public ResponseEntity<TrainingEntity> getTrainings(HttpServletRequest request) {
@@ -97,6 +100,23 @@ public class TrainingsController extends AbstractController {
         if (players != null) {
             players.forEach(player -> {
                 result.add(new PlayerDTO(player));
+            });
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/members")
+    public ResponseEntity<List<UserDTO>> getTeamMembers(HttpServletRequest request) {
+
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (!checkUser(user, List.of(Roles.COACH))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        List<UserEntity> members = userService.getAllByFaculty(user.getFaculty());
+        List<UserDTO> result = new LinkedList<>();
+        if (members != null) {
+            members.forEach(member -> {
+                result.add(new UserDTO(member));
             });
         }
         return ResponseEntity.ok(result);
@@ -380,6 +400,45 @@ public class TrainingsController extends AbstractController {
 
         public void setValue(String value) {
             this.value = value;
+        }
+    }
+
+    private static class UserDTO{
+        private String name;
+        private String surname;
+        private String role;
+
+        public UserDTO(UserEntity user) {
+            this.name = user.getName();
+            this.surname = user.getSurname();
+            this.role = user.getRole().getName();
+        }
+
+        public UserDTO() {
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSurname() {
+            return surname;
+        }
+
+        public void setSurname(String surname) {
+            this.surname = surname;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
         }
     }
 

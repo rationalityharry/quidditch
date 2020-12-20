@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.quidditch.webapp.data.entity.UserEntity;
+import ru.quidditch.webapp.data.enums.Faculty;
 import ru.quidditch.webapp.data.enums.Roles;
 
 import java.util.List;
@@ -26,5 +27,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAllByEnabledIsFalse();
 
     UserEntity findById(Long id);
+
+    List<UserEntity> findAllByFaculty(Faculty faculty);
 
 }

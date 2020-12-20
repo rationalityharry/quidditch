@@ -49,6 +49,13 @@ appControllers.controller('TrainingsController', ['$scope', '$http', function ($
         });
     };
 
+    that.members = [];
+    that.getTeamMembers = () => {
+        $http.get(`${that.baseUrl}/members`).then(function (response) {
+            that.members = response.data;
+        });
+    };
+
     that.saveTraining = function () {
         $http.post(`${that.baseUrl}/saveTraining`, {
             monday: that.training.monday,

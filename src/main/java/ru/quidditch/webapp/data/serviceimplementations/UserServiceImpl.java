@@ -3,6 +3,7 @@ package ru.quidditch.webapp.data.serviceimplementations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.quidditch.webapp.data.entity.UserEntity;
+import ru.quidditch.webapp.data.enums.Faculty;
 import ru.quidditch.webapp.data.enums.Roles;
 import ru.quidditch.webapp.data.repository.UserRepository;
 import ru.quidditch.webapp.data.service.UserService;
@@ -56,5 +57,8 @@ public class UserServiceImpl implements UserService {
         return repository.findAllByEnabledIsFalse();
     }
 
-
+    @Override
+    public List<UserEntity> getAllByFaculty(Faculty faculty) {
+        return repository.findAllByFaculty(faculty);
+    }
 }
