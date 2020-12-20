@@ -13,7 +13,7 @@
 
                 <div ng-if="role.isAdministrator">
                     <a class="nav-link" ng-href="#!/administrator">
-                        Главная
+                        Управление пользователями
                     </a>
                 </div>
 
@@ -21,8 +21,8 @@
                     <a class="nav-link" ng-href="#!/player">
                         Статистика
                     </a>
-                    <a class="nav-link" ng-href="#!/player">
-                        Рейтинг команды
+                    <a class="nav-link" ng-href="#!/myTeam">
+                        Вся команда
                     </a>
                 </div>
 
@@ -32,13 +32,15 @@
                         Тренировки
                     </a>
                     <a class="nav-link" ng-href="#!/ratingChange">
-                        Рейтинг
+                        Редактирование команды
+                    </a>
+                    <a class="nav-link" ng-href="#!/myTeam">
+                        Вся команда
                     </a>
                 </div>
 
 
                 <div ng-if="role.isDoctor">
-
                     <a class="nav-link" ng-href="#!/doctor">
                         Пациенты
                     </a>
@@ -46,7 +48,6 @@
 
 
                 <div ng-if="role.isOperator">
-
                     <a class="nav-link" ng-href="#!/create_news">
                         Создать новость
                     </a>
@@ -56,7 +57,6 @@
                     <a class="nav-link" ng-href="#!/ended_games">
                         Прошедшие матчи
                     </a>
-
                 </div>
 
                 <a class="nav-link" ng-href="#!/editUser/{{role.userId}}">

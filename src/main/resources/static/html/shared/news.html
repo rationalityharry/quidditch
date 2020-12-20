@@ -1,5 +1,5 @@
 <div class="container-fluid" ng-controller="NewsController as newsctrl">
-    <div class="row">
+    <div class="row" ng-if="newsctrl.players.length > 0">
         <div class="card mb-4">
             <div class="card-header"><i class="fas fa-table mr-1"></i>Рейтинг игроков</div>
             <div class="card-body">
@@ -26,12 +26,12 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-if="newsctrl.existingNews.team.length > 0">
         <div class="d-flex justify-content-between justify-content-md-center justify-content-end">
             <h1 class="h3 mb-0 text-gray-800">Новости команды</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-if="newsctrl.existingNews.team.length > 0">
         <div class="container">
             <div ng-repeat="exist in newsctrl.existingNews.team">
                 <div class="row">
@@ -47,12 +47,12 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-if="newsctrl.existingNews.allNews.length > 0">
         <div class="d-sm-flex align-items-center justify-content-between ">
             <h1 class="h3 mb-0 text-gray-800">Новости общие</h1>
         </div>
     </div>
-    <div class="row"  >
+    <div class="row" ng-if="newsctrl.existingNews.allNews.length > 0" >
         <div class="container">
             <!-- Earnings (Monthly) Card Example -->
             <div ng-repeat="exist in newsctrl.existingNews.allNews">

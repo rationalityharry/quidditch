@@ -3,8 +3,10 @@ package ru.quidditch.webapp.data.serviceimplementations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.quidditch.webapp.data.entity.UserEntity;
+import ru.quidditch.webapp.data.enums.Faculty;
+import ru.quidditch.webapp.data.enums.Roles;
 import ru.quidditch.webapp.data.repository.UserRepository;
-import ru.quidditch.webapp.data.service.*;
+import ru.quidditch.webapp.data.service.UserService;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -16,15 +18,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository repository;
-    @Autowired
-    private OperatorService operatorService;
-    @Autowired
-    private CoachService coachService;
-    @Autowired
-    private DoctorService doctorService;
-    @Autowired
-    private PlayerService playerService;
-
 
     @Override
     public UserEntity save(UserEntity userEntity) {
@@ -34,6 +27,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserEntity> getAll() {
         return repository.findAllByDisabledIsFalseOrDisabledIsNull();
+    }
+
+    @Override
+    public List<UserEntity> getAllAdmins() {
+        return repository.findAllByRole(Roles.ADMINISTRATOR);
     }
 
     public List<UserEntity> getAllByLogin(String login) {
@@ -59,5 +57,8 @@ public class UserServiceImpl implements UserService {
         return repository.findAllByEnabledIsFalse();
     }
 
-
+    @Override
+    public List<UserEntity> getAllByFaculty(Faculty faculty) {
+        return repository.findAllByFaculty(faculty);
+    }
 }

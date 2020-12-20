@@ -30,7 +30,7 @@ app.directive("adminContent", function () {
 app.directive("trainingPlan", function () {
     return {
         restrict: "E",
-        templateUrl: "/html/coach/trainingsPlan.html"
+        templateUrl: "/html/coach/parts/trainingsPlan.html"
     }
 });
 app.directive("sideNavigation", function () {
@@ -76,7 +76,7 @@ app.directive("patients", function () {
 app.directive("playerRating", function () {
     return {
         restrict: "E",
-        templateUrl: "/html/coach/playerRating.html"
+        templateUrl: "/html/coach/parts/playerRating.html"
     }
 });
 
@@ -98,5 +98,11 @@ app.directive("endedGames", function () {
     return {
         restrict: "E",
         templateUrl: "/html/statistics/endedGames.html"
+    }
+});
+app.directive("teamMembersCoach", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/coach/parts/teamMembers.html"
     }
 });

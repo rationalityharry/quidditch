@@ -1,4 +1,5 @@
 appControllers.controller('TrainingsController', ['$scope', '$http', function ($scope, $http) {
+
     let that = this;
     $scope["$ctrlCoach"] = this;
     that.training = {};
@@ -6,6 +7,9 @@ appControllers.controller('TrainingsController', ['$scope', '$http', function ($
     that.players = [];
     that.selectedPlayer = {};
     that.rating = 0;
+    that.positions = [];
+
+
     that.getTraining = function () {
         $http.get(`${that.baseUrl}/getTraining`).then(function (response) {
             that.training.monday = response.data.monday;
@@ -24,19 +28,32 @@ appControllers.controller('TrainingsController', ['$scope', '$http', function ($
             that.training.sundayPlan = response.data.sundayPlan;
         });
     };
+
     that.getTeamPlayers = function () {
         $http.get(`${that.baseUrl}/players`).then(function (response) {
             that.players = response.data;
         });
+        $http.get(`${that.baseUrl}/positions`).then(function (response) {
+            that.positions = response.data;
+        });
     };
 
-    that.savePlayerRating = function(multiplier){
-        $http.post(`${that.baseUrl}/changeRating`, {
-            id: that.selectedPlayer,
-            rating: that.rating * multiplier
+    that.savePlayer = function (id, inStock, captain, position, rating) {
+        $http.post(`${that.baseUrl}/changePlayer`, {
+            id,
+            rating,
+            inStock,
+            captain,
+            position
         }).then(function (response) {
-            alert("kekekeke");
-        })
+        });
+    };
+
+    that.members = [];
+    that.getTeamMembers = () => {
+        $http.get(`${that.baseUrl}/members`).then(function (response) {
+            that.members = response.data;
+        });
     };
 
     that.saveTraining = function () {
@@ -61,4 +78,5 @@ appControllers.controller('TrainingsController', ['$scope', '$http', function ($
             }
         });
     };
+
 }]);
