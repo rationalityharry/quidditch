@@ -25,6 +25,11 @@ public class GameEntityServiceImpl implements GameService {
 
     @Override
     public List<GameEntity> getGames(Date date) {
-        return gameRepository.findAllByDateIsGreaterThan(date);
+        return gameRepository.findAllByDateAfter(date);
+    }
+
+    @Override
+    public List<GameEntity> getEndedGames(Date date) {
+        return gameRepository.findAllByDateBefore(date);
     }
 }

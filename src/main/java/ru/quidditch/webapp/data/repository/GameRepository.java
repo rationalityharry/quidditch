@@ -13,6 +13,7 @@ import java.util.List;
 @Transactional(propagation = Propagation.MANDATORY)
 public interface GameRepository extends JpaRepository<GameEntity, Long> {
 
-    List<GameEntity> findAllByDateIsGreaterThan(Date date);
+    List<GameEntity> findAllByDateAfter(Date date);
+    List<GameEntity> findAllByDateBefore(Date date);
 
 }

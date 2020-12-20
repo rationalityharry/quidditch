@@ -10,4 +10,6 @@ public interface GameService {
 
     List<GameEntity> getGames(Date date);
 
+    List<GameEntity> getEndedGames(Date date);
+
 }

@@ -23,7 +23,7 @@ public class GamesController extends AbstractController {
     private GameService gameService;
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<GamesController.GameDTO>> getEditInfo(HttpServletRequest request) {
+    public ResponseEntity<List<GamesController.GameDTO>> getGames(HttpServletRequest request) {
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
@@ -32,6 +32,21 @@ public class GamesController extends AbstractController {
 
        gameService.getGames(new Date()).forEach(game->
                result.add(new GameDTO(game))
+        );
+        return ResponseEntity.ok(result);
+    }
+
+
+    @GetMapping(value = "/ended")
+    public ResponseEntity<List<GamesController.GameDTO>> getEndedGames(HttpServletRequest request) {
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        List<GamesController.GameDTO> result = new ArrayList<>();
+
+        gameService.getEndedGames(new Date()).forEach(game->
+                result.add(new GameDTO(game))
         );
         return ResponseEntity.ok(result);
     }

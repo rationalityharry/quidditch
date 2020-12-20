@@ -8,6 +8,16 @@ appControllers.controller('GamesController', ['$scope', '$http', '$location', fu
         .then((response) => {
             that.existingGames = response.data;
         });
+
+
+    that.endedGames = {};
+
+    $http.get("/games/ended")
+        .then((response) => {
+            that.endedGames = response.data;
+        });
+
+
     that.game = {};
 
     that.createGame = function () {

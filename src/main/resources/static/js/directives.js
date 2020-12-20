@@ -93,3 +93,10 @@ app.directive("createGames", function () {
         templateUrl: "/html/statistics/createGames.html"
     }
 });
+
+app.directive("endedGames", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/statistics/endedGames.html"
+    }
+});
