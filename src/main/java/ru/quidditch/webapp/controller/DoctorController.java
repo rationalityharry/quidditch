@@ -34,7 +34,7 @@ public class DoctorController extends AbstractController {
 
     @GetMapping(value = "/patients")
     public ResponseEntity<List<PatientDTO>> getPatients(HttpServletRequest request) {
-        if (!checkUser(request, Roles.DOCTOR)) {
+        if (checkUserNull(request, Roles.DOCTOR)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         List<PatientDTO> result = new ArrayList<>();
@@ -51,28 +51,29 @@ public class DoctorController extends AbstractController {
 
     @GetMapping(value = "/patients/{userId}")
     public ResponseEntity<Boolean> startExamination(HttpServletRequest request, @PathVariable final Long userId) {
-        if (!checkUser(request, Roles.DOCTOR)) {
+        if (checkUserNull(request, Roles.DOCTOR)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         PlayerEntity player = playerService.findPlayerById(userId);
         return ResponseEntity.ok(true);
     }
 
-//    @PostMapping(value = "/create")
-//    public ResponseEntity<ExaminationDTO> createExamination(HttpServletRequest request, @RequestBody ExaminationDTO examinationDTO) {
-//        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-//        if (!checkUser(request, Roles.DOCTOR)) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-//        }
-//        MedicalExaminationEntity examination = new MedicalExaminationEntity();
-//        examination.setDate(new Date());
-//        examination.setDoctor((DoctorEntity) user);
-//        examination.setInfo(examinationDTO.text);
-//        examination.setSick(examinationDTO.isSick);
-//
-//        examination = examinationService.save(examination);
-//        return ResponseEntity.ok(new ExaminationDTO(examination));
-//    }
+    @PostMapping(value = "/create")
+    public ResponseEntity<ExaminationDTO> createExamination(HttpServletRequest request, @RequestBody ExaminationDTO examinationDTO) {
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (checkUserNull(request, Roles.DOCTOR)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        MedicalExaminationEntity examination = new MedicalExaminationEntity();
+        examination.setDate(new Date());
+        examination.setDoctor((DoctorEntity) user);
+        examination.setInfo(examinationDTO.text);
+        examination.setSick(examinationDTO.isSick);
+        examination.setPlayer(playerService.findPlayerById(examinationDTO.id));
+
+        examination = examinationService.save(examination);
+        return ResponseEntity.ok(new ExaminationDTO(examination));
+    }
 
     private static class PatientDTO {
         String name;
@@ -135,20 +136,16 @@ public class DoctorController extends AbstractController {
 
     private static class ExaminationDTO {
         Long id;
-        String name;
-        String surname;
         String text;
         Boolean isSick;
 
         public ExaminationDTO() {
         }
 
-        public ExaminationDTO(Long id, String name, String surname, String text, Boolean isSick) {
-            this.id = id;
-            this.name = name;
-            this.surname = surname;
-            this.text = text;
-            this.isSick = isSick;
+        ExaminationDTO(MedicalExaminationEntity exam) {
+            this.id = exam.getId();
+            this.text = exam.getInfo();
+            this.isSick = exam.getSick();
         }
 
         public Long getId() {
@@ -157,22 +154,6 @@ public class DoctorController extends AbstractController {
 
         public void setId(Long id) {
             this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getSurname() {
-            return surname;
-        }
-
-        public void setSurname(String surname) {
-            this.surname = surname;
         }
 
         public String getText() {
