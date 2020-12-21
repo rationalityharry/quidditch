@@ -1,7 +1,6 @@
 package ru.quidditch.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +30,26 @@ public class GamesController extends AbstractController {
         }
         List<GameDTO> result = new ArrayList<>();
 
-       gameService.getGames(new Date()).forEach(game->
-               result.add(new GameDTO(game))
+        gameService.getGames(new Date()).forEach(game ->
+                result.add(new GameDTO(game))
         );
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping(value = "/save")
+    public ResponseEntity<Boolean> saveEnded(HttpServletRequest request, @RequestBody GameDTO game) {
+
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (checkUserNull(user, Roles.OPERATOR)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        GameEntity gameEntity = gameService.getGameById(game.id);
+        gameEntity.setTeam1Score(game.team1Score);
+        gameEntity.setTeam2Score(game.team2Score);
+        gameService.save(gameEntity);
+        return ResponseEntity.ok(true);
+    }
 
     @GetMapping(value = "/ended")
     public ResponseEntity<List<GamesController.GameDTO>> getEndedGames(HttpServletRequest request) {
@@ -46,7 +59,7 @@ public class GamesController extends AbstractController {
         }
         List<GamesController.GameDTO> result = new ArrayList<>();
 
-        gameService.getEndedGames(new Date()).forEach(game->
+        gameService.getEndedGames(new Date()).forEach(game ->
                 result.add(new GameDTO(game))
         );
         return ResponseEntity.ok(result);
@@ -59,6 +72,7 @@ public class GamesController extends AbstractController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         GameEntity gameEntity = new GameEntity();
+        gameEntity.setId(game.id);
         gameEntity.setDate(game.date);
         gameEntity.setTime(game.time);
         gameEntity.setLocation(game.getLocation());
@@ -69,7 +83,7 @@ public class GamesController extends AbstractController {
     }
 
     private static class GameDTO {
-
+        private Long id;
         private String team1;
         private String team2;
         private String location;
@@ -84,8 +98,9 @@ public class GamesController extends AbstractController {
         }
 
         GameDTO(GameEntity game) {
-            this.team1 = game.getTeam1().toString();
-            this.team2 = game.getTeam2().toString();
+            this.id = game.getId();
+            this.team1 = game.getTeam1();
+            this.team2 = game.getTeam2();
             this.location = game.getLocation();
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
             this.date = game.getDate();
@@ -93,8 +108,8 @@ public class GamesController extends AbstractController {
             SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
             this.time = game.getTime();
             this.timeFormatted = sdfTime.format(this.time);
-            this.team1Score = 0;
-            this.team2Score = 0;
+            this.team1Score = game.getTeam1Score();
+            this.team2Score = game.getTeam2Score();
         }
 
         public String getTeam1() {
@@ -167,6 +182,14 @@ public class GamesController extends AbstractController {
 
         public void setTeam2Score(Integer team2Score) {
             this.team2Score = team2Score;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
         }
     }
 }

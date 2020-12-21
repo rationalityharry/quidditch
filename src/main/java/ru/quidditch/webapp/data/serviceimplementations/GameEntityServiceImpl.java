@@ -24,6 +24,11 @@ public class GameEntityServiceImpl implements GameService {
     }
 
     @Override
+    public GameEntity getGameById(Long id) {
+        return gameRepository.findOne(id);
+    }
+
+    @Override
     public List<GameEntity> getGames(Date date) {
         return gameRepository.findAllByDateAfter(date);
     }

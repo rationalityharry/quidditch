@@ -106,3 +106,9 @@ app.directive("teamMembersCoach", function () {
         templateUrl: "/html/coach/parts/teamMembers.html"
     }
 });
+app.directive("createExam", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/doctor/createExam.html"
+    }
+});

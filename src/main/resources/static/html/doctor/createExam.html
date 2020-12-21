@@ -1,0 +1,36 @@
+<div class="row">
+    <form name="examinationform"
+          id="examinationform"
+          ng-controller="SaveExam as examination"
+          data-ng-submit="examination.createExamination()"
+          novalidate>
+        <div class="form-row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="small mb-1" for="sick">Болен ли игрок?</label>
+                    <input class="left-container"
+                           ng-model="examination.examination.sick"
+                           id="sick"
+                           type="checkbox"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="small mb-1" for="text">Результаты осмотра</label>
+                    <textarea class="form-control py-4"
+                              ng-model="examination.examination.text"
+                              id="text"
+                              type="text"
+                              placeholder="Введите информацию"
+                              rows="8"
+                              form="examinationform"
+                              ng-required="true"></textarea>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="button">Сохранить</button>
+    </form>
+</div>

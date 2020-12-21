@@ -6,7 +6,7 @@ appControllers.controller('EditUserController', ['$scope', '$http', '$location',
     that.image = {};
     that.isAdmin = false;
     $scope["$ctrl"] = this;
-    $http.get("/user/data/" + id).then(function (privilegResponse) {
+    $http.get(`/user/data/${id}`).then(function (privilegResponse) {
         that.isAdmin = privilegResponse.data.admin;
         that.user.login = privilegResponse.data.login;
         that.user.id = id;
@@ -30,7 +30,7 @@ appControllers.controller('EditUserController', ['$scope', '$http', '$location',
             headers: {'Content-Type': undefined}
         }).then(function (response) {
             if (response != null) {
-                $http.post("/user/edit/" + id, {
+                $http.post(`/user/edit/${id}`, {
                     login: that.user.login,
                     password: that.user.password,
                     surname: that.user.surname,

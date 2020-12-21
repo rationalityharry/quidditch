@@ -42,6 +42,7 @@ public class PlayerEntity extends UserEntity {
         this.rate = 0;
         this.isSick = false;
         this.inStock = true;
+        this.setPosition(PlayerPosition.NO_POSITION);
     }
 
     public int getRate() {

@@ -290,7 +290,11 @@ public class TrainingsController extends AbstractController {
             this.birthday = player.getBirthday();
             this.id = player.getId();
             this.rating = player.getRate();
-            this.position = player.getPosition().getName();
+            if (player.getPosition() != null){
+                this.position = player.getPosition().getName();
+            } else{
+                this.position = PlayerPosition.NO_POSITION.getName();
+            }
             this.sick = player.isSick();
             this.captain = player.isCaptain();
             this.inStock = player.isInStock();

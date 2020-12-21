@@ -69,9 +69,11 @@ public class DoctorController extends AbstractController {
         examination.setDoctor((DoctorEntity) user);
         examination.setInfo(examinationDTO.text);
         examination.setSick(examinationDTO.isSick);
-        examination.setPlayer(playerService.findPlayerById(examinationDTO.id));
-
+        PlayerEntity player = playerService.findPlayerById(examinationDTO.id);
+        player.setSick(examinationDTO.isSick);
+        examination.setPlayer(player);
         examination = examinationService.save(examination);
+        playerService.save(player);
         return ResponseEntity.ok(new ExaminationDTO(examination));
     }
 

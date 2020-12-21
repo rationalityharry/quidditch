@@ -35,12 +35,12 @@ appControllers.controller('GamesController', ['$scope', '$http', '$location', fu
             });
     }
 
-    that.saveEnded = function () {
-        $http.post(`/games/create`, {
-
+    that.saveEnded = function (id, team1Score, team2Score) {
+        $http.post(`/games/save`, {
+            id, team1Score, team2Score
         }).then(function (response) {
             if (response.data === true) {
-                alert("Очки сохранены");
+                alert("Изменения сохранены");
             }
         });
     };

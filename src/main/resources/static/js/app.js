@@ -53,6 +53,9 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/editUser/:id", {
             templateUrl: "/html/user/index.html"
         })
+        .when("/createMedExam/:userId", {
+            templateUrl: "/html/doctor/viewMedExam.html"
+        })
         .when("/404", {
             templateUrl: "/html/default/404.html"
         })
