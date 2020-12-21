@@ -21,9 +21,6 @@ appControllers.controller('DoctorController', ['$scope', '$http', '$location', '
             text: that.examination.text
         })
             .then(function (response) {
-                if (response.data) {
-                    alert("Карточка добавлена");
-                }
             });
     }
 }]);

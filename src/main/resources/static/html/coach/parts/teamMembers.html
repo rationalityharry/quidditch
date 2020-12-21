@@ -1,25 +1,29 @@
-<div class="container-fluid" ng-controller="TrainingsController as ctrl">
-    <div class="row">
-        <div class="card mb-4">
-            <div class="card-header"><i class="fas fa-table mr-1"></i>Список всей команды</div>
-            <div class="card-body">
-                <div class="table-responsive" ng-init="ctrl.getTeamMembers()">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>Имя</th>
-                            <th>Фамилия</th>
-                            <th>Должность</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="member in ctrl.members">
-                            <td> {{member.name}}</td>
-                            <td>{{member.surname}}</td>
-                            <td>{{member.role}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card mb-12" ng-controller="TrainingsController as ctrl">
+                    <div class="card-header"><i class="fas fa-table mr-1"></i>Список всей команды</div>
+                    <div class="card-body">
+                        <div class="table-responsive" ng-init="ctrl.getTeamMembers()">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Имя</th>
+                                    <th>Фамилия</th>
+                                    <th>Должность</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="member in ctrl.members">
+                                    <td> {{member.name}}</td>
+                                    <td>{{member.surname}}</td>
+                                    <td>{{member.role}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
