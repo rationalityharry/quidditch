@@ -72,12 +72,14 @@ public class GamesController extends AbstractController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         GameEntity gameEntity = new GameEntity();
-        gameEntity.setId(game.id);
         gameEntity.setDate(game.date);
         gameEntity.setTime(game.time);
         gameEntity.setLocation(game.getLocation());
         gameEntity.setTeam1(game.team1);
         gameEntity.setTeam2(game.team2);
+        gameEntity.setTeam1Score(0);
+        gameEntity.setTeam2Score(0);
+
         gameEntity = gameService.save(gameEntity);
         return ResponseEntity.ok(new GameDTO(gameEntity));
     }
@@ -98,7 +100,7 @@ public class GamesController extends AbstractController {
         }
 
         GameDTO(GameEntity game) {
-//            this.id = game.getId();
+           this.id = game.getId();
             this.team1 = game.getTeam1();
             this.team2 = game.getTeam2();
             this.location = game.getLocation();
