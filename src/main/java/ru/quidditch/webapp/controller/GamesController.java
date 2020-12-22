@@ -98,7 +98,7 @@ public class GamesController extends AbstractController {
         }
 
         GameDTO(GameEntity game) {
-            this.id = game.getId();
+//            this.id = game.getId();
             this.team1 = game.getTeam1();
             this.team2 = game.getTeam2();
             this.location = game.getLocation();
