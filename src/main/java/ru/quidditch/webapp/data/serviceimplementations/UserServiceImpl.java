@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserEntity> getAll() {
-        return repository.findAllByDisabledIsFalseOrDisabledIsNull();
+        return repository.findAllByEnabledIsTrue();
     }
 
     @Override

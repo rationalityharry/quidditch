@@ -8,7 +8,7 @@ appControllers.controller('SaveExam', ['$scope', '$http', '$location', '$routePa
     that.createExamination = function () {
         $http.post(`/doctor/create`, {
             id: id,
-            sick: that.examination.sick,
+            sick: that.examination.sick = false,
             text: that.examination.text
         })
             .then(function (response) {
