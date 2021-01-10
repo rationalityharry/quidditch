@@ -9,6 +9,24 @@ appControllers.controller('TrainingsController', ['$scope', '$http', function ($
     that.rating = 0;
     that.positions = [];
 
+    that.getSchedule = function () {
+        $http.get(`${that.baseUrl}/getSchedule`).then(function (response) {
+            that.training.monday = response.data.monday;
+            that.training.tuesday = response.data.tuesday;
+            that.training.wednesday = response.data.wednesday;
+            that.training.thursday = response.data.thursday;
+            that.training.friday = response.data.friday;
+            that.training.saturday = response.data.saturday;
+            that.training.sunday = response.data.sunday;
+            that.training.mondayPlan = response.data.mondayPlan;
+            that.training.tuesdayPlan = response.data.tuesdayPlan;
+            that.training.wednesdayPlan = response.data.wednesdayPlan;
+            that.training.thursdayPlan = response.data.thursdayPlan;
+            that.training.fridayPlan = response.data.fridayPlan;
+            that.training.saturdayPlan = response.data.saturdayPlan;
+            that.training.sundayPlan = response.data.sundayPlan;
+        });
+    };
 
     that.getTraining = function () {
         $http.get(`${that.baseUrl}/getTraining`).then(function (response) {

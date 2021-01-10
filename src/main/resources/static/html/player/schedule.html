@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card mb-12" ng-controller="TrainingsController as ctrl"
+                     ng-init="ctrl.getSchedule()">
+                    <div class="card-header"><i class="fas fa-table mr-1"></i>Распиcание тренировок</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>День недели</th>
+                                    <th>Время</th>
+                                    <th>План тренировки</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <td> Понедельник</td>
+                                    <td> {{ctrl.training.monday}}</td>
+                                    <td> {{ctrl.training.mondayPlan}}</td>
+                                </tr>
+                                <tr >
+                                    <td> Вторник</td>
+                                    <td> {{ctrl.training.tuesday}}</td>
+                                    <td> {{ctrl.training.tuesdayPlan}}</td>
+                                </tr>
+                                <tr >
+                                    <td> Среда</td>
+                                    <td> {{ctrl.training.wednesday}}</td>
+                                    <td> {{ctrl.training.wednesdayPlan}}</td>
+                                </tr>
+                                <tr >
+                                    <td> Четверг</td>
+                                    <td> {{ctrl.training.thursday}}</td>
+                                    <td> {{ctrl.training.thursdayPlan}}</td>
+                                </tr>
+                                <tr >
+                                    <td> Пятница</td>
+                                    <td> {{ctrl.training.friday}}</td>
+                                    <td> {{ctrl.training.fridayPlan}}</td>
+                                </tr>
+                                <tr >
+                                    <td> Суббота</td>
+                                    <td> {{ctrl.training.saturday}}</td>
+                                    <td> {{ctrl.training.saturdayPlan}}</td>
+                                </tr>
+                                <tr >
+                                    <td> Воскресенье</td>
+                                    <td> {{ctrl.training.sunday}}</td>
+                                    <td> {{ctrl.training.sundayPlan}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

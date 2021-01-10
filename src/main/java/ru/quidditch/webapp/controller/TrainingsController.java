@@ -38,6 +38,15 @@ public class TrainingsController extends AbstractController {
         return ResponseEntity.ok(trainingService.getTrainingsByUserFaculty(user));
     }
 
+    @GetMapping(value = "/getSchedule")
+    public ResponseEntity<TrainingEntity> getSchedule(HttpServletRequest request) {
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        if (checkUserNull(user, Roles.PLAYER)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        return ResponseEntity.ok(trainingService.getTrainingsByUserFaculty(user));
+    }
+
     @PostMapping(value = "/saveTraining")
     public ResponseEntity<Boolean> changeTraining(HttpServletRequest request, @RequestBody TrainingDTO training) {
 
@@ -109,7 +118,7 @@ public class TrainingsController extends AbstractController {
     public ResponseEntity<List<UserDTO>> getTeamMembers(HttpServletRequest request) {
 
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (!checkUser(user, List.of(Roles.COACH))) {
+        if (!checkUser(user, List.of(Roles.COACH, Roles.PLAYER))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         List<UserEntity> members = userService.getAllByFaculty(user.getFaculty());
@@ -290,9 +299,9 @@ public class TrainingsController extends AbstractController {
             this.birthday = player.getBirthday();
             this.id = player.getId();
             this.rating = player.getRate();
-            if (player.getPosition() != null){
+            if (player.getPosition() != null) {
                 this.position = player.getPosition().getName();
-            } else{
+            } else {
                 this.position = PlayerPosition.NO_POSITION.getName();
             }
             this.sick = player.isSick();
@@ -407,7 +416,7 @@ public class TrainingsController extends AbstractController {
         }
     }
 
-    private static class UserDTO{
+    private static class UserDTO {
         private String name;
         private String surname;
         private String role;

@@ -1,6 +1,7 @@
 package ru.quidditch.webapp.data.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Table(name = "games")
@@ -12,9 +13,11 @@ public class GameEntity {
     private long id;
 
     @Column
+    @NotNull
     private String team1;
 
     @Column
+    @NotNull
     private String team2;
 
     @ManyToOne
@@ -38,6 +41,7 @@ public class GameEntity {
 
     public GameEntity() {
     }
+
 
     public int getResult() {
         return Integer.compare(team2Score, team1Score);
@@ -104,7 +108,7 @@ public class GameEntity {
         return team1;
     }
 
-    public void setTeam1(String team1) {
+    public void setTeam1(@NotNull String team1) {
         this.team1 = team1;
     }
 
@@ -112,7 +116,7 @@ public class GameEntity {
         return team2;
     }
 
-    public void setTeam2(String team2) {
+    public void setTeam2(@NotNull String team2) {
         this.team2 = team2;
     }
 }

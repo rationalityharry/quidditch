@@ -32,6 +32,9 @@ app.config(["$routeProvider", function ($routeProvider) {
         .when("/player", {
             templateUrl: "/html/player/index.html"
         })
+        .when("/schedule", {
+            templateUrl: "/html/player/viewUserSchedule.html"
+        })
         .when("/doctor", {
             templateUrl: "/html/doctor/viewPatients.html"
         })

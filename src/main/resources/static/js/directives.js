@@ -33,6 +33,12 @@ app.directive("trainingPlan", function () {
         templateUrl: "/html/coach/parts/trainingsPlan.html"
     }
 });
+app.directive("schedule", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/player/schedule.html"
+    }
+});
 app.directive("sideNavigation", function () {
     return {
         restrict: "E",
