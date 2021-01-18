@@ -1,46 +1,49 @@
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-7">
-            <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header">
-                    <h3 class="text-center font-weight-light my-4">Карточка игрока</h3>
+<main>
+        <div class="card mb-4" ng-controller="DoctorController as docctrl">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        <div class="card-header">
+                            <h3 class="text-center font-weight-light my-4">Карточка игрока</h3>
+                        </div>
+                        <div class="card-body">
+                            <form name="examinationform"
+                                  id="examinationform"
+                                  ng-controller="SaveExam as examination"
+                                  data-ng-submit="examination.createExamination()"
+                                  novalidate>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="sick">Болен ли игрок?</label>
+                                            <input class="left-container"
+                                                   ng-model="examination.examination.sick"
+                                                   id="sick"
+                                                   type="checkbox"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="text">Результаты осмотра</label>
+                                            <textarea class="form-control py-4"
+                                                      ng-model="examination.examination.text"
+                                                      id="text"
+                                                      type="text"
+                                                      placeholder="Введите информацию"
+                                                      rows="8"
+                                                      form="examinationform"
+                                                      ng-required="true"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="btn btn-primary btn-block" type="submit" value="Сохранить"/>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                <form name="examinationform"
-                      id="examinationform"
-                      ng-controller="SaveExam as examination"
-                      data-ng-submit="examination.createExamination()"
-                      novalidate>
-                    <div class="form-row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="small mb-1" for="sick">Болен ли игрок?</label>
-                                <input class="left-container"
-                                       ng-model="examination.examination.sick"
-                                       id="sick"
-                                       type="checkbox"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="small mb-1" for="text">Результаты осмотра</label>
-                                <textarea class="form-control py-4"
-                                          ng-model="examination.examination.text"
-                                          id="text"
-                                          type="text"
-                                          placeholder="Введите информацию"
-                                          rows="8"
-                                          form="examinationform"
-                                          ng-required="true"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <input class="btn btn-primary btn-block" type="submit" value="Сохранить"/>
-                </form>
             </div>
         </div>
-    </div>
-</div>        </div>
+</main>
