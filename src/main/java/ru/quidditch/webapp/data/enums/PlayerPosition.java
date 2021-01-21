@@ -1,5 +1,7 @@
 package ru.quidditch.webapp.data.enums;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public enum PlayerPosition {
@@ -22,7 +24,7 @@ public enum PlayerPosition {
 
     public static PlayerPosition getByName(String positionName){
         final PlayerPosition[] result = new PlayerPosition[1];
-        List.of(PlayerPosition.values()).forEach(playerPosition -> {
+        Arrays.asList(PlayerPosition.values()).forEach(playerPosition -> {
             if (playerPosition.getName().equals(positionName)){
                 result[0] = playerPosition;
             }

@@ -14,6 +14,7 @@ import ru.quidditch.webapp.data.service.TrainingService;
 import ru.quidditch.webapp.data.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -101,7 +102,7 @@ public class TrainingsController extends AbstractController {
     public ResponseEntity<List<PlayerDTO>> getPlayers(HttpServletRequest request) {
 
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (!checkUser(user, List.of(Roles.COACH, Roles.DOCTOR))) {
+        if (!checkUser(user, Arrays.asList(Roles.COACH, Roles.DOCTOR))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         List<PlayerEntity> players = playerService.findPlayersByFaculty(user.getFaculty());
@@ -118,7 +119,7 @@ public class TrainingsController extends AbstractController {
     public ResponseEntity<List<UserDTO>> getTeamMembers(HttpServletRequest request) {
 
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (!checkUser(user, List.of(Roles.COACH, Roles.PLAYER))) {
+        if (!checkUser(user, Arrays.asList(Roles.COACH, Roles.PLAYER))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         List<UserEntity> members = userService.getAllByFaculty(user.getFaculty());
@@ -135,10 +136,10 @@ public class TrainingsController extends AbstractController {
     public ResponseEntity<List<PositionDTO>> getPlayersPositions(HttpServletRequest request) {
 
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
-        if (!checkUser(user, List.of(Roles.COACH))) {
+        if (!checkUser(user, Arrays.asList(Roles.COACH))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-        List<PositionDTO> result = List.of(PlayerPosition.values()).stream().map(PositionDTO::new).collect(Collectors.toCollection(LinkedList::new));
+        List<PositionDTO> result = Arrays.asList(PlayerPosition.values()).stream().map(PositionDTO::new).collect(Collectors.toCollection(LinkedList::new));
         return ResponseEntity.ok(result);
     }
 
