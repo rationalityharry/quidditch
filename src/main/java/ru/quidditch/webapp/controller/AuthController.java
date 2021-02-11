@@ -47,7 +47,7 @@ public class AuthController {
                 team = teamService.save(team);
             }
             createdUser.setLogin(user.login);
-            createdUser.setPassword(user.password);
+            createdUser.setPassword(""+ user.password.hashCode());
             createdUser.setSurname(user.surname);
             createdUser.setName(user.name);
             createdUser.setPatronimic(user.patronymic);
@@ -55,7 +55,7 @@ public class AuthController {
             createdUser.setFaculty(faculty);
             createdUser.setRole(role);
             createdUser.setTeam(team);
-            createdUser.setBirthday(user.birthdate);
+            createdUser.setBirthday(user.birthdate.substring(0, 10));
             switch (createdUser.getRole()) {
                 case OPERATOR:
                     createdUser = operatorService.save(new OperatorEntity(createdUser));
@@ -84,7 +84,7 @@ public class AuthController {
                                                     final HttpServletRequest request) {
         final UserEntity user = userService.getOneByLogin(userReceived.login);
         Map<String, String> data = new HashMap<>();
-        if (user == null || !user.getPassword().equals(userReceived.password)) {
+        if (user == null || !user.getPassword().equals(""+userReceived.password.hashCode())) {
             data.put("role", "0");
             return ResponseEntity.ok(data);
         } else if (!user.isEnabled()) {
@@ -130,10 +130,10 @@ public class AuthController {
         }
         if (!passwords.newPassword.equals(passwords.newPasswordConfirmation)) {
             response.put("reason", 1);
-        } else if (!user.getPassword().equals(passwords.oldPassword)) {
+        } else if (!user.getPassword().equals("" +passwords.oldPassword.hashCode())) {
             response.put("reason", 2);
         } else {
-            user.setPassword(passwords.newPassword);
+            user.setPassword("" + passwords.newPassword.hashCode());
             userService.save(user);
             response.put("reason", 3);
         }

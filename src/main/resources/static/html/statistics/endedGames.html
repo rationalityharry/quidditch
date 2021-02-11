@@ -32,7 +32,7 @@
                                     <div class="form-group">
                                         <input class="form-control py-sm-1"
                                                type="number"
-                                               ng-change="gamectrl.saveEnded(game.id, game.team1Score, game.team2Score)"
+                                               ng-mouseleave="gamectrl.saveEnded(game.id, game.team1Score, game.team2Score)"
                                                ng-model="game.team1Score"
                                                ng-value="game.team1Score"/>
                                     </div>
@@ -42,7 +42,7 @@
                                     <div class="form-group">
                                         <input class="form-control py-sm-1"
                                                type="number"
-                                               ng-change="gamectrl.saveEnded(game.id, game.team1Score, game.team2Score)"
+                                               ng-mouseleave="gamectrl.saveEnded(game.id, game.team1Score, game.team2Score)"
                                                ng-model="game.team2Score"
                                                ng-value="game.team2Score"/>
                                     </div>

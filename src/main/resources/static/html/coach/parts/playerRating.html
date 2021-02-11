@@ -14,6 +14,7 @@
                                     <th>Отчество</th>
                                     <th>Рейтинг</th>
                                     <th>Болеет</th>
+                                    <th></th>
                                     <th>Позиция</th>
                                     <th>В запасе</th>
                                     <th>Капитан</th>
@@ -36,6 +37,7 @@
                                                ng-model="player.sick"
                                                ng-value="player.sick"/>
                                     </td>
+                                    <td><a ng-href='#!/view_examinations/{{player.id}}'>История болезни</a></td>
                                     <td>
                                         <select ng-model="player.position"
                                                 ng-change="ctrl.savePlayer(player.id, player.inStock, player.captain, player.position, player.rating)">

@@ -79,6 +79,13 @@ app.directive("patients", function () {
     }
 });
 
+app.directive("examinations", function () {
+    return {
+        restrict: "E",
+        templateUrl: "/html/shared/examinationsList.html"
+    }
+});
+
 app.directive("playerRating", function () {
     return {
         restrict: "E",

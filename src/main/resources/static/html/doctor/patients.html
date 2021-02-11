@@ -11,6 +11,7 @@
                         <th>Дата Рождения</th>
                         <th>Факультет</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -20,6 +21,7 @@
                         <td>{{patient.birthday}}</td>
                         <td>{{patient.faculty}}
                         <td><a ng-href='#!/createMedExam/{{patient.id}}'>Осмотреть</a></td>
+                        <td><a ng-href='#!/view_examinations/{{patient.id}}'>История болезни</a></td>
                     </tr>
                     </tbody>
                 </table>

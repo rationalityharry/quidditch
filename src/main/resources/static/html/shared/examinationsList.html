@@ -1,0 +1,24 @@
+
+    <div class="container-fluid">
+        <div class="card mb-4" ng-controller="ExaminationsController as examctrl">
+            <h1 class="mt-4">{{examctrl.name}} {{examctrl.surname}}</h1>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Дата осмотра</th>
+                        <th>Состояние</th>
+                        <th>Подробности</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="exam in examctrl.existingExams">
+                        <td> {{exam.date}}</td>
+                        <td>{{exam.sick ? "Болен" : "Здоров"}}</td>
+                        <td>{{exam.info}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

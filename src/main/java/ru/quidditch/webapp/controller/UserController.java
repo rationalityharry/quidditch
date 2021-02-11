@@ -28,7 +28,6 @@ public class UserController extends AbstractController {
         UserEntity currentUser = (UserEntity) request.getSession().getAttribute("user");
         if (userInfo == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         else return ResponseEntity.ok(new UserData(userInfo, currentUser));
-
     }
 
 

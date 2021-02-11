@@ -1,0 +1,44 @@
+{
+  "properties": [
+    {
+      "name": "dataSource.driverClassName",
+      "type": "java.lang.String",
+      "description": "Description for dataSource.driverClassName."
+    },
+    {
+      "name": "dataSource.username",
+      "type": "java.lang.String",
+      "description": "Description for dataSource.username."
+    },
+    {
+      "name": "dataSource.url",
+      "type": "java.lang.String",
+      "description": "Description for dataSource.url."
+    },
+    {
+      "name": "image.source",
+      "type": "java.lang.String",
+      "description": "Description for image.source."
+    },
+    {
+      "name": "mail.debug",
+      "type": "java.lang.String",
+      "description": "Description for mail.debug."
+    },
+    {
+      "name": "hibernate.hbm2ddl.auto",
+      "type": "java.lang.String",
+      "description": "Description for hibernate.hbm2ddl.auto."
+    },
+    {
+      "name": "dataSource.password",
+      "type": "java.lang.String",
+      "description": "Description for dataSource.password."
+    },
+    {
+      "name": "hibernate.dialect",
+      "type": "java.lang.String",
+      "description": "Description for hibernate.dialect."
+    }
+
+  ] }

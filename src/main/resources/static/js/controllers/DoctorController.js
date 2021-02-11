@@ -17,7 +17,7 @@ appControllers.controller('DoctorController', ['$scope', '$http', '$location', '
     that.createExamination = function () {
         $http.post(`/doctor/create/${id}`, {
             id: id,
-            sick: that.examination.sick,
+            isSick: that.examination.sick,
             text: that.examination.text
         })
             .then(function (response) {
