@@ -7,29 +7,23 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>Панель управления</title>
-    <link href="/css/styles.css" rel="stylesheet"/>
-    <link href="/css/bootstrap4.min.css" rel="stylesheet"/>
 </head>
+
 <body class="sb-nav-fixed">
+<navigation></navigation>
 
-<navigation>
-</navigation>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <side-navigation></side-navigation>
+    </div>
 
-    <side-navigation>
+    <div id="layoutSidenav_content">
 
-    </side-navigation>
+        <admin-content ng-if="$ctrlAuth.isAdministrator"></admin-content>
+        <footer-hog></footer-hog>
 
-    <admin-content ng-if="$ctrlAuth.isAdministrator">
+    </div>
+</div>
 
-    </admin-content>
-
-    <footer class="py-4 bg-light mt-auto">
-        <div class="container-fluid">
-            <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Hogwarts 2020</div>
-            </div>
-        </div>
-    </footer>
-</div
 </body>
 </html>

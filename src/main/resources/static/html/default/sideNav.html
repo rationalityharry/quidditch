@@ -1,74 +1,72 @@
-<div class="sb-sidenav accordion sb-sidenav-dark" ng-controller="RoleController as role">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-        <div class="sb-sidenav-menu">
-            <div class="nav">
+<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" ng-controller="RoleController as role">
+    <div class="sb-sidenav-menu">
+        <div class="nav">
 
-                <a class="nav-link" ng-href="#!/news">
-                    Новости
-                </a>
+            <a class="nav-link" ng-href="#!/news">
+                Новости
+            </a>
 
-                <a class="nav-link" ng-href="#!/games">
-                    Календарь матчей
-                </a>
+            <a class="nav-link" ng-href="#!/games">
+                Календарь матчей
+            </a>
 
-                <div ng-if="role.isAdministrator">
-                    <a class="nav-link" ng-href="#!/administrator">
-                        Управление пользователями
-                    </a>
-                </div>
-
-                <div ng-if="role.isPlayer">
-                    <a class="nav-link" ng-href="#!/schedule">
-                        Расписание тренировок
-                    </a>
-                    <a class="nav-link" ng-href="#!/myTeam">
-                        Вся команда
-                    </a>
-                    <a class="nav-link" ng-href="#!/view_examinations/{{role.userId}}">
-                        История болезни </a>
-                </div>
-
-                <div ng-if="role.isCoach">
-
-                    <a class="nav-link" ng-href="#!/coach">
-                        Тренировки
-                    </a>
-                    <a class="nav-link" ng-href="#!/ratingChange">
-                        Редактирование команды
-                    </a>
-                    <a class="nav-link" ng-href="#!/myTeam">
-                        Вся команда
-                    </a>
-                </div>
-
-
-                <div ng-if="role.isDoctor">
-                    <a class="nav-link" ng-href="#!/doctor">
-                        Пациенты
-                    </a>
-                </div>
-
-
-                <div ng-if="role.isOperator">
-                    <a class="nav-link" ng-href="#!/create_news">
-                        Создать новость
-                    </a>
-                    <a class="nav-link" ng-href="#!/create_games">
-                        Добавить Матч
-                    </a>
-                    <a class="nav-link" ng-href="#!/ended_games">
-                        Прошедшие матчи
-                    </a>
-                </div>
-
-                <a class="nav-link" ng-href="#!/editUser/{{role.userId}}">
-                    Редактировать профиль
+            <div ng-if="role.isAdministrator">
+                <a class="nav-link" ng-href="#!/administrator">
+                    Управление пользователями
                 </a>
             </div>
+
+            <div ng-if="role.isPlayer">
+                <a class="nav-link" ng-href="#!/schedule">
+                    Расписание тренировок
+                </a>
+                <a class="nav-link" ng-href="#!/myTeam">
+                    Вся команда
+                </a>
+                <a class="nav-link" ng-href="#!/view_examinations/{{role.userId}}">
+                    История болезни </a>
+            </div>
+
+            <div ng-if="role.isCoach">
+
+                <a class="nav-link" ng-href="#!/coach">
+                    Тренировки
+                </a>
+                <a class="nav-link" ng-href="#!/ratingChange">
+                    Редактирование команды
+                </a>
+                <a class="nav-link" ng-href="#!/myTeam">
+                    Вся команда
+                </a>
+            </div>
+
+
+            <div ng-if="role.isDoctor">
+                <a class="nav-link" ng-href="#!/doctor">
+                    Пациенты
+                </a>
+            </div>
+
+
+            <div ng-if="role.isOperator">
+                <a class="nav-link" ng-href="#!/create_news">
+                    Создать новость
+                </a>
+                <a class="nav-link" ng-href="#!/create_games">
+                    Добавить Матч
+                </a>
+                <a class="nav-link" ng-href="#!/ended_games">
+                    Прошедшие матчи
+                </a>
+            </div>
+
+            <a class="nav-link" ng-href="#!/editUser/{{role.userId}}">
+                Редактировать профиль
+            </a>
         </div>
-        <div class="sb-sidenav-footer">
-            <div class="small">Авторизован как:</div>
-            {{role.login}}
-        </div>
-    </nav>
-</div>
+    </div>
+    <div class="sb-sidenav-footer">
+        <div class="small">Авторизован как:</div>
+        {{role.login}}
+    </div>
+</nav>
