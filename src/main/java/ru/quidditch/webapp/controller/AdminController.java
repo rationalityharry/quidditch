@@ -67,6 +67,7 @@ public class AdminController extends AbstractController {
         }
         UserEntity user = userService.getById(userId);
         user.setDisabled(true);
+        user.setEnabled(false);
         userService.save(user);
         mailSender.send(user.getEmail(), user.getName() + ", Your account in quidditch ", user.getName() + ",\nВаша учетная запись заблокирована в команде квиддитча,\n Всегда ваш, Админ");
         return ResponseEntity.ok(true);
