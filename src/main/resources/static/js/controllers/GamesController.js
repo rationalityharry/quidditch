@@ -40,7 +40,6 @@ appControllers.controller('GamesController', ['$scope', '$http', '$location', fu
             id, team1Score, team2Score
         }).then(function (response) {
             if (response.data === true) {
-                alert("Изменения сохранены");
             }
         });
     };
